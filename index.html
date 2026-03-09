@@ -85,7 +85,7 @@
                 <span data-key="hero-1">Innovación</span> <br>
                 <span class="gradient-text italic" data-key="hero-2">Pura Vida.</span>
             </h1>
-            <p class="text-lg md:text-2xl text-gray-300 mb-10 font-light italic" data-key="hero-desc">Software de alto impacto para el sector turismo de Costa Rica.</p>
+            <p class="text-lg md:text-2xl text-gray-300 mb-10 font-light italic" data-key="hero-desc">Liderando la transformación digital del turismo en Costa Rica.</p>
             <a href="#servicios" class="bg-white text-black px-10 py-4 rounded-2xl font-bold hover:bg-qrMagenta hover:text-white transition-all shadow-xl uppercase text-sm tracking-tight" data-key="btn-ecosystem">Ver Ecosistema</a>
         </div>
     </header>
@@ -98,13 +98,13 @@
         </div>
         <div class="absolute inset-0 z-10 bg-qrDark/60 backdrop-blur-[2px]"></div>
 
-        <div class="relative z-20 max-w-7xl mx-auto">
+        <div class="relative z-20 max-w-7xl mx-auto text-left">
             <div class="mb-16">
                 <h2 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight" data-key="serv-title">Ecosistema Digital <br><span class="text-qrMagenta italic">Especializado</span></h2>
                 <p class="text-gray-200 max-w-md font-light" data-key="serv-desc">Potenciamos su operación con soluciones tecnológicas de vanguardia.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 text-left">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
                 <div class="md:col-span-8 glass-card rounded-[3rem] p-10 flex flex-col justify-end min-h-[350px]">
                     <h3 class="text-3xl font-bold mb-2 tracking-tight" data-key="s1-t">Inteligencia Artificial</h3>
                     <p class="text-gray-300 text-sm font-light leading-relaxed" data-key="s1-d">Chatbots avanzados en WhatsApp para gestión de reservas y atención 24/7 sin intervención humana.</p>
@@ -129,24 +129,51 @@
                     <h3 class="text-xl font-bold mb-3 tracking-tight" data-key="s5-t">Ciberseguridad</h3>
                     <p class="text-gray-400 text-sm font-light" data-key="s5-d">Protección de datos sensibles y sistemas contra amenazas digitales críticas.</p>
                 </div>
+
+                <div class="md:col-span-12 glass-card rounded-[3rem] p-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2" data-key="s6-t">Integraciones & API</h3>
+                        <p class="text-gray-400 text-sm font-light" data-key="s6-d">Conectamos su software con OTAs (Airbnb, Booking) y pasarelas de pago globales.</p>
+                    </div>
+                    <div class="flex gap-4 opacity-50 grayscale text-[10px] font-bold tracking-widest">
+                        <span>AIRBNB</span> <span>BOOKING</span> <span>STRIPE</span>
+                    </div>
+                </div>
             </div>
 
             <div class="mt-20 flex flex-col items-center">
                 <a href="#clientes" class="group flex flex-col items-center gap-3">
                     <span class="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-500 group-hover:text-qrMagenta transition-colors" data-key="btn-projects">Ver Trayectoria</span>
-                    <div class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center animate-bounce-slow text-qrMagenta">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 14l-7 7-7-7" stroke-width="2"></path></svg>
+                    <div class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center animate-bounce-slow text-qrMagenta group-hover:border-qrMagenta">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 14l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                     </div>
                 </a>
             </div>
         </div>
     </section>
 
+    <section id="clientes" class="relative z-20 py-32 px-6 bg-qrDark border-t border-white/5">
+        <div class="max-w-7xl mx-auto text-center md:text-left">
+            <h2 class="text-4xl font-bold mb-16" data-key="proj-title">Nuestra <span class="gradient-text italic">Trayectoria</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card rounded-[2.5rem] p-12 h-64 flex flex-col justify-center items-center border-dashed border-white/10 opacity-40">
+                    <p class="text-xs font-bold uppercase tracking-[0.3em]" data-key="proj-load">Cargando Proyecto...</p>
+                </div>
+                <div class="glass-card rounded-[2.5rem] p-12 h-64 flex flex-col justify-center items-center border-dashed border-white/10 opacity-40">
+                    <p class="text-xs font-bold uppercase tracking-[0.3em]" data-key="proj-load">Cargando Proyecto...</p>
+                </div>
+                <div class="glass-card rounded-[2.5rem] p-12 h-64 flex flex-col justify-center items-center border-dashed border-white/10 opacity-40">
+                    <p class="text-xs font-bold uppercase tracking-[0.3em]" data-key="proj-load">Cargando Proyecto...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div id="contactModal" class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/90 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-        <div class="glass-card bg-[#12161b] rounded-[3rem] p-12 max-w-md w-full relative">
+        <div class="glass-card bg-[#12161b] rounded-[3rem] p-12 max-w-md w-full relative text-left">
             <button onclick="closeModal()" class="absolute top-8 right-8 text-gray-500 hover:text-white">✕</button>
             <h3 class="text-2xl font-bold mb-8 gradient-text text-center italic" data-key="mod-t">¡Iniciemos hoy!</h3>
-            <form action="http://localhost:5229/api/WhatsApp/start-chat" method="POST" class="space-y-4 text-white text-left">
+            <form action="http://localhost:5229/api/WhatsApp/start-chat" method="POST" class="space-y-4 text-white">
                 <input type="text" name="name" required class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-qrMagenta" placeholder="Nombre / Name">
                 <input type="tel" name="phoneNumber" required class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-qrMagenta" placeholder="WhatsApp">
                 <button type="submit" class="w-full bg-gradient-to-r from-qrPurple to-qrMagenta py-4 rounded-xl font-bold uppercase tracking-widest shadow-lg" data-key="mod-b">Enviar / Send</button>
@@ -156,8 +183,8 @@
 
     <script>
         const content = {
-            es: { "nav-contact": "Contactar", "hero-1": "Innovación", "hero-2": "Pura Vida.", "hero-desc": "Liderando la transformación digital del turismo en Costa Rica.", "btn-ecosystem": "Ver Ecosistema", "serv-title": "Ecosistema Digital Especializado", "serv-desc": "Potenciamos su operación con soluciones tecnológicas de vanguardia.", "s1-t": "Inteligencia Artificial", "s1-d": "Chatbots avanzados en WhatsApp para gestión de reservas y atención 24/7 sin intervención humana.", "s2-t": "Hacienda v4.4", "s2-d": "Facturación Legal Automatizada", "s3-t": "Diseño Web UX", "s3-d": "Sitios optimizados para SEO y reservas directas internacionales.", "s4-t": "Software a Medida", "s4-d": "Desarrollo de PMS y ERPs integrados a su flujo de negocio.", "s5-t": "Ciberseguridad", "s5-d": "Protección de datos sensibles y sistemas contra amenazas digitales críticas.", "mod-t": "¡Iniciemos hoy!", "mod-b": "Enviar Mensaje" },
-            en: { "nav-contact": "Get in Touch", "hero-1": "Innovation", "hero-2": "Pura Vida.", "hero-desc": "Leading the digital transformation of tourism in Costa Rica.", "btn-ecosystem": "Explore Ecosystem", "serv-title": "Specialized Digital Ecosystem", "serv-desc": "We boost your operation with cutting-edge tech solutions.", "s1-t": "Artificial Intelligence", "s1-d": "Advanced WhatsApp Chatbots for guest service and booking management 24/7.", "s2-t": "Tax v4.4", "s2-d": "Automated Legal Invoicing", "s3-t": "UX Web Design", "s3-d": "Sites optimized for SEO and direct international bookings.", "s4-t": "Custom Software", "s4-d": "Development of PMS and ERP systems integrated into your business flow.", "s5-t": "Cybersecurity", "s5-d": "Protection of sensitive data and systems against digital threats.", "mod-t": "Let's Start!", "mod-b": "Send Message" }
+            es: { "nav-contact": "Contactar", "hero-1": "Innovación", "hero-2": "Pura Vida.", "hero-desc": "Liderando la transformación digital del turismo en Costa Rica.", "btn-ecosystem": "Ver Ecosistema", "serv-title": "Ecosistema Digital Especializado", "serv-desc": "Potenciamos su operación con soluciones tecnológicas de vanguardia.", "s1-t": "Inteligencia Artificial", "s1-d": "Chatbots avanzados en WhatsApp para gestión de reservas y atención 24/7 sin intervención humana.", "s2-t": "Hacienda v4.4", "s2-d": "Facturación Legal Automatizada", "s3-t": "Diseño Web UX", "s3-d": "Sitios optimizados para SEO y reservas directas internacionales.", "s4-t": "Software a Medida", "s4-d": "Desarrollo de PMS y ERPs integrados a su flujo de negocio.", "s5-t": "Ciberseguridad", "s5-d": "Protección de datos sensibles y sistemas contra amenazas digitales críticas.", "s6-t": "Integraciones & API", "s6-d": "Conectamos su software con OTAs y pasarelas de pago globales.", "btn-projects": "Ver Trayectoria", "proj-title": "Nuestra Trayectoria", "proj-load": "Cargando Proyecto...", "mod-t": "¡Iniciemos hoy!", "mod-b": "Enviar Mensaje" },
+            en: { "nav-contact": "Get in Touch", "hero-1": "Innovation", "hero-2": "Pura Vida.", "hero-desc": "Leading the digital transformation of tourism in Costa Rica.", "btn-ecosystem": "Explore Ecosystem", "serv-title": "Specialized Digital Ecosystem", "serv-desc": "We boost your operation with cutting-edge tech solutions.", "s1-t": "Artificial Intelligence", "s1-d": "Advanced WhatsApp Chatbots for guest service 24/7.", "s2-t": "Tax v4.4", "s2-d": "Automated Legal Invoicing", "s3-t": "UX Web Design", "s3-d": "Sites optimized for SEO and direct international bookings.", "s4-t": "Custom Software", "s4-d": "Development of PMS and ERP systems integrated into your business flow.", "s5-t": "Cybersecurity", "s5-d": "Protection of sensitive data and systems against digital threats.", "s6-t": "APIs & Integrations", "s6-d": "We connect your software with OTAs and payment gateways.", "btn-projects": "See Portfolio", "proj-title": "Our Track Record", "proj-load": "Loading Project...", "mod-t": "Let's Start!", "mod-b": "Send Message" }
         };
 
         let currentLang = 'es';
