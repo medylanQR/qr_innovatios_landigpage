@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/FavIcon2.png">
+    <title>QR Innovations | Hub</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        qrPurple: '#6b1d5e',
+                        qrMagenta: '#d11f8a',
+                        qrDark: '#040508',
+                    },
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .gradient-text {
+            background: linear-gradient(90deg, #6b1d5e 0%, #d11f8a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* BOTÓN MEJORADO PARA VISIBILIDAD */
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.12) !important; /* Más opaco */
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            display: flex !important; /* Forzar visibilidad */
+            opacity: 1 !important;
+        }
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-color: #d11f8a;
+            transform: translateY(-3px);
+        }
+        .video-overlay::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to bottom, transparent, #040508);
+            z-index: 1;
+        }
+        /* Animación simple de entrada */
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-qrDark text-white font-sans">
+
+    <div class="fixed inset-0 z-0 video-overlay">
+        <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-30">
+            <source src="assets/playaVideo2.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-qrDark/40"></div>
+    </div>
+
+    <main class="relative z-10 min-h-screen w-full flex flex-col items-center justify-start pt-20 px-6">
+        
+        <div class="text-center mb-12 fade-in">
+            <div class="relative inline-block mb-4">
+                <img src="assets/FavIcon2.png" alt="QR Innovations" class="w-24 h-24 drop-shadow-2xl">
+            </div>
+            <h1 class="text-2xl font-bold tracking-tight mb-1 uppercase">QR Innovations</h1>
+            <p class="text-[9px] font-bold tracking-[0.5em] uppercase gradient-text">Pura Vida Tech</p>
+        </div>
+
+        <div class="w-full max-w-sm flex flex-col gap-4">
+            
+            <a href="index.html" class="glass-btn fade-in items-center justify-between px-6 py-5 rounded-2xl group">
+                <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Web Principal</span>
+                <svg class="w-4 h-4 text-qrMagenta" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="3"></path></svg>
+            </a>
+
+            <a href="https://wa.me/tu_numero" target="_blank" class="glass-btn fade-in items-center justify-between px-6 py-5 rounded-2xl group border-qrMagenta/50 bg-qrMagenta/10">
+                <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-qrMagenta text-white">WhatsApp Business</span>
+                <svg class="w-4 h-4 text-qrMagenta" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="3"></path></svg>
+            </a>
+
+            <a href="mailto:info@qrinnovations.com" class="glass-btn fade-in items-center justify-between px-6 py-5 rounded-2xl group">
+                <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Correo Oficial</span>
+                <svg class="w-4 h-4 text-qrMagenta" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="3"></path></svg>
+            </a>
+
+            <a href="#" class="glass-btn fade-in items-center justify-between px-6 py-5 rounded-2xl group">
+                <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Proyectos</span>
+                <svg class="w-4 h-4 text-qrMagenta" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="3"></path></svg>
+            </a>
+
+        </div>
+
+        <footer class="mt-20 text-center fade-in">
+            <p class="text-[8px] font-bold tracking-[0.6em] text-gray-500 uppercase italic">Guanacaste, Costa Rica</p>
+        </footer>
+    </main>
+
+</body>
+</html>
