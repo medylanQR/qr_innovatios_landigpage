@@ -170,16 +170,45 @@
     </section>
 
     <div id="contactModal" class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/90 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-        <div class="glass-card bg-[#12161b] rounded-[3rem] p-12 max-w-md w-full relative text-left">
-            <button onclick="closeModal()" class="absolute top-8 right-8 text-gray-500 hover:text-white">✕</button>
-            <h3 class="text-2xl font-bold mb-8 gradient-text text-center italic" data-key="mod-t">¡Iniciemos hoy!</h3>
-            <form action="http://localhost:5229/api/WhatsApp/start-chat" method="POST" class="space-y-4 text-white">
-                <input type="text" name="name" required class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-qrMagenta" placeholder="Nombre / Name">
-                <input type="tel" name="phoneNumber" required class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-qrMagenta" placeholder="WhatsApp">
-                <button type="submit" class="w-full bg-gradient-to-r from-qrPurple to-qrMagenta py-4 rounded-xl font-bold uppercase tracking-widest shadow-lg" data-key="mod-b">Enviar / Send</button>
-            </form>
+    <div class="glass-card bg-[#12161b] rounded-[3rem] p-10 max-w-sm w-full relative border border-white/10">
+        <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-500 hover:text-white transition-colors">✕</button>
+        
+        <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold gradient-text italic mb-2">¡Hablemos hoy!</h3>
+            <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Selecciona un canal oficial</p>
         </div>
+
+        <div class="flex flex-col gap-4">
+            
+            <a href="https://wa.me/50689081652" target="_blank" class="flex items-center justify-between p-4 rounded-2xl bg-qrMagenta/10 border border-qrMagenta/30 hover:bg-qrMagenta hover:scale-[1.02] transition-all group">
+                <div class="flex items-center gap-4 text-qrMagenta group-hover:text-white">
+                    <span class="text-xl">💬</span>
+                    <span class="font-bold text-sm uppercase tracking-tight">WhatsApp Personal</span>
+                </div>
+                <svg class="w-5 h-5 opacity-50" fill="currentColor" viewBox="0 0 24 24"><path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v4h16.353l-6.175 6.175 2.847 2.828 10.975-11z"/></svg>
+            </a>
+
+            <a href="https://instagram.com/qrinnovationss" target="_blank" class="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-qrMagenta hover:scale-[1.02] transition-all group">
+                <div class="flex items-center gap-4">
+                    <span class="text-xl">📸</span>
+                    <span class="font-bold text-sm uppercase tracking-tight">Instagram</span>
+                </div>
+                <svg class="w-5 h-5 opacity-30 group-hover:text-qrMagenta" fill="currentColor" viewBox="0 0 24 24"><path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v4h16.353l-6.175 6.175 2.847 2.828 10.975-11z"/></svg>
+            </a>
+
+            <a href="mailto:info@qrinnovations.com" class="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-qrMagenta hover:scale-[1.02] transition-all group">
+                <div class="flex items-center gap-4">
+                    <span class="text-xl">✉️</span>
+                    <span class="font-bold text-sm uppercase tracking-tight">Enviar Correo</span>
+                </div>
+                <svg class="w-5 h-5 opacity-30 group-hover:text-qrMagenta" fill="currentColor" viewBox="0 0 24 24"><path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v4h16.353l-6.175 6.175 2.847 2.828 10.975-11z"/></svg>
+            </a>
+
+        </div>
+
+        <p class="text-center mt-8 text-[8px] font-bold text-gray-600 uppercase tracking-[0.4em]">QR Innovations — Costa Rica</p>
     </div>
+</div>
 
     <script>
         const content = {
