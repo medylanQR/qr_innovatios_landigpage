@@ -35,7 +35,7 @@
         :root { --magenta: #d11f8a; --purple: #673de6; }
         body { background-color: #ffffff; color: #1e293b; overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* MESH GRADIENT ANIMADO (Vida en el Main) */
+        /* MESH GRADIENT ANIMADO */
         .mesh-gradient {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background-color: #ffffff;
@@ -47,7 +47,6 @@
             filter: blur(80px);
         }
 
-        /* TIPOGRAFÍA MONUMENTAL */
         .heading-mega {
             font-size: clamp(3.5rem, 12vw, 10rem);
             font-weight: 800;
@@ -56,7 +55,6 @@
             text-transform: uppercase;
         }
 
-        /* GLASSMORPHISM PRO */
         .glass-panel {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(20px);
@@ -69,24 +67,45 @@
             box-shadow: 0 40px 80px -20px rgba(209, 31, 138, 0.15);
         }
 
-        /* CARRUSEL INFINITO */
         .marquee { overflow: hidden; white-space: nowrap; }
         .marquee-content { display: inline-block; animation: marquee 40s linear infinite; }
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* SECCIONES DE GRADIENTE QR */
         .qr-grad-section {
             background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 100%);
             color: white;
         }
 
-        /* CUSTOM SCROLLBAR */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: var(--magenta); border-radius: 10px; }
-
         .text-glow { text-shadow: 0 0 30px rgba(209, 31, 138, 0.3); }
         .feature-check { color: var(--magenta); margin-right: 8px; font-weight: bold; }
+
+        /* SECCIÓN DE PLANES CON DEGRADADO PARA LEGIBILIDAD */
+        .plans-area-pro {
+            background: radial-gradient(circle at 50% 50%, rgba(209, 31, 138, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
+            border-radius: 80px;
+            padding: 100px 20px;
+            margin: 40px 0;
+            border: 1px solid rgba(209, 31, 138, 0.05);
+        }
+        .plan-card-h {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 32px;
+            padding: 3rem 2rem;
+            transition: all 0.4s ease;
+        }
+        .plan-card-h:hover {
+            border-color: var(--magenta);
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px -15px rgba(209, 31, 138, 0.15);
+        }
+        .plan-card-h.best {
+            background: #0f172a;
+            color: white;
+            border-color: var(--magenta);
+            transform: scale(1.05);
+        }
+        .huge-price { font-size: 4rem; font-weight: 900; letter-spacing: -0.05em; line-height: 1; margin: 1.5rem 0; }
     </style>
 </head>
 <body class="font-sans">
@@ -101,7 +120,7 @@
             </div>
             <div class="hidden xl:flex items-center gap-12 text-[11px] font-black uppercase tracking-[0.2em] text-slate-500">
                 <a href="#ecosistema" class="hover:text-qrMagenta transition-colors">Ecosistema</a>
-                <a href="#planes" class="hover:text-qrMagenta transition-colors">Infraestructura</a>
+                <a href="#planes" class="hover:text-qrMagenta transition-colors">Sistemas</a>
                 <a href="#mail" class="hover:text-qrMagenta transition-colors">Cloud Mail</a>
                 <a href="#testimonios" class="hover:text-qrMagenta transition-colors">Testimonios</a>
                 <a href="https://wa.me/50689081652" class="bg-qrMagenta text-white px-8 py-4 rounded-full hover:shadow-2xl hover:shadow-qrMagenta/40 transition-all scale-105 active:scale-95">Iniciar Proyecto</a>
@@ -113,18 +132,11 @@
         <div class="max-w-[1800px] mx-auto">
             <div class="flex flex-col items-center text-center">
                 <div class="reveal-up inline-flex items-center gap-3 px-6 py-2 rounded-full border border-qrMagenta/20 bg-qrMagenta/5 text-[10px] font-black uppercase tracking-[0.3em] text-qrMagenta mb-12">
-                    <span class="relative flex h-3 w-3">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-qrMagenta opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-3 w-3 bg-qrMagenta"></span>
-                    </span>
+                    <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-qrMagenta opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-qrMagenta"></span></span>
                     Sistemas de Grado Industrial Activos
                 </div>
-                <h1 class="heading-mega text-slate-900 mb-12 reveal-up">
-                    Architecture <br> for <span class="text-qrMagenta italic text-glow">Leaders.</span>
-                </h1>
-                <p class="text-2xl md:text-3xl text-slate-400 max-w-3xl font-medium leading-tight mb-16 reveal-up">
-                    Desarrollamos el software crítico que sostiene a los gigantes industriales. Ingeniería Pura Vida desde Costa Rica.
-                </p>
+                <h1 class="heading-mega text-slate-900 mb-12 reveal-up">Architecture <br> for <span class="text-qrMagenta italic text-glow">Leaders.</span></h1>
+                <p class="text-2xl md:text-3xl text-slate-400 max-w-3xl font-medium leading-tight mb-16 reveal-up">Desarrollamos el software crítico que sostiene a los gigantes industriales. Ingeniería Pura Vida desde Costa Rica.</p>
                 <div class="flex flex-wrap justify-center gap-8 reveal-up">
                     <a href="#ecosistema" class="bg-qrDark text-white px-12 py-6 rounded-3xl font-black uppercase tracking-widest text-xs hover:bg-qrMagenta hover:shadow-2xl hover:shadow-qrMagenta/30 transition-all">Ver Ecosistema</a>
                     <a href="#trayectoria" class="glass-panel px-12 py-6 rounded-3xl font-black uppercase tracking-widest text-xs text-slate-600">Nuestros Socios</a>
@@ -146,145 +158,92 @@
 
     <section id="ecosistema" class="py-48 px-8 md:px-16 max-w-[1800px] mx-auto">
         <div class="flex flex-col md:flex-row justify-between items-end mb-32 gap-10">
-            <div class="max-w-2xl">
+            <div class="max-w-2xl text-left">
                 <h2 class="text-7xl font-black tracking-tighter uppercase leading-none mb-8">Full-Stack <br><span class="text-qrMagenta">Capability.</span></h2>
                 <p class="text-xl text-slate-400 font-medium leading-relaxed">Nuestra ingeniería resuelve desde el núcleo del servidor hasta la experiencia del usuario final.</p>
-            </div>
-            <div class="text-right">
-                <span class="text-8xl font-black opacity-5 italic">01—06</span>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 auto-rows-[300px]">
             <div class="md:col-span-8 md:row-span-2 glass-panel p-16 flex flex-col justify-end bg-qrDark text-white relative overflow-hidden group">
-                <div class="absolute -top-20 -right-20 p-10 opacity-5 text-[25rem] font-black italic group-hover:text-qrMagenta transition-colors duration-700">IA</div>
-                <div class="relative z-10">
-                    <span class="text-qrMagenta font-black text-xs uppercase tracking-[0.4em] mb-6 block">Intelligence Systems</span>
-                    <h3 class="text-6xl font-black mb-8 leading-none uppercase">Artificial <br> Agents.</h3>
-                    <p class="text-slate-400 max-w-md text-lg">Chatbots autónomos y visión computacional que gestionan procesos críticos en tiempo real.</p>
-                </div>
+                <div class="absolute -top-20 -right-20 p-10 opacity-5 text-[25rem] font-black italic">IA</div>
+                <h3 class="text-6xl font-black mb-8 leading-none uppercase">Artificial <br> Agents.</h3>
+                <p class="text-slate-400 max-w-md text-lg">Chatbots autónomos y visión computacional que gestionan procesos críticos en tiempo real.</p>
             </div>
-
             <div class="md:col-span-4 glass-panel p-12 flex flex-col items-center justify-center text-center border-qrMagenta/30 bg-qrMagenta/5">
                 <div class="text-7xl font-black text-qrMagenta leading-none mb-4 italic">v4.4</div>
                 <p class="text-xs font-black uppercase tracking-[0.4em] text-slate-500">Hacienda Protocol</p>
             </div>
-
             <div class="md:col-span-4 glass-panel p-12 bg-qrPurple text-white flex flex-col justify-between">
                 <i class="fa-solid fa-mobile-screen-button text-4xl"></i>
-                <div>
-                    <h3 class="text-2xl font-black uppercase mb-4 tracking-tighter">Mobile Apps</h3>
-                    <p class="text-sm opacity-70 leading-relaxed font-medium">Native iOS & Android con pagos biométricos integrados.</p>
-                </div>
+                <h3 class="text-2xl font-black uppercase">Mobile Apps</h3>
             </div>
-
-            <div class="md:col-span-4 glass-panel p-12 group hover:bg-qrDark transition-all">
-                <h3 class="text-2xl font-black uppercase mb-4 tracking-tighter group-hover:text-white">Cyber Defense</h3>
-                <p class="text-sm text-slate-400 leading-relaxed mb-8">Auditoría perimetral y blindaje de datos industriales.</p>
-                <div class="flex gap-2">
-                    <div class="w-2 h-2 rounded-full bg-qrMagenta animate-pulse"></div>
-                    <span class="text-[10px] font-black uppercase tracking-widest text-qrMagenta">Protección Activa</span>
-                </div>
-            </div>
-
-            <div class="md:col-span-8 glass-panel p-12 flex items-center justify-between gap-10">
-                <div>
-                    <h3 class="text-3xl font-black uppercase mb-4 tracking-tighter">API Infrastructure</h3>
-                    <p class="text-sm text-slate-400 font-medium max-w-md leading-relaxed">Conexión masiva con Stripe, Evertec y OTAs globales. Sincronización en milisegundos.</p>
-                </div>
-                <div class="hidden lg:flex gap-6 opacity-20 text-2xl font-black">
-                    <i class="fa-brands fa-stripe"></i>
-                    <i class="fa-solid fa-cloud"></i>
-                    <i class="fa-solid fa-database"></i>
+            <div class="md:col-span-4 glass-panel p-12 flex flex-col justify-between">
+                <h3 class="text-2xl font-black uppercase mb-4 tracking-tighter">API Infrastructure</h3>
+                <div class="flex gap-6 opacity-20 text-2xl font-black">
+                    <i class="fa-brands fa-stripe"></i><i class="fa-solid fa-cloud"></i>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="mail" class="py-48 bg-slate-50 relative overflow-hidden">
-        <div class="max-w-[1800px] mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
-            <div class="relative order-2 lg:order-1">
-                <div class="absolute -inset-20 bg-qrPurple/5 blur-[120px] rounded-full"></div>
-                <div class="glass-panel p-16 relative bg-white shadow-2xl border-white">
-                    <div class="flex items-center justify-between mb-12">
-                        <h3 class="text-3xl font-black tracking-tighter">Cloud <span class="text-qrMagenta italic">Mail.</span></h3>
-                        <div class="flex gap-2">
-                            <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                        </div>
+    <section id="planes" class="py-24 px-8 md:px-16 max-w-[1800px] mx-auto reveal-up">
+        <div class="plans-area-pro text-center">
+            <h2 class="text-5xl md:text-8xl font-black tracking-tighter uppercase mb-20 text-slate-900">CHOOSE YOUR <br> <span class="text-qrMagenta italic">ENGINE.</span></h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-stretch px-4">
+                <div class="plan-card-h flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-qrMagenta mb-4 block">Basic</span>
+                        <h3 class="text-3xl font-black uppercase italic text-slate-800">Starter Core</h3>
+                        <div class="huge-price text-slate-900">$299<span class="text-sm font-bold text-slate-400">/mo</span></div>
+                        <ul class="space-y-4 mb-10 text-left">
+                            <li class="flex items-center text-[10px] font-bold uppercase tracking-widest text-slate-600"><span class="feature-check">✓</span> Facturación v4.4</li>
+                            <li class="flex items-center text-[10px] font-bold uppercase tracking-widest text-slate-600"><span class="feature-check">✓</span> Web High Performance</li>
+                        </ul>
                     </div>
-                    <div class="space-y-8">
-                        <div class="p-6 rounded-3xl bg-slate-50 border border-slate-100 flex items-center gap-6 animate-pulse">
-                            <div class="w-12 h-12 rounded-2xl bg-qrMagenta/20"></div>
-                            <div class="h-4 w-40 bg-slate-200 rounded-full"></div>
-                        </div>
-                        <div class="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm flex items-center gap-6">
-                            <div class="w-12 h-12 rounded-2xl bg-qrPurple/20"></div>
-                            <div class="h-4 w-56 bg-slate-200 rounded-full"></div>
-                        </div>
-                        <div class="p-6 rounded-3xl bg-slate-50 border border-slate-100 flex items-center gap-6">
-                            <div class="w-12 h-12 rounded-2xl bg-qrMagenta/20"></div>
-                            <div class="h-4 w-32 bg-slate-200 rounded-full"></div>
-                        </div>
+                    <a href="#" class="w-full py-4 border-2 border-slate-900 rounded-2xl font-black text-[10px] uppercase hover:bg-slate-900 hover:text-white transition-all">Seleccionar</a>
+                </div>
+
+                <div class="plan-card-h best flex flex-col justify-between shadow-2xl">
+                    <div class="absolute top-0 right-0 bg-qrMagenta text-white px-6 py-2 text-[9px] font-black uppercase rounded-bl-2xl">RECOMENDADO</div>
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-qrMagenta mb-4 block">Enterprise</span>
+                        <h3 class="text-3xl font-black uppercase italic">Business Pro</h3>
+                        <div class="huge-price text-white">$799<span class="text-sm font-bold text-white/30">/mo</span></div>
+                        <ul class="space-y-4 mb-10 text-left">
+                            <li class="flex items-center text-[10px] font-bold uppercase tracking-widest"><span class="feature-check">✓</span> IA Agent (WhatsApp) 24/7</li>
+                            <li class="flex items-center text-[10px] font-bold uppercase tracking-widest"><span class="feature-check">✓</span> Integración API Evertec</li>
+                            <li class="flex items-center text-[10px] font-bold uppercase tracking-widest"><span class="feature-check">✓</span> Soporte VIP Prioritario</li>
+                        </ul>
                     </div>
+                    <button class="w-full py-5 bg-qrMagenta text-white rounded-2xl font-black text-[10px] uppercase shadow-lg shadow-qrMagenta/30 hover:scale-105 transition-transform">Contratar Ahora</button>
                 </div>
-            </div>
-            <div class="order-1 lg:order-2">
-                <span class="bg-qrMagenta/10 text-qrMagenta px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-10 inline-block">Professional Comms</span>
-                <h2 class="text-6xl md:text-8xl font-black tracking-tighter mb-10 leading-none uppercase">Emails with <br> <span class="text-qrPurple italic">Confidence.</span></h2>
-                <p class="text-xl text-slate-500 mb-12 font-medium leading-relaxed">Eleva tu marca con infraestructura de correo corporativo ultra-segura, con filtros IA avanzados y dominios personalizados (.com / .cr).</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-                    <div class="flex items-center font-bold text-sm text-slate-700"><span class="feature-check">✓</span> 99.9% Spam Filter IA</div>
-                    <div class="flex items-center font-bold text-sm text-slate-700"><span class="feature-check">✓</span> Storage Ilimitado</div>
-                    <div class="flex items-center font-bold text-sm text-slate-700"><span class="feature-check">✓</span> Seguridad SSL/TLS</div>
-                    <div class="flex items-center font-bold text-sm text-slate-700"><span class="feature-check">✓</span> Mobile Sync Pro</div>
+
+                <div class="plan-card-h flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-qrMagenta mb-4 block">Unlimited</span>
+                        <h3 class="text-3xl font-black uppercase italic text-slate-800">Custom Stack</h3>
+                        <div class="huge-price text-slate-900">Cotizar</div>
+                        <ul class="space-y-4 mb-10 text-left text-slate-600">
+                            <li class="flex items-center text-[10px] font-bold uppercase tracking-widest"><span class="feature-check">✓</span> Software en .NET Core</li>
+                            <li class="flex items-center text-[10px] font-bold uppercase tracking-widest"><span class="feature-check">✓</span> SLA Empresarial VIP</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="w-full py-4 border-2 border-slate-900 rounded-2xl font-black text-[10px] uppercase hover:bg-slate-900 hover:text-white transition-all">Hablar con Experto</a>
                 </div>
-                <a href="https://wa.me/50689081652" class="bg-qrDark text-white px-12 py-6 rounded-3xl font-black uppercase tracking-widest text-xs hover:bg-qrMagenta transition-all inline-block shadow-xl shadow-qrDark/10">Obtener Mail Pro</a>
             </div>
         </div>
     </section>
 
     <section id="testimonios" class="qr-grad-section py-48 px-8 md:px-16 overflow-hidden">
-        <div class="max-w-[1800px] mx-auto">
-            <div class="text-center mb-32">
-                <h2 class="text-7xl md:text-9xl font-black tracking-tighter uppercase leading-none italic opacity-20 mb-[-2rem] md:mb-[-4rem]">Testimonials.</h2>
-                <h2 class="text-5xl md:text-7xl font-black tracking-tighter uppercase relative z-10">Líderes que <span class="text-qrDark">confían.</span></h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <div class="bg-white/10 p-12 rounded-[3rem] border border-white/20 backdrop-blur-xl hover:bg-white/15 transition-all">
-                    <div class="text-qrDark mb-10 text-4xl"><i class="fa-solid fa-quote-left"></i></div>
-                    <p class="text-2xl font-medium leading-relaxed mb-12 italic">"QR Innovations transformó nuestra operación en Hotel Cañas. La automatización Hacienda v4.4 es simplemente perfecta."</p>
-                    <div class="flex items-center gap-6">
-                        <div class="w-16 h-16 rounded-2xl bg-qrDark flex items-center justify-center font-black text-xl">HC</div>
-                        <div>
-                            <p class="font-black uppercase tracking-widest text-sm">Gerencia General</p>
-                            <p class="text-[10px] uppercase font-bold opacity-60 tracking-widest">Hotel Cañas, Guanacaste</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white/10 p-12 rounded-[3rem] border border-white/20 backdrop-blur-xl hover:bg-white/15 transition-all">
-                    <div class="text-qrDark mb-10 text-4xl"><i class="fa-solid fa-quote-left"></i></div>
-                    <p class="text-2xl font-medium leading-relaxed mb-12 italic">"La IA para nuestros pedidos por WhatsApp nos ahorró un 40% en costos operativos. El retorno de inversión fue inmediato."</p>
-                    <div class="flex items-center gap-6">
-                        <div class="w-16 h-16 rounded-2xl bg-qrDark flex items-center justify-center font-black text-xl">MT</div>
-                        <div>
-                            <p class="font-black uppercase tracking-widest text-sm">Propietario</p>
-                            <p class="text-[10px] uppercase font-bold opacity-60 tracking-widest">Restaurante Mi Tierra</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white/10 p-12 rounded-[3rem] border border-white/20 backdrop-blur-xl hover:bg-white/15 transition-all">
-                    <div class="text-qrDark mb-10 text-4xl"><i class="fa-solid fa-quote-left"></i></div>
-                    <p class="text-2xl font-medium leading-relaxed mb-12 italic">"El hosting de emails y la infraestructura dedicada de QR no tiene competencia en Costa Rica. Soporte VIP real."</p>
-                    <div class="flex items-center gap-6">
-                        <div class="w-16 h-16 rounded-2xl bg-qrDark flex items-center justify-center font-black text-xl">DG</div>
-                        <div>
-                            <p class="font-black uppercase tracking-widest text-sm">Director IT</p>
-                            <p class="text-[10px] uppercase font-bold opacity-60 tracking-widest">Dulce Gusto Cafetería</p>
-                        </div>
-                    </div>
+        <div class="max-w-[1800px] mx-auto text-center">
+            <h2 class="text-7xl md:text-9xl font-black tracking-tighter uppercase italic opacity-20 mb-[-4rem]">SUCCESS</h2>
+            <h2 class="text-5xl md:text-7xl font-black tracking-tighter uppercase relative z-10">Líderes que <span class="text-qrDark">confían.</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-32">
+                <div class="bg-white/10 p-12 rounded-[3rem] border border-white/20 backdrop-blur-xl">
+                    <p class="text-2xl font-medium leading-relaxed italic mb-12 text-left">"QR Innovations transformó nuestra operación en Hotel Cañas. La automatización es perfecta."</p>
+                    <div class="flex items-center gap-6"><div class="w-16 h-16 rounded-2xl bg-qrDark flex items-center justify-center font-black text-qrMagenta">HC</div><p class="font-black uppercase tracking-widest text-sm">Hotel Cañas</p></div>
                 </div>
             </div>
         </div>
@@ -292,76 +251,21 @@
 
     <footer class="bg-qrDark text-white pt-48 pb-20 px-8 md:px-16 overflow-hidden relative">
         <div class="absolute top-0 right-0 p-20 opacity-5 text-[30rem] font-black italic select-none">QR</div>
-        
-        <div class="max-w-[1800px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-20 mb-32 relative z-10">
+        <div class="max-w-[1800px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-20 relative z-10">
             <div class="lg:col-span-2">
-                <div class="flex items-center gap-4 mb-10">
-                    <img src="assets/FavIcon2.png" alt="QR" class="w-12 h-12">
-                    <span class="text-3xl font-black tracking-tighter uppercase italic">QR Innovations</span>
-                </div>
-                <p class="text-slate-500 text-lg leading-relaxed mb-12 max-w-sm font-medium">
-                    Liderando la ingeniería de software y la infraestructura IA en Costa Rica. Diseñados para el impacto global.
-                </p>
-                <div class="flex flex-wrap gap-8 items-center opacity-30 grayscale brightness-200">
-                    <i class="fa-brands fa-cc-visa text-3xl"></i>
-                    <i class="fa-brands fa-cc-mastercard text-3xl"></i>
-                    <i class="fa-brands fa-cc-stripe text-4xl"></i>
-                    <i class="fa-solid fa-shield-halved text-3xl"></i>
-                </div>
-            </div>
-            <div>
-                <h4 class="font-black text-xs uppercase tracking-[0.3em] text-qrMagenta mb-10">Ecosistema</h4>
-                <ul class="space-y-6 text-slate-400 text-sm font-bold uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-white transition-all">Inteligencia Artificial</a></li>
-                    <li><a href="#" class="hover:text-white transition-all">Hacienda Protocol</a></li>
-                    <li><a href="#" class="hover:text-white transition-all">Cloud Mail Pro</a></li>
-                    <li><a href="#" class="hover:text-white transition-all">Enterprise Apps</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-black text-xs uppercase tracking-[0.3em] text-qrMagenta mb-10">Soporte</h4>
-                <ul class="space-y-6 text-slate-400 text-sm font-bold uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-white transition-all">WhatsApp VIP</a></li>
-                    <li><a href="#" class="hover:text-white transition-all">Estado del Sistema</a></li>
-                    <li><a href="#" class="hover:text-white transition-all">Documentación</a></li>
-                    <li><a href="#" class="hover:text-white transition-all">API Access</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-black text-xs uppercase tracking-[0.3em] text-qrMagenta mb-10">Agencia</h4>
-                <ul class="space-y-6 text-slate-400 text-sm font-bold uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-white transition-all">Sobre Nosotros</a></li>
-                    <li><a href="#" class="hover:text-white transition-all">Trayectoria</a></li>
-                    <li><a href="#" class="hover:text-white transition-all">Pura Vida Tech</a></li>
-                    <li><a href="#" class="hover:text-white transition-all">Contacto</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="max-w-[1800px] mx-auto pt-20 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10">
-            <p class="text-[10px] font-black uppercase tracking-[0.6em] text-slate-600 italic">© 2026 QR Innovations. San José, Costa Rica.</p>
-            <div class="flex gap-12 text-[10px] font-black uppercase tracking-[0.3em] text-slate-600">
-                <a href="#" class="hover:text-white">Privacidad</a>
-                <a href="#" class="hover:text-white">Términos</a>
-                <a href="#" class="hover:text-white">Seguridad</a>
+                <div class="flex items-center gap-4 mb-10"><img src="assets/FavIcon2.png" alt="QR" class="w-12 h-12"><span class="text-3xl font-black tracking-tighter uppercase italic">QR Innovations</span></div>
+                <p class="text-slate-500 text-lg leading-relaxed mb-12 max-w-sm">Ingeniería de software de alto impacto. San José, CR.</p>
             </div>
         </div>
     </footer>
 
     <script>
         gsap.registerPlugin(ScrollTrigger);
-
         document.querySelectorAll('.reveal-up').forEach((el) => {
-            gsap.from(el, {
-                opacity: 0,
-                y: 50,
-                duration: 1,
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 90%",
-                }
-            });
+            gsap.from(el, { opacity: 0, y: 50, duration: 1, scrollTrigger: { trigger: el, start: "top 90%" } });
         });
+        const marquee = document.querySelector('.marquee-content');
+        if(marquee) { const clone = marquee.cloneNode(true); document.querySelector('.marquee').appendChild(clone); }
     </script>
 
 </body>
