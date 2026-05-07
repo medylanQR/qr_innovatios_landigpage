@@ -515,6 +515,68 @@
         </button>
     </div>
 </div>
+
+<div id="pantalla-exito" class="fixed inset-0 z-[500] hidden bg-qrDark text-white overflow-y-auto">
+    <div class="max-w-4xl mx-auto px-8 py-20 flex flex-col min-h-screen">
+        
+        <div class="flex items-center gap-4 mb-16 animate-fade-in-down">
+            <img src="assets/FavIcon2.png" alt="QR" class="w-12 h-12">
+            <span class="text-2xl font-black tracking-tighter uppercase italic">QR Innovations</span>
+        </div>
+
+        <div class="flex-1">
+            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 text-green-400 text-[10px] font-black uppercase tracking-[0.3em] mb-8">
+                <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                Transacción Aprobada
+            </span>
+            
+            <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-none">
+                Iniciando <br><span class="text-qrMagenta italic">Arquitectura.</span>
+            </h1>
+            <p class="text-xl text-slate-400 font-medium max-w-2xl mb-16 leading-relaxed">
+                Tu pago ha sido procesado con éxito. Hemos comenzado a asignar los recursos para tu ecosistema.
+            </p>
+
+            <div class="space-y-6 max-w-xl relative before:absolute before:inset-0 before:ml-6 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-800 before:to-transparent">
+                
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-green-500 text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_20px_rgba(34,197,94,0.3)] z-10">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                        <h3 class="font-black text-lg mb-1 uppercase tracking-wider">Pago Confirmado</h3>
+                        <p class="text-sm text-slate-400">Fondos recibidos y acreditados.</p>
+                    </div>
+                </div>
+
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-qrPurple text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_20px_rgba(103,61,230,0.5)] z-10">
+                        <i class="fa-solid fa-server animate-pulse"></i>
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-6 rounded-2xl border border-qrPurple/50 bg-qrPurple/10 backdrop-blur-sm">
+                        <h3 class="font-black text-lg mb-1 uppercase tracking-wider text-qrPurple">Despliegue de Servidor</h3>
+                        <p class="text-sm text-slate-300">Asignando infraestructura Cloudflare y bases de datos.</p>
+                    </div>
+                </div>
+
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-slate-800 text-slate-500 font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-6 rounded-2xl border border-slate-800 bg-transparent">
+                        <h3 class="font-black text-lg mb-1 uppercase tracking-wider text-slate-500">Contacto Técnico</h3>
+                        <p class="text-sm text-slate-500">Un ingeniero de QR Innovations te contactará en los próximos 15 minutos.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="mt-20 pt-8 border-t border-white/10 text-center">
+            <a href="https://qrinnovationss.com" class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-qrMagenta transition-colors">Volver al inicio</a>
+        </div>
+    </div>
+</div>
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
@@ -597,6 +659,7 @@
 
             // Si hay link, redirigimos a Tilopay
             if (datos.url) {
+                localStorage.setItem('qr_cliente_pendiente', JSON.stringify(datosCliente));
                 window.location.href = datos.url;
             } else {
                 alert("Hubo un problema con la pasarela.");
@@ -636,6 +699,26 @@
                 titulo.innerText = "¡Pago Exitoso!";
                 titulo.classList.add('text-green-500');
                 mensaje.innerText = "Tu infraestructura ha sido reservada. Nuestro equipo técnico se pondrá en contacto contigo en breve para la configuración inicial.";
+                document.body.style.overflow = 'hidden'; // Bloquea el scroll del fondo
+                const pantallaExito = document.getElementById('pantalla-exito');
+                pantallaExito.classList.remove('hidden');
+                // 2. Recuperamos los datos de quién acaba de pagar
+                const datosGuardados = localStorage.getItem('qr_cliente_pendiente');
+                
+                if (datosGuardados) {
+                    // 3. Llamamos a nuestra nueva API para enviar el correo
+                    fetch('/api/notificar', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: datosGuardados
+                    }).then(res => {
+                        if(res.ok) console.log("Notificación enviada exitosamente a la agencia");
+                    });
+                    
+                    // 4. Borramos la memoria para evitar correos duplicados
+                    localStorage.removeItem('qr_cliente_pendiente');
+            }
+
             } else {
                 // PAGO RECHAZADO O FALLIDO
                 icono.innerHTML = '<i class="fa-solid fa-circle-xmark text-red-500 drop-shadow-lg"></i>';
@@ -672,7 +755,7 @@
             modalRes.classList.remove('flex');
         }, 300);
     }
-    
+
     </script>
 
 </body>
