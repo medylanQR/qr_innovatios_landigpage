@@ -501,6 +501,20 @@
         </form>
     </div>
 </div>
+<div id="modal-resultado" class="fixed inset-0 z-[400] hidden items-center justify-center bg-qrDark/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
+    <div class="glass-panel bg-white p-10 rounded-[30px] w-full max-w-md mx-4 relative transform scale-95 transition-transform duration-300 text-center" id="modal-resultado-content">
+        
+        <div id="icono-resultado" class="text-7xl mb-6"></div>
+        
+        <h3 id="titulo-resultado" class="text-3xl font-black uppercase italic text-slate-900 mb-4"></h3>
+        
+        <p id="mensaje-resultado" class="text-sm text-slate-500 mb-8 font-medium leading-relaxed"></p>
+        
+        <button onclick="cerrarModalResultado()" class="w-full py-4 bg-qrDark text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-qrSlate transition-all shadow-xl">
+            Entendido
+        </button>
+    </div>
+</div>
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
@@ -596,6 +610,69 @@
         }
     });
 
+    // ==========================================
+    // LÓGICA PARA LEER LA RESPUESTA DE TILOPAY
+    // ==========================================
+    window.addEventListener('DOMContentLoaded', () => {
+        // Leemos la URL para ver si Tilopay nos mandó variables
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        const description = urlParams.get('description');
+
+        // Si existe la variable "code", significa que el cliente viene de pagar
+        if (code) {
+            const modalRes = document.getElementById('modal-resultado');
+            const modalResContent = document.getElementById('modal-resultado-content');
+            const icono = document.getElementById('icono-resultado');
+            const titulo = document.getElementById('titulo-resultado');
+            const mensaje = document.getElementById('mensaje-resultado');
+
+            // Limpiamos colores previos
+            titulo.classList.remove('text-green-500', 'text-red-500');
+
+            if (code === '1') {
+                // PAGO APROBADO
+                icono.innerHTML = '<i class="fa-solid fa-circle-check text-green-500 drop-shadow-lg"></i>';
+                titulo.innerText = "¡Pago Exitoso!";
+                titulo.classList.add('text-green-500');
+                mensaje.innerText = "Tu infraestructura ha sido reservada. Nuestro equipo técnico se pondrá en contacto contigo en breve para la configuración inicial.";
+            } else {
+                // PAGO RECHAZADO O FALLIDO
+                icono.innerHTML = '<i class="fa-solid fa-circle-xmark text-red-500 drop-shadow-lg"></i>';
+                titulo.innerText = "Pago Rechazado";
+                titulo.classList.add('text-red-500');
+                
+                // Mostramos el motivo real que mandó el banco (ej. Not sufficient funds)
+                const motivo = description ? decodeURIComponent(description) : "La transacción no pudo ser procesada.";
+                mensaje.innerText = `Motivo: ${motivo}. Por favor, verifica tus fondos o intenta con otra tarjeta de crédito/débito.`;
+            }
+
+            // Mostramos el modal con animación
+            modalRes.classList.remove('hidden');
+            modalRes.classList.add('flex');
+            setTimeout(() => {
+                modalRes.classList.remove('opacity-0');
+                modalResContent.classList.remove('scale-95');
+            }, 10);
+
+            // TRUCO DE AGENCIA: Limpiamos la URL para borrar las variables de Tilopay
+            // Así, si el cliente recarga la página, no le vuelve a salir el modal.
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    });
+
+    // Función para cerrar el modal de resultado
+    function cerrarModalResultado() {
+        const modalRes = document.getElementById('modal-resultado');
+        const modalResContent = document.getElementById('modal-resultado-content');
+        modalRes.classList.add('opacity-0');
+        modalResContent.classList.add('scale-95');
+        setTimeout(() => {
+            modalRes.classList.add('hidden');
+            modalRes.classList.remove('flex');
+        }, 300);
+    }
+    
     </script>
 
 </body>
