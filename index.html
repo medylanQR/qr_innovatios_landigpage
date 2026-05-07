@@ -279,7 +279,7 @@
                 <h3 class="text-3xl font-black uppercase italic text-slate-900 mb-2">Starter Core</h3>
                 <p class="text-xs text-slate-500 font-medium mb-8">Todo lo que necesitas para empezar</p>
                 <div class="text-5xl font-black text-slate-900 mb-2">$200<span class="text-sm text-slate-400 font-bold">/mes</span></div>
-                <button class="w-full py-4 border-2 border-qrPurple text-qrPurple rounded-xl font-black text-[10px] uppercase tracking-widest mt-8 mb-10 hover:bg-qrPurple hover:text-white transition-colors">Elegir Plan</button>
+                <button id="btn-starter" class="w-full py-4 border-2 border-qrPurple text-qrPurple rounded-xl font-black text-[10px] uppercase tracking-widest mt-8 mb-10 hover:bg-qrPurple hover:text-white transition-colors">Elegir Plan</button>
                 <ul class="space-y-5 text-xs font-bold text-slate-600">
                     <li class="flex items-center"><i class="fa-solid fa-check text-qrPurple mr-3 text-lg"></i> Facturación Hacienda v4.4</li>
                     <li class="flex items-center"><i class="fa-solid fa-check text-qrPurple mr-3 text-lg"></i> Hosting Cloud</li>
@@ -294,7 +294,7 @@
                 <h3 class="text-3xl font-black uppercase italic text-white mb-2">Enterprise Pro</h3>
                 <p class="text-xs text-white/80 font-medium mb-8">Más herramientas y potencia IA</p>
                 <div class="text-5xl font-black text-white mb-2">$350<span class="text-sm text-white/60 font-bold">/mes</span></div>
-                <button class="w-full py-4 bg-white text-qrPurple rounded-xl font-black text-[10px] uppercase tracking-widest mt-8 mb-10 hover:scale-105 transition-transform shadow-xl">Elegir Plan</button>
+                <button id="btn-enterprise" class="w-full py-4 bg-white text-qrPurple rounded-xl font-black text-[10px] uppercase tracking-widest mt-8 mb-10 hover:scale-105 transition-transform shadow-xl">Elegir Plan</button>
                 <ul class="space-y-5 text-xs font-bold text-white/90">
                     <li class="flex items-center"><i class="fa-solid fa-check text-white mr-3 text-lg"></i> IA Agent (WhatsApp) 24/7</li>
                     <li class="flex items-center"><i class="fa-solid fa-check text-white mr-3 text-lg"></i> Integración con pasalera de pagos</li>
@@ -466,7 +466,41 @@
             </div>
         </div>
     </footer>
+    <div id="modal-checkout" class="fixed inset-0 z-[300] hidden items-center justify-center bg-qrDark/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
+    <div class="glass-panel bg-white p-10 rounded-[30px] w-full max-w-md mx-4 relative transform scale-95 transition-transform duration-300" id="modal-content">
+        
+        <button onclick="cerrarModal()" class="absolute top-6 right-6 text-slate-400 hover:text-qrMagenta transition-colors">
+            <i class="fa-solid fa-xmark text-2xl"></i>
+        </button>
 
+        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-qrMagenta mb-2 block">Paso 1 de 2</span>
+        <h3 class="text-3xl font-black uppercase italic text-slate-900 mb-6">Detalles del <br>Proyecto</h3>
+        <p class="text-sm text-slate-500 mb-8 font-medium">Ingresa tus datos para generar tu orden segura en Tilopay.</p>
+
+        <form id="form-checkout" class="space-y-5">
+            <input type="hidden" id="plan-seleccionado" value="">
+            
+            <div>
+                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-600 mb-2">Nombre Completo</label>
+                <input type="text" id="cliente-nombre" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-qrPurple focus:ring-1 focus:ring-qrPurple transition-all">
+            </div>
+            
+            <div>
+                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-600 mb-2">Correo Electrónico</label>
+                <input type="email" id="cliente-correo" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-qrPurple focus:ring-1 focus:ring-qrPurple transition-all">
+            </div>
+
+            <div>
+                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-600 mb-2">Empresa / Teléfono</label>
+                <input type="text" id="cliente-empresa" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-qrPurple focus:ring-1 focus:ring-qrPurple transition-all">
+            </div>
+
+            <button type="submit" id="btn-submit-form" class="w-full py-4 bg-qrDark text-white rounded-xl font-black text-[10px] uppercase tracking-widest mt-4 hover:bg-qrMagenta hover:shadow-lg hover:shadow-qrMagenta/30 transition-all">
+                Continuar al Pago
+            </button>
+        </form>
+    </div>
+</div>
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
@@ -481,6 +515,87 @@
                 }
             });
         });
+
+        const modal = document.getElementById('modal-checkout');
+    const modalContent = document.getElementById('modal-content');
+    const inputPlan = document.getElementById('plan-seleccionado');
+    const formCheckout = document.getElementById('form-checkout');
+    const btnSubmit = document.getElementById('btn-submit-form');
+
+    // 1. Funciones para abrir y cerrar la ventanita
+    function abrirModal(tipoPlan) {
+        inputPlan.value = tipoPlan; // Guardamos si es starter o enterprise
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+            modalContent.classList.remove('scale-95');
+        }, 10);
+    }
+
+    function cerrarModal() {
+        modal.classList.add('opacity-0');
+        modalContent.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }, 300);
+    }
+
+    // 2. Escuchar clics en los botones de "Elegir Plan"
+    document.getElementById('btn-starter').addEventListener('click', (e) => {
+        e.preventDefault();
+        abrirModal('starter');
+    });
+    
+    document.getElementById('btn-enterprise').addEventListener('click', (e) => {
+        e.preventDefault();
+        abrirModal('enterprise');
+    });
+
+    // 3. ¿Qué pasa cuando le dan a "Continuar al Pago"?
+    formCheckout.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Evitamos que recargue la página
+
+        const textoOriginal = btnSubmit.innerText;
+        btnSubmit.innerText = "Generando Link...";
+        btnSubmit.disabled = true;
+
+        // Recolectamos los datos
+        const datosCliente = {
+            plan: inputPlan.value,
+            nombre: document.getElementById('cliente-nombre').value,
+            correo: document.getElementById('cliente-correo').value,
+            empresa: document.getElementById('cliente-empresa').value
+        };
+
+        try {
+            // Mandamos los datos a la cocina (Cloudflare)
+            const respuesta = await fetch('/api/pago', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosCliente)
+            });
+
+            if (!respuesta.ok) throw new Error("Error en el servidor");
+
+            const datos = await respuesta.json();
+
+            // Si hay link, redirigimos a Tilopay
+            if (datos.url) {
+                window.location.href = datos.url;
+            } else {
+                alert("Hubo un problema con la pasarela.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Error de conexión. Intenta de nuevo.");
+        } finally {
+            btnSubmit.innerText = textoOriginal;
+            btnSubmit.disabled = false;
+        }
+    });
+
     </script>
 
 </body>
