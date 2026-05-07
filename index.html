@@ -728,6 +728,21 @@
                 // Mostramos el motivo real que mandó el banco (ej. Not sufficient funds)
                 const motivo = description ? decodeURIComponent(description) : "La transacción no pudo ser procesada.";
                 mensaje.innerText = `Motivo: ${motivo}. Por favor, verifica tus fondos o intenta con otra tarjeta de crédito/débito.`;
+
+                const datosGuardados = localStorage.getItem('qr_cliente_pendiente');
+                
+                if (datosGuardados) {
+                    // 3. Llamamos a nuestra nueva API para enviar el correo
+                    fetch('/api/notificar', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: datosGuardados
+                    }).then(res => {
+                        if(res.ok) console.log("Notificación enviada exitosamente a la agencia");
+                    });
+                    
+                    // 4. Borramos la memoria para evitar correos duplicados
+                    localStorage.removeItem('qr_cliente_pendiente');
             }
 
             // Mostramos el modal con animación
@@ -742,6 +757,7 @@
             // Así, si el cliente recarga la página, no le vuelve a salir el modal.
             window.history.replaceState({}, document.title, window.location.pathname);
         }
+    }
     });
 
     // Función para cerrar el modal de resultado
