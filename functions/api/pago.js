@@ -5,8 +5,8 @@ export async function onRequestPost(context) {
     const { plan, nombre, correo, empresa } = requestData;
     
     // El precio base en dólares
-    const montoUSD = plan === 'starter' ? 200.00 : 350.00;
-    
+    //const montoUSD = plan === 'starter' ? 200.00 : 350.00;
+    const montoUSD = 1.00;
     const apiuser = context.env.TILOPAY_USUARIO_API;
     const password = context.env.TILOPAY_PASSWORD_API;
     const apikey = context.env.TILOPAY_LLAVE_API;
