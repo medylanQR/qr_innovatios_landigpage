@@ -134,6 +134,7 @@
     }
     </script>
 </head>
+
 <body class="font-sans">
 
     <div class="mesh-gradient"></div>
@@ -179,14 +180,13 @@
         </div>
     </header>
 
-    <section id="trayectoria" class="qr-grad-section py-24 marquee border-y border-white/10 shadow-2xl">
+    <section id="trayectoria" class="qr-grad-section py-24 marquee border border-white/10 bg-black/10 backdrop-blur-md shadow-2xl rounded-2xl">
         <div class="marquee-content">
-            <span class="mx-20 text-5xl font-black italic opacity-80 uppercase text-qrDark">Edsawind</span>
-            <span class="mx-20 text-5xl font-black opacity-80 uppercase">Hotel Cañas</span>
-            <span class="mx-20 text-5xl font-black italic opacity-80 uppercase">Dulce Gusto</span>
-            <span class="mx-20 text-5xl font-black opacity-80 uppercase">Mi Tierra</span>
-            <span class="mx-20 text-5xl font-black italic opacity-80 uppercase text-qrDark">Edsawind</span>
-            <span class="mx-20 text-5xl font-black opacity-80 uppercase">Hotel Cañas</span>
+            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Edsawind</span>
+            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Hotel Cañas</span>
+            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Dulce Gusto</span>
+            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Mi Tierra</span>
+            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Cicsa</span>
         </div>
     </section>
 
@@ -256,7 +256,7 @@
                 <h2 class="text-5xl md:text-8xl font-black mb-10 leading-[1.1] tracking-tighter text-glow">Ideas humanas <br> impulsadas por IA</h2>
                 <p class="text-lg md:text-xl text-white/60 mb-16 max-w-3xl mx-auto font-medium leading-relaxed">Nuestras herramientas de ingeniería con IA te ayudan a escalar operaciones industriales mientras mantienes el control total sobre tu éxito en un mismo ecosistema.</p>
                 <a href="https://wa.me/50689081652" class="inline-block bg-qrPurple text-white px-12 py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform shadow-2xl shadow-qrPurple/40">Empezar ya</a>
-                
+
                 <div class="mt-32 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[40px] p-12 md:p-24 text-left relative overflow-hidden group hover:border-qrMagenta/50 transition-colors duration-500">
                     <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-gradient-to-tl from-qrMagenta to-qrPurple opacity-30 blur-[100px] rounded-full group-hover:opacity-50 transition-opacity duration-500"></div>
                     <h3 class="text-4xl md:text-7xl font-black leading-tight max-w-3xl relative z-10">Inteligencia humana <br> <span class="text-qrPurple italic">con el poder de la IA.</span></h3>
@@ -271,9 +271,9 @@
             <h2 class="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter uppercase mb-6 leading-none">Choose your <br> <span class="text-qrMagenta italic text-glow">Engine.</span></h2>
             <p class="text-slate-500 font-medium text-lg max-w-2xl mx-auto">Selecciona la infraestructura ideal para el nivel de exigencia de tu operación.</p>
         </div>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-            
+
             <div class="bg-white border border-slate-200 rounded-[40px] p-10 hover:border-qrPurple hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
                 <span class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-2 block">Básico</span>
                 <h3 class="text-3xl font-black uppercase italic text-slate-900 mb-2">Starter Core</h3>
@@ -370,48 +370,149 @@
                 <h2 class="text-7xl md:text-9xl font-black tracking-tighter uppercase leading-none italic opacity-20 mb-[-2rem] md:mb-[-4rem]">Testimonials.</h2>
                 <h2 class="text-5xl md:text-7xl font-black tracking-tighter uppercase relative z-10">Líderes que <span class="text-qrDark">confían.</span></h2>
             </div>
+            <<div class="flex gap-10 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide">
+                <div class="min-w-[400px] testimonial-card bg-white/10 rounded-[3rem] border border-white/20 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:bg-white/15 snap-center">
+                    <div class="toggleCard p-12 cursor-pointer">
+                        <div class="flex justify-between items-start gap-6">
+                            <div>
+                                <div class="w-20 h-20 rounded-2xl overflow-hidden">
+                                    <img src="assets/Hotelcañas.png"
+                                         alt="Hotel Cañas"
+                                         class="w-full h-full object-cover"
+                                    />
+                                </div>
+                                <div>
+                                    <p class="font-black uppercase tracking-widest text-sm">
+                                        Gerencia General
+                                    </p>
+                                    <p class="text-[10px] uppercase font-bold opacity-60 tracking-widest">
+                                        Hotel Cañas, Guanacaste
+                                    </p>
+                                </div>
+                                <div class="text-qrDark mb-3 text-4xl">
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down arrow text-2xl transition-all duration-500"></i>
+                        </div>
+                        <div class="content max-h-0 overflow-hidden transition-all duration-700">
+                            <p class="text-lg leading-relaxed opacity-80 mb-10">
+                                "QR Innovations transformó nuestra operación
+                                implementamos automatización Hacienda v4.4,
+                                optimización operativa, integración administrativa
+                                y mejoras completas en productividad interna."
+                            </p>
+                            <div class="flex items-center gap-6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="min-w-[400px] testimonial-card bg-white/10 rounded-[3rem] border border-white/20 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:bg-white/15 snap-center">
+                    <div class="toggleCard p-12 cursor-pointer">
+                        <div class="flex justify-between items-start gap-6">
+                            <div>
+                                <div class="w-20 h-20 rounded-2xl overflow-hidden">
+                                    <img src="assets/Mitierra.jpg"
+                                    alt="Restaurante mi tierra"
+                                    class="w-full h-full object-cover"
+                                    />
+                                </div>
+                                <div>
+                                    <p class="font-black uppercase tracking-widest text-sm">
+                                        Propietario
+                                    </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <div class="bg-white/10 p-12 rounded-[3rem] border border-white/20 backdrop-blur-xl hover:bg-white/15 transition-all reveal-up">
-                    <div class="text-qrDark mb-10 text-4xl"><i class="fa-solid fa-quote-left"></i></div>
-                    <p class="text-2xl font-medium leading-relaxed mb-12 italic">"QR Innovations transformó nuestra operación en Hotel Cañas. Con la automatización Hacienda v4.4 "</p>
-                    <div class="flex items-center gap-6">
-                        <div class="w-16 h-16 rounded-2xl bg-qrDark flex items-center justify-center font-black text-xl">HC</div>
-                        <div>
-                            <p class="font-black uppercase tracking-widest text-sm">Gerencia General</p>
-                            <p class="text-[10px] uppercase font-bold opacity-60 tracking-widest">Hotel Cañas, Guanacaste</p>
+                                    <p class="text-[10px] uppercase font-bold opacity-60 tracking-widest">
+                                        Restaurante Mi Tierra
+                                    </p>
+                                </div>
+                                <div class="text-qrDark mb-3 text-4xl">
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down arrow text-2xl transition-all duration-500"></i>
+                        </div>
+                        <div class="content max-h-0 overflow-hidden transition-all duration-700">
+                            <p class="text-lg leading-relaxed opacity-80 mb-10">
+                                "El compromiso y responsabilidad de la marca es de otro nivel.
+                                Nos ayudaron a mejorar nuestra presencia digital y optimizar
+                                procesos tecnológicos internos."
+                            </p>
+                            <div class="flex items-center gap-6">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white/10 p-12 rounded-[3rem] border border-white/20 backdrop-blur-xl hover:bg-white/15 transition-all reveal-up">
-                    <div class="text-qrDark mb-10 text-4xl"><i class="fa-solid fa-quote-left"></i></div>
-                    <p class="text-2xl font-medium leading-relaxed mb-12 italic">"el compromiso y responsabilidad de la marca es de otro nivel."</p>
-                    <div class="flex items-center gap-6">
-                        <div class="w-16 h-16 rounded-2xl bg-qrDark flex items-center justify-center font-black text-xl">MT</div>
-                        <div>
-                            <p class="font-black uppercase tracking-widest text-sm">Propietario</p>
-                            <p class="text-[10px] uppercase font-bold opacity-60 tracking-widest">Restaurante Mi Tierra</p>
+
+                <div class="min-w-[400px] testimonial-card bg-white/10 rounded-[3rem] border border-white/20 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:bg-white/15 snap-center">
+                    <div class="toggleCard p-12 cursor-pointer">
+                        <div class="flex justify-between items-start gap-6">
+                            <div>
+                                <div class="w-20 h-20 rounded-2xl overflow-hidden">
+                                    <img src="assets/edsa1.png"
+                                         alt="EDSAWIND"
+                                         class="w-full h-full object-cover"
+                                        />
+                                </div>
+                                <div>
+                                    <p class="font-black uppercase tracking-widest text-sm">
+                                        Gerencia General
+                                    </p>
+                                    <p class="text-[10px] uppercase font-bold opacity-60 tracking-widest">
+                                        Edsawind
+                                    </p>
+                                </div>
+                                <div class="text-qrDark mb-3 text-4xl">
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down arrow text-2xl transition-all duration-500"></i>
+                        </div>
+                        <div class="content max-h-0 overflow-hidden transition-all duration-700">
+                            <p class="text-lg leading-relaxed opacity-80 mb-10">
+                                "Nos encantó el acabado de nuestro sitio web desarrollado
+                                por QR Innovations. El diseño moderno y rendimiento
+                                superó nuestras expectativas."
+                            </p>
+                            <div class="flex items-center gap-6">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white/10 p-12 rounded-[3rem] border border-white/20 backdrop-blur-xl hover:bg-white/15 transition-all reveal-up">
-                    <div class="text-qrDark mb-10 text-4xl"><i class="fa-solid fa-quote-left"></i></div>
-                    <p class="text-2xl font-medium leading-relaxed mb-12 italic">"Nos encanto el acabo de nuestro sitio web desarrollado por QR innovations"</p>
-                    <div class="flex items-center gap-6">
-                        <div class="w-16 h-16 rounded-2xl bg-qrDark flex items-center justify-center font-black text-xl">DG</div>
-                        <div>
-                            <p class="font-black uppercase tracking-widest text-sm">Gerencia General</p>
-                            <p class="text-[10px] uppercase font-bold opacity-60 tracking-widest">Edsawind</p>
+
+                <div class="min-w-[400px] testimonial-card bg-white/10 rounded-[3rem] border border-white/20 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:bg-white/15 snap-center">
+                    <div class="toggleCard p-12 cursor-pointer">
+                        <div class="flex justify-between items-start gap-6">
+                            <div>
+                                <div class="w-20 h-20 rounded-2xl overflow-hidden">
+                                    <img src="assets/LogoCICSA.png"
+                                         alt="CICSA"
+                                         class="w-full h-full object-cover" />
+                                </div>
+                                <div>
+                                    <p class="font-black uppercase tracking-widest text-sm">
+                                        Gerencia General
+                                    </p>
+                                    <p class="text-[10px] uppercase font-bold opacity-60 tracking-widest">
+                                        CICSA
+                                    </p>
+                                </div>
+                                <div class="text-qrDark mb-3 text-4xl">
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down arrow text-2xl transition-all duration-500"></i>
+                        </div>
+                        <div class="content max-h-0 overflow-hidden transition-all duration-700">
+                            <p class="text-lg leading-relaxed opacity-80 mb-10">
+                                "."
+                            </p>
+                            <div class="flex items-center gap-6">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+</section>
 
     <footer class="bg-qrDark text-white pt-48 pb-20 px-8 md:px-16 overflow-hidden relative">
         <div class="absolute top-0 right-0 p-20 opacity-5 text-[30rem] font-black italic select-none">QR</div>
-        
+
         <div class="max-w-[1800px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-20 mb-32 relative z-10">
             <div class="lg:col-span-2">
                 <div class="flex items-center gap-4 mb-10">
@@ -467,116 +568,116 @@
         </div>
     </footer>
     <div id="modal-checkout" class="fixed inset-0 z-[300] hidden items-center justify-center bg-qrDark/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
-    <div class="glass-panel bg-white p-10 rounded-[30px] w-full max-w-md mx-4 relative transform scale-95 transition-transform duration-300" id="modal-content">
-        
-        <button onclick="cerrarModal()" class="absolute top-6 right-6 text-slate-400 hover:text-qrMagenta transition-colors">
-            <i class="fa-solid fa-xmark text-2xl"></i>
-        </button>
+        <div class="glass-panel bg-white p-10 rounded-[30px] w-full max-w-md mx-4 relative transform scale-95 transition-transform duration-300" id="modal-content">
 
-        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-qrMagenta mb-2 block">Paso 1 de 2</span>
-        <h3 class="text-3xl font-black uppercase italic text-slate-900 mb-6">Detalles del <br>Proyecto</h3>
-        <p class="text-sm text-slate-500 mb-8 font-medium">Ingresa tus datos para generar tu orden segura en Tilopay.</p>
-
-        <form id="form-checkout" class="space-y-5">
-            <input type="hidden" id="plan-seleccionado" value="">
-            
-            <div>
-                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-600 mb-2">Nombre Completo</label>
-                <input type="text" id="cliente-nombre" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-qrPurple focus:ring-1 focus:ring-qrPurple transition-all">
-            </div>
-            
-            <div>
-                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-600 mb-2">Correo Electrónico</label>
-                <input type="email" id="cliente-correo" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-qrPurple focus:ring-1 focus:ring-qrPurple transition-all">
-            </div>
-
-            <div>
-                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-600 mb-2">Empresa / Teléfono</label>
-                <input type="text" id="cliente-empresa" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-qrPurple focus:ring-1 focus:ring-qrPurple transition-all">
-            </div>
-
-            <button type="submit" id="btn-submit-form" class="w-full py-4 bg-qrDark text-white rounded-xl font-black text-[10px] uppercase tracking-widest mt-4 hover:bg-qrMagenta hover:shadow-lg hover:shadow-qrMagenta/30 transition-all">
-                Continuar al Pago
+            <button onclick="cerrarModal()" class="absolute top-6 right-6 text-slate-400 hover:text-qrMagenta transition-colors">
+                <i class="fa-solid fa-xmark text-2xl"></i>
             </button>
-        </form>
-    </div>
-</div>
-<div id="modal-resultado" class="fixed inset-0 z-[400] hidden items-center justify-center bg-qrDark/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
-    <div class="glass-panel bg-white p-10 rounded-[30px] w-full max-w-md mx-4 relative transform scale-95 transition-transform duration-300 text-center" id="modal-resultado-content">
-        
-        <div id="icono-resultado" class="text-7xl mb-6"></div>
-        
-        <h3 id="titulo-resultado" class="text-3xl font-black uppercase italic text-slate-900 mb-4"></h3>
-        
-        <p id="mensaje-resultado" class="text-sm text-slate-500 mb-8 font-medium leading-relaxed"></p>
-        
-        <button onclick="cerrarModalResultado()" class="w-full py-4 bg-qrDark text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-qrSlate transition-all shadow-xl">
-            Entendido
-        </button>
-    </div>
-</div>
 
-<div id="pantalla-exito" class="fixed inset-0 z-[500] hidden bg-qrDark text-white overflow-y-auto">
-    <div class="max-w-4xl mx-auto px-8 py-20 flex flex-col min-h-screen">
-        
-        <div class="flex items-center gap-4 mb-16 animate-fade-in-down">
-            <img src="assets/FavIcon2.png" alt="QR" class="w-12 h-12">
-            <span class="text-2xl font-black tracking-tighter uppercase italic">QR Innovations</span>
+            <span class="text-[10px] font-black uppercase tracking-[0.3em] text-qrMagenta mb-2 block">Paso 1 de 2</span>
+            <h3 class="text-3xl font-black uppercase italic text-slate-900 mb-6">Detalles del <br>Proyecto</h3>
+            <p class="text-sm text-slate-500 mb-8 font-medium">Ingresa tus datos para generar tu orden segura en Tilopay.</p>
+
+            <form id="form-checkout" class="space-y-5">
+                <input type="hidden" id="plan-seleccionado" value="">
+
+                <div>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-600 mb-2">Nombre Completo</label>
+                    <input type="text" id="cliente-nombre" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-qrPurple focus:ring-1 focus:ring-qrPurple transition-all">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-600 mb-2">Correo Electrónico</label>
+                    <input type="email" id="cliente-correo" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-qrPurple focus:ring-1 focus:ring-qrPurple transition-all">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-600 mb-2">Empresa / Teléfono</label>
+                    <input type="text" id="cliente-empresa" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-qrPurple focus:ring-1 focus:ring-qrPurple transition-all">
+                </div>
+
+                <button type="submit" id="btn-submit-form" class="w-full py-4 bg-qrDark text-white rounded-xl font-black text-[10px] uppercase tracking-widest mt-4 hover:bg-qrMagenta hover:shadow-lg hover:shadow-qrMagenta/30 transition-all">
+                    Continuar al Pago
+                </button>
+            </form>
         </div>
+    </div>
+    <div id="modal-resultado" class="fixed inset-0 z-[400] hidden items-center justify-center bg-qrDark/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
+        <div class="glass-panel bg-white p-10 rounded-[30px] w-full max-w-md mx-4 relative transform scale-95 transition-transform duration-300 text-center" id="modal-resultado-content">
 
-        <div class="flex-1">
-            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 text-green-400 text-[10px] font-black uppercase tracking-[0.3em] mb-8">
-                <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                Transacción Aprobada
-            </span>
-            
-            <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-none">
-                Iniciando <br><span class="text-qrMagenta italic">Arquitectura.</span>
-            </h1>
-            <p class="text-xl text-slate-400 font-medium max-w-2xl mb-16 leading-relaxed">
-                Tu pago ha sido procesado con éxito. Hemos comenzado a asignar los recursos para tu ecosistema.
-            </p>
+            <div id="icono-resultado" class="text-7xl mb-6"></div>
 
-            <div class="space-y-6 max-w-xl relative before:absolute before:inset-0 before:ml-6 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-800 before:to-transparent">
-                
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-green-500 text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_20px_rgba(34,197,94,0.3)] z-10">
-                        <i class="fa-solid fa-check"></i>
+            <h3 id="titulo-resultado" class="text-3xl font-black uppercase italic text-slate-900 mb-4"></h3>
+
+            <p id="mensaje-resultado" class="text-sm text-slate-500 mb-8 font-medium leading-relaxed"></p>
+
+            <button onclick="cerrarModalResultado()" class="w-full py-4 bg-qrDark text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-qrSlate transition-all shadow-xl">
+                Entendido
+            </button>
+        </div>
+    </div>
+
+    <div id="pantalla-exito" class="fixed inset-0 z-[500] hidden bg-qrDark text-white overflow-y-auto">
+        <div class="max-w-4xl mx-auto px-8 py-20 flex flex-col min-h-screen">
+
+            <div class="flex items-center gap-4 mb-16 animate-fade-in-down">
+                <img src="assets/FavIcon2.png" alt="QR" class="w-12 h-12">
+                <span class="text-2xl font-black tracking-tighter uppercase italic">QR Innovations</span>
+            </div>
+
+            <div class="flex-1">
+                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 text-green-400 text-[10px] font-black uppercase tracking-[0.3em] mb-8">
+                    <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                    Transacción Aprobada
+                </span>
+
+                <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-none">
+                    Iniciando <br><span class="text-qrMagenta italic">Arquitectura.</span>
+                </h1>
+                <p class="text-xl text-slate-400 font-medium max-w-2xl mb-16 leading-relaxed">
+                    Tu pago ha sido procesado con éxito. Hemos comenzado a asignar los recursos para tu ecosistema.
+                </p>
+
+                <div class="space-y-6 max-w-xl relative before:absolute before:inset-0 before:ml-6 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-800 before:to-transparent">
+
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-green-500 text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_20px_rgba(34,197,94,0.3)] z-10">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                            <h3 class="font-black text-lg mb-1 uppercase tracking-wider">Pago Confirmado</h3>
+                            <p class="text-sm text-slate-400">Fondos recibidos y acreditados.</p>
+                        </div>
                     </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                        <h3 class="font-black text-lg mb-1 uppercase tracking-wider">Pago Confirmado</h3>
-                        <p class="text-sm text-slate-400">Fondos recibidos y acreditados.</p>
+
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-qrPurple text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_20px_rgba(103,61,230,0.5)] z-10">
+                            <i class="fa-solid fa-server animate-pulse"></i>
+                        </div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-6 rounded-2xl border border-qrPurple/50 bg-qrPurple/10 backdrop-blur-sm">
+                            <h3 class="font-black text-lg mb-1 uppercase tracking-wider text-qrPurple">Despliegue de Servidor</h3>
+                            <p class="text-sm text-slate-300">Asignando infraestructura Cloudflare y bases de datos.</p>
+                        </div>
                     </div>
+
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-slate-800 text-slate-500 font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-6 rounded-2xl border border-slate-800 bg-transparent">
+                            <h3 class="font-black text-lg mb-1 uppercase tracking-wider text-slate-500">Contacto Técnico</h3>
+                            <p class="text-sm text-slate-500">Un ingeniero de QR Innovations te contactará en los próximos 15 minutos.</p>
+                        </div>
+                    </div>
+
                 </div>
+            </div>
 
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-qrPurple text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_20px_rgba(103,61,230,0.5)] z-10">
-                        <i class="fa-solid fa-server animate-pulse"></i>
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-6 rounded-2xl border border-qrPurple/50 bg-qrPurple/10 backdrop-blur-sm">
-                        <h3 class="font-black text-lg mb-1 uppercase tracking-wider text-qrPurple">Despliegue de Servidor</h3>
-                        <p class="text-sm text-slate-300">Asignando infraestructura Cloudflare y bases de datos.</p>
-                    </div>
-                </div>
-
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-slate-800 text-slate-500 font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                        <i class="fa-solid fa-headset"></i>
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-6 rounded-2xl border border-slate-800 bg-transparent">
-                        <h3 class="font-black text-lg mb-1 uppercase tracking-wider text-slate-500">Contacto Técnico</h3>
-                        <p class="text-sm text-slate-500">Un ingeniero de QR Innovations te contactará en los próximos 15 minutos.</p>
-                    </div>
-                </div>
-
+            <div class="mt-20 pt-8 border-t border-white/10 text-center">
+                <a href="https://qrinnovationss.com" class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-qrMagenta transition-colors">Volver al inicio</a>
             </div>
         </div>
-        
-        <div class="mt-20 pt-8 border-t border-white/10 text-center">
-            <a href="https://qrinnovationss.com" class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-qrMagenta transition-colors">Volver al inicio</a>
-        </div>
     </div>
-</div>
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
@@ -593,184 +694,225 @@
         });
 
         const modal = document.getElementById('modal-checkout');
-    const modalContent = document.getElementById('modal-content');
-    const inputPlan = document.getElementById('plan-seleccionado');
-    const formCheckout = document.getElementById('form-checkout');
-    const btnSubmit = document.getElementById('btn-submit-form');
+        const modalContent = document.getElementById('modal-content');
+        const inputPlan = document.getElementById('plan-seleccionado');
+        const formCheckout = document.getElementById('form-checkout');
+        const btnSubmit = document.getElementById('btn-submit-form');
 
-    // 1. Funciones para abrir y cerrar la ventanita
-    function abrirModal(tipoPlan) {
-        inputPlan.value = tipoPlan; // Guardamos si es starter o enterprise
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-        setTimeout(() => {
-            modal.classList.remove('opacity-0');
-            modalContent.classList.remove('scale-95');
-        }, 10);
-    }
-
-    function cerrarModal() {
-        modal.classList.add('opacity-0');
-        modalContent.classList.add('scale-95');
-        setTimeout(() => {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }, 300);
-    }
-
-    // 2. Escuchar clics en los botones de "Elegir Plan"
-    document.getElementById('btn-starter').addEventListener('click', (e) => {
-        e.preventDefault();
-        abrirModal('starter');
-    });
-    
-    document.getElementById('btn-enterprise').addEventListener('click', (e) => {
-        e.preventDefault();
-        abrirModal('enterprise');
-    });
-
-    // 3. ¿Qué pasa cuando le dan a "Continuar al Pago"?
-    formCheckout.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Evitamos que recargue la página
-
-        const textoOriginal = btnSubmit.innerText;
-        btnSubmit.innerText = "Generando Link...";
-        btnSubmit.disabled = true;
-
-        // Recolectamos los datos
-        const datosCliente = {
-            plan: inputPlan.value,
-            nombre: document.getElementById('cliente-nombre').value,
-            correo: document.getElementById('cliente-correo').value,
-            empresa: document.getElementById('cliente-empresa').value
-        };
-
-        try {
-            // Mandamos los datos a la cocina (Cloudflare)
-            const respuesta = await fetch('/api/pago', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(datosCliente)
-            });
-
-            if (!respuesta.ok) throw new Error("Error en el servidor");
-
-            const datos = await respuesta.json();
-
-            // Si hay link, redirigimos a Tilopay
-            if (datos.url) {
-                localStorage.setItem('qr_cliente_pendiente', JSON.stringify(datosCliente));
-                window.location.href = datos.url;
-            } else {
-                alert("Hubo un problema con la pasarela.");
-            }
-        } catch (error) {
-            console.error("Error:", error);
-            alert("Error de conexión. Intenta de nuevo.");
-        } finally {
-            btnSubmit.innerText = textoOriginal;
-            btnSubmit.disabled = false;
+        // 1. Funciones para abrir y cerrar la ventanita
+        function abrirModal(tipoPlan) {
+            inputPlan.value = tipoPlan; // Guardamos si es starter o enterprise
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
         }
-    });
 
-    // ==========================================
-    // LÓGICA PARA LEER LA RESPUESTA DE TILOPAY
-    // ==========================================
-    window.addEventListener('DOMContentLoaded', () => {
-        // Leemos la URL para ver si Tilopay nos mandó variables
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code');
-        const description = urlParams.get('description');
+        function cerrarModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+        }
 
-        // Si existe la variable "code", significa que el cliente viene de pagar
-        if (code) {
+        // 2. Escuchar clics en los botones de "Elegir Plan"
+        document.getElementById('btn-starter').addEventListener('click', (e) => {
+            e.preventDefault();
+            abrirModal('starter');
+        });
+
+        document.getElementById('btn-enterprise').addEventListener('click', (e) => {
+            e.preventDefault();
+            abrirModal('enterprise');
+        });
+
+        // 3. ¿Qué pasa cuando le dan a "Continuar al Pago"?
+        formCheckout.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Evitamos que recargue la página
+
+            const textoOriginal = btnSubmit.innerText;
+            btnSubmit.innerText = "Generando Link...";
+            btnSubmit.disabled = true;
+
+            // Recolectamos los datos
+            const datosCliente = {
+                plan: inputPlan.value,
+                nombre: document.getElementById('cliente-nombre').value,
+                correo: document.getElementById('cliente-correo').value,
+                empresa: document.getElementById('cliente-empresa').value
+            };
+
+            try {
+                // Mandamos los datos a la cocina (Cloudflare)
+                const respuesta = await fetch('/api/pago', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(datosCliente)
+                });
+
+                if (!respuesta.ok) throw new Error("Error en el servidor");
+
+                const datos = await respuesta.json();
+
+                // Si hay link, redirigimos a Tilopay
+                if (datos.url) {
+                    localStorage.setItem('qr_cliente_pendiente', JSON.stringify(datosCliente));
+                    window.location.href = datos.url;
+                } else {
+                    alert("Hubo un problema con la pasarela.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Error de conexión. Intenta de nuevo.");
+            } finally {
+                btnSubmit.innerText = textoOriginal;
+                btnSubmit.disabled = false;
+            }
+        });
+
+        // ==========================================
+        // LÓGICA PARA LEER LA RESPUESTA DE TILOPAY
+        // ==========================================
+        window.addEventListener('DOMContentLoaded', () => {
+            // Leemos la URL para ver si Tilopay nos mandó variables
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            const description = urlParams.get('description');
+
+            // Si existe la variable "code", significa que el cliente viene de pagar
+            if (code) {
+                const modalRes = document.getElementById('modal-resultado');
+                const modalResContent = document.getElementById('modal-resultado-content');
+                const icono = document.getElementById('icono-resultado');
+                const titulo = document.getElementById('titulo-resultado');
+                const mensaje = document.getElementById('mensaje-resultado');
+
+                // Limpiamos colores previos
+                titulo.classList.remove('text-green-500', 'text-red-500');
+
+                if (code === '1') {
+                    // PAGO APROBADO
+                    icono.innerHTML = '<i class="fa-solid fa-circle-check text-green-500 drop-shadow-lg"></i>';
+                    titulo.innerText = "¡Pago Exitoso!";
+                    titulo.classList.add('text-green-500');
+                    mensaje.innerText = "Tu infraestructura ha sido reservada. Nuestro equipo técnico se pondrá en contacto contigo en breve para la configuración inicial.";
+                    document.body.style.overflow = 'hidden'; // Bloquea el scroll del fondo
+                    const pantallaExito = document.getElementById('pantalla-exito');
+                    pantallaExito.classList.remove('hidden');
+                    // 2. Recuperamos los datos de quién acaba de pagar
+                    const datosGuardados = localStorage.getItem('qr_cliente_pendiente');
+
+                    if (datosGuardados) {
+                        // 3. Llamamos a nuestra nueva API para enviar el correo
+                        fetch('/api/notificar', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: datosGuardados
+                        }).then(res => {
+                            if (res.ok) console.log("Notificación enviada exitosamente a la agencia");
+                        });
+
+                        // 4. Borramos la memoria para evitar correos duplicados
+                        localStorage.removeItem('qr_cliente_pendiente');
+                    }
+
+                } else {
+                    // PAGO RECHAZADO O FALLIDO
+                    icono.innerHTML = '<i class="fa-solid fa-circle-xmark text-red-500 drop-shadow-lg"></i>';
+                    titulo.innerText = "Pago Rechazado";
+                    titulo.classList.add('text-red-500');
+
+                    // Mostramos el motivo real que mandó el banco (ej. Not sufficient funds)
+                    const motivo = description ? decodeURIComponent(description) : "La transacción no pudo ser procesada.";
+                    mensaje.innerText = `Motivo: ${motivo}. Por favor, verifica tus fondos o intenta con otra tarjeta de crédito/débito.`;
+
+                    const datosGuardados = localStorage.getItem('qr_cliente_pendiente');
+
+                    if (datosGuardados) {
+                        // 3. Llamamos a nuestra nueva API para enviar el correo
+                        fetch('/api/notificar', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: datosGuardados
+                        }).then(res => {
+                            if (res.ok) console.log("Notificación enviada exitosamente a la agencia");
+                        });
+
+                        // 4. Borramos la memoria para evitar correos duplicados
+                        localStorage.removeItem('qr_cliente_pendiente');
+                    }
+
+                    // Mostramos el modal con animación
+                    modalRes.classList.remove('hidden');
+                    modalRes.classList.add('flex');
+                    setTimeout(() => {
+                        modalRes.classList.remove('opacity-0');
+                        modalResContent.classList.remove('scale-95');
+                    }, 10);
+
+                    // TRUCO DE AGENCIA: Limpiamos la URL para borrar las variables de Tilopay
+                    // Así, si el cliente recarga la página, no le vuelve a salir el modal.
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            }
+        });
+
+        // Función para cerrar el modal de resultado
+        function cerrarModalResultado() {
             const modalRes = document.getElementById('modal-resultado');
             const modalResContent = document.getElementById('modal-resultado-content');
-            const icono = document.getElementById('icono-resultado');
-            const titulo = document.getElementById('titulo-resultado');
-            const mensaje = document.getElementById('mensaje-resultado');
-
-            // Limpiamos colores previos
-            titulo.classList.remove('text-green-500', 'text-red-500');
-
-            if (code === '1') {
-                // PAGO APROBADO
-                icono.innerHTML = '<i class="fa-solid fa-circle-check text-green-500 drop-shadow-lg"></i>';
-                titulo.innerText = "¡Pago Exitoso!";
-                titulo.classList.add('text-green-500');
-                mensaje.innerText = "Tu infraestructura ha sido reservada. Nuestro equipo técnico se pondrá en contacto contigo en breve para la configuración inicial.";
-                document.body.style.overflow = 'hidden'; // Bloquea el scroll del fondo
-                const pantallaExito = document.getElementById('pantalla-exito');
-                pantallaExito.classList.remove('hidden');
-                // 2. Recuperamos los datos de quién acaba de pagar
-                const datosGuardados = localStorage.getItem('qr_cliente_pendiente');
-                
-                if (datosGuardados) {
-                    // 3. Llamamos a nuestra nueva API para enviar el correo
-                    fetch('/api/notificar', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: datosGuardados
-                    }).then(res => {
-                        if(res.ok) console.log("Notificación enviada exitosamente a la agencia");
-                    });
-                    
-                    // 4. Borramos la memoria para evitar correos duplicados
-                    localStorage.removeItem('qr_cliente_pendiente');
-            }
-
-            } else {
-                // PAGO RECHAZADO O FALLIDO
-                icono.innerHTML = '<i class="fa-solid fa-circle-xmark text-red-500 drop-shadow-lg"></i>';
-                titulo.innerText = "Pago Rechazado";
-                titulo.classList.add('text-red-500');
-                
-                // Mostramos el motivo real que mandó el banco (ej. Not sufficient funds)
-                const motivo = description ? decodeURIComponent(description) : "La transacción no pudo ser procesada.";
-                mensaje.innerText = `Motivo: ${motivo}. Por favor, verifica tus fondos o intenta con otra tarjeta de crédito/débito.`;
-
-                const datosGuardados = localStorage.getItem('qr_cliente_pendiente');
-                
-                if (datosGuardados) {
-                    // 3. Llamamos a nuestra nueva API para enviar el correo
-                    fetch('/api/notificar', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: datosGuardados
-                    }).then(res => {
-                        if(res.ok) console.log("Notificación enviada exitosamente a la agencia");
-                    });
-                    
-                    // 4. Borramos la memoria para evitar correos duplicados
-                    localStorage.removeItem('qr_cliente_pendiente');
-            }
-
-            // Mostramos el modal con animación
-            modalRes.classList.remove('hidden');
-            modalRes.classList.add('flex');
+            modalRes.classList.add('opacity-0');
+            modalResContent.classList.add('scale-95');
             setTimeout(() => {
-                modalRes.classList.remove('opacity-0');
-                modalResContent.classList.remove('scale-95');
-            }, 10);
-
-            // TRUCO DE AGENCIA: Limpiamos la URL para borrar las variables de Tilopay
-            // Así, si el cliente recarga la página, no le vuelve a salir el modal.
-            window.history.replaceState({}, document.title, window.location.pathname);
+                modalRes.classList.add('hidden');
+                modalRes.classList.remove('flex');
+            }, 300);
         }
-    }
-    });
 
-    // Función para cerrar el modal de resultado
-    function cerrarModalResultado() {
-        const modalRes = document.getElementById('modal-resultado');
-        const modalResContent = document.getElementById('modal-resultado-content');
-        modalRes.classList.add('opacity-0');
-        modalResContent.classList.add('scale-95');
-        setTimeout(() => {
-            modalRes.classList.add('hidden');
-            modalRes.classList.remove('flex');
-        }, 300);
-    }
+    </script>
+
+    // LÓGICA PARA TESTIMONIOS DESPLEGABLES
+    <script>
+
+        const cards = document.querySelectorAll(".testimonial-card");
+
+        cards.forEach(card => {
+
+            const toggle = card.querySelector(".toggleCard");
+            const content = card.querySelector(".content");
+            const arrow = card.querySelector(".arrow");
+
+            toggle.addEventListener("click", () => {
+
+                const isOpen = content.style.maxHeight;
+
+                // cerrar todas
+                cards.forEach(otherCard => {
+
+                    otherCard.querySelector(".content").style.maxHeight = null;
+
+                    otherCard.querySelector(".arrow")
+                        .classList.remove("rotate-180");
+
+                });
+
+                // abrir actual
+                if (!isOpen) {
+
+                    content.style.maxHeight =
+                        content.scrollHeight + "px";
+
+                    arrow.classList.add("rotate-180");
+
+                }
+
+            });
+
+        });
 
     </script>
 
