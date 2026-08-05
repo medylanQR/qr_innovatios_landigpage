@@ -173,9 +173,31 @@
         .faq-item.open .faq-answer-wrap { grid-template-rows: 1fr; }
         .faq-answer-inner { overflow: hidden; }
 
+        /* BRILLO AMBIENTAL DEL HERO — muy suave, solo profundidad, nunca protagonista */
+        .hero-glow {
+            position: absolute; top: -12%; left: 50%; width: 1000px; height: 1000px; max-width: 140vw;
+            background: radial-gradient(circle, rgba(179,21,100,0.055) 0%, rgba(107,14,58,0.03) 45%, transparent 70%);
+            transform: translateX(-50%); filter: blur(30px);
+            animation: hero-drift 18s ease-in-out infinite; pointer-events: none; z-index: 0;
+        }
+        @keyframes hero-drift {
+            0%, 100% { transform: translate(-50%, 0) scale(1); }
+            50% { transform: translate(-48%, 2%) scale(1.06); }
+        }
+
+        /* REVELADO DE LÍNEAS DEL TITULAR — cada línea sube desde su propia máscara */
+        .line-mask { display: block; overflow: hidden; }
+        .line-inner { display: block; will-change: transform; }
+
+        /* TOQUE DE VIDA en elementos que antes eran totalmente estáticos */
+        .stat-item, .quote-item { transition: transform 450ms var(--ease-out); }
+        @media (hover: hover) and (pointer: fine) {
+            .stat-item:hover, .quote-item:hover { transform: translateY(-4px); }
+        }
+
         @media (prefers-reduced-motion: reduce) {
-            .marquee-content { animation: none !important; }
-            .idx-row::before, .btn-fill::before, .client-card, .faq-answer-wrap, .faq-icon { transition-duration: 1ms !important; }
+            .marquee-content, .hero-glow { animation: none !important; }
+            .idx-row::before, .btn-fill::before, .client-card, .faq-answer-wrap, .faq-icon, .stat-item, .quote-item { transition-duration: 1ms !important; }
         }
     </style>
 
@@ -309,11 +331,13 @@
     </div>
 
     <header class="relative pt-40 md:pt-52 pb-24 md:pb-32 px-6 md:px-16 overflow-hidden">
+        <div class="hero-glow" aria-hidden="true"></div>
         <div class="max-w-[1800px] mx-auto relative z-10">
             <div class="max-w-3xl">
                 <p class="reveal-up text-[13px] font-bold uppercase tracking-[0.2em] brand-text mb-8">Sistemas de grado industrial · Costa Rica</p>
-                <h1 class="reveal-up font-display font-extrabold text-qrInk leading-[0.98] mb-8" style="font-size: clamp(2.75rem, 7vw, 6.5rem); letter-spacing: -0.03em;">
-                    Ingeniería de software<br>que su operación <span class="brand-text">puede confiar.</span>
+                <h1 class="font-display font-extrabold text-qrInk leading-[0.98] mb-8" style="font-size: clamp(2.75rem, 7vw, 6.5rem); letter-spacing: -0.03em;">
+                    <span class="line-mask"><span class="line-inner">Ingeniería de software</span></span>
+                    <span class="line-mask"><span class="line-inner">que su operación <span class="brand-text">puede confiar.</span></span></span>
                 </h1>
                 <p class="reveal-up text-lg md:text-xl text-qrInkSoft font-medium leading-relaxed max-w-xl mb-11">
                     Agentes de IA, apps a medida e infraestructura cloud construidos desde Costa Rica para operaciones que no pueden fallar.
@@ -585,19 +609,19 @@
 
     <section class="py-20 md:py-28 px-6 md:px-16 max-w-[1800px] mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-14 reveal-up">
-            <div class="pt-10 border-t border-qrLine">
+            <div class="quote-item pt-10 border-t border-qrLine">
                 <p class="font-display text-xl md:text-2xl text-qrInk leading-snug mb-6">"QR Innovations transformó nuestra operación: implementamos automatización Hacienda v4.4, optimización operativa, integración administrativa y mejoras completas en productividad interna."</p>
                 <p class="text-sm font-bold text-qrInkSoft">Gerencia General <span class="brand-text">— Hotel Cañas</span></p>
             </div>
-            <div class="pt-10 border-t border-qrLine">
+            <div class="quote-item pt-10 border-t border-qrLine">
                 <p class="font-display text-xl md:text-2xl text-qrInk leading-snug mb-6">"El compromiso y responsabilidad de la marca es de otro nivel. Nos ayudaron a mejorar nuestra presencia digital y optimizar procesos tecnológicos internos."</p>
                 <p class="text-sm font-bold text-qrInkSoft">Propietario <span class="brand-text">— Restaurante Mi Tierra</span></p>
             </div>
-            <div class="pt-10 border-t border-qrLine">
+            <div class="quote-item pt-10 border-t border-qrLine">
                 <p class="font-display text-xl md:text-2xl text-qrInk leading-snug mb-6">"Nos encantó el acabado de nuestro sitio web desarrollado por QR Innovations. El diseño moderno y rendimiento superó nuestras expectativas."</p>
                 <p class="text-sm font-bold text-qrInkSoft">Gerencia General <span class="brand-text">— Edsawind</span></p>
             </div>
-            <div class="pt-10 border-t border-qrLine">
+            <div class="quote-item pt-10 border-t border-qrLine">
                 <p class="font-display text-xl md:text-2xl text-qrInk leading-snug mb-6">"Excelente soporte técnico y soluciones a la medida. Una experiencia impecable en el desarrollo de infraestructura corporativa."</p>
                 <p class="text-sm font-bold text-qrInkSoft">Gerencia General <span class="brand-text">— CICSA Ingeniería Civil</span></p>
             </div>
@@ -750,9 +774,23 @@
 
     <script>
         gsap.registerPlugin(ScrollTrigger);
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Titular del hero: cada línea sube desde su propia máscara, no un fade genérico
+        if (prefersReducedMotion) {
+            gsap.set('.line-inner', { y: 0 });
+        } else {
+            gsap.set('.line-inner', { y: '110%' });
+            gsap.to('.line-inner', { y: '0%', duration: 1.1, ease: 'power4.out', stagger: 0.1, delay: 0.15 });
+        }
 
         document.querySelectorAll('.reveal-up').forEach((el) => {
-            gsap.from(el, { opacity: 0, y: 36, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
+            gsap.from(el, {
+                opacity: 0, y: 36,
+                filter: prefersReducedMotion ? 'none' : 'blur(6px)',
+                duration: 1, ease: 'power3.out',
+                scrollTrigger: { trigger: el, start: 'top 88%' }
+            });
         });
         gsap.from('.idx-row', { opacity: 0, y: 24, duration: 0.7, ease: 'power3.out', stagger: 0.07, scrollTrigger: { trigger: '#ecosistema', start: 'top 75%' } });
         gsap.from('.stat-item', { opacity: 0, y: 24, duration: 0.7, ease: 'power3.out', stagger: 0.08, scrollTrigger: { trigger: '.stat-group', start: 'top 90%' } });
@@ -789,7 +827,6 @@
         document.querySelectorAll('.mobile-link').forEach((link) => link.addEventListener('click', () => toggleMenu(true)));
 
         const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (isFinePointer && !prefersReducedMotion) {
             document.querySelectorAll('.magnetic').forEach((btn) => {
                 const moveX = gsap.quickTo(btn, 'x', { duration: 0.4, ease: 'power3.out' });
