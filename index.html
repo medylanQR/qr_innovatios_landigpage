@@ -176,9 +176,27 @@
             .client-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -28px rgba(23,20,32,0.25); border-color: rgba(179,21,100,0.3); }
         }
 
+        /* FAQ — acordeón con altura animada por CSS grid, sin JS midiendo alturas */
+        .faq-item { border-top: 1px solid var(--line); }
+        .faq-item:last-child { border-bottom: 1px solid var(--line); }
+        .faq-question {
+            display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+            width: 100%; text-align: left; padding: 1.75rem 0; background: none; border: none; cursor: pointer;
+        }
+        .faq-icon {
+            display: inline-flex; align-items: center; justify-content: center; shrink: 0;
+            width: 2rem; height: 2rem; border-radius: 9999px; border: 1px solid var(--line); color: var(--ink);
+            transition: transform 420ms var(--ease-out), background-color 300ms ease, border-color 300ms ease, color 300ms ease;
+            flex-shrink: 0;
+        }
+        .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--ink); border-color: var(--ink); color: #fff; }
+        .faq-answer-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 450ms var(--ease-out); }
+        .faq-item.open .faq-answer-wrap { grid-template-rows: 1fr; }
+        .faq-answer-inner { overflow: hidden; }
+
         @media (prefers-reduced-motion: reduce) {
             .marquee-content { animation: none !important; }
-            .idx-row::before, .btn-fill::before, .client-card { transition-duration: 1ms !important; }
+            .idx-row::before, .btn-fill::before, .client-card, .faq-answer-wrap, .faq-icon { transition-duration: 1ms !important; }
         }
     </style>
 
@@ -212,6 +230,63 @@
     ]
     }
     </script>
+
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "¿Qué tipo de proyectos desarrolla QR Innovations?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Construimos agentes de IA, aplicaciones móviles nativas, sistemas de facturación electrónica bajo el protocolo de Hacienda, auditorías de ciberseguridad e infraestructura de API para pagos e integraciones. Todo a la medida de la operación de cada cliente, no plantillas genéricas."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Trabajan con la facturación electrónica de Hacienda?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. Implementamos y automatizamos la facturación electrónica bajo el protocolo v4.4 de Hacienda, como lo hicimos para Hotel Cañas y CICSA Ingeniería Civil, conectada al resto de tu operación en un mismo sistema."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Cómo es el soporte técnico después de la entrega?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Escribís por WhatsApp y te responde un ingeniero real, no un bot ni un ticket que espera turno. El soporte está disponible 24/7 para las operaciones que ya tenemos en producción."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Solo trabajan con empresas en Costa Rica?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Estamos basados en San José, Costa Rica, y ahí está la mayoría de nuestros clientes actuales, pero trabajamos proyectos remotos para negocios en toda la región."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Qué es Cloud Mail y quién lo necesita?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Es correo corporativo con tu propio dominio (.com o .cr), filtro de spam con IA, almacenamiento ilimitado y seguridad SSL/TLS. Ideal para negocios que todavía usan un correo genérico y quieren verse tan serios como son."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Cómo empiezo un proyecto?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Escribinos directo por WhatsApp desde cualquier botón de la página. Hablás con un ingeniero, nos contás qué necesita tu operación, y de ahí armamos la propuesta, sin formularios largos ni intermediarios."
+            }
+        }
+    ]
+    }
+    </script>
 </head>
 
 <body class="font-sans">
@@ -230,6 +305,7 @@
                 <a href="#proyectos" class="link-underline hover:text-qrInk transition-colors">Proyectos</a>
                 <a href="#mail" class="link-underline hover:text-qrInk transition-colors">Cloud Mail</a>
                 <a href="#marcas" class="link-underline hover:text-qrInk transition-colors">Marcas</a>
+                <a href="#faq" class="link-underline hover:text-qrInk transition-colors">FAQ</a>
             </div>
             <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary btn-fill magnetic hidden xl:inline-flex">
                 <span>Iniciar Proyecto</span> <i class="fa-solid fa-arrow-right text-xs"></i>
@@ -247,6 +323,7 @@
         <a href="#proyectos" class="mobile-link text-3xl font-extrabold text-qrInk/70 hover:text-qrInk py-4 transition-colors" style="transition-delay: 160ms">Proyectos</a>
         <a href="#mail" class="mobile-link text-3xl font-extrabold text-qrInk/70 hover:text-qrInk py-4 transition-colors" style="transition-delay: 210ms">Cloud Mail</a>
         <a href="#marcas" class="mobile-link text-3xl font-extrabold text-qrInk/70 hover:text-qrInk py-4 transition-colors" style="transition-delay: 260ms">Marcas</a>
+        <a href="#faq" class="mobile-link text-3xl font-extrabold text-qrInk/70 hover:text-qrInk py-4 transition-colors" style="transition-delay: 300ms">FAQ</a>
         <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="mobile-link btn-primary btn-fill mt-8" style="transition-delay: 310ms">
             <span>Iniciar Proyecto</span> <i class="fa-solid fa-arrow-right text-xs"></i>
         </a>
@@ -527,6 +604,83 @@
         <p class="text-center text-sm font-semibold text-qrInkSoft mt-12 reveal-up">Y seguimos construyendo el sistema de la próxima empresa que confíe en nosotros.</p>
     </section>
 
+    <section id="faq" class="py-24 md:py-32 px-6 md:px-16 max-w-[1800px] mx-auto">
+        <div class="max-w-xl mb-14 md:mb-16 reveal-up">
+            <span class="ghost-num block mb-4">05</span>
+            <h2 class="font-display font-extrabold text-qrInk text-3xl md:text-6xl leading-none mb-4">Preguntas frecuentes.</h2>
+            <p class="text-lg text-qrInkSoft leading-relaxed">Lo que más nos preguntan antes de empezar un proyecto.</p>
+        </div>
+
+        <div class="reveal-up">
+            <div class="faq-item">
+                <button type="button" class="faq-question" aria-expanded="false">
+                    <span class="font-display font-extrabold text-qrInk text-xl md:text-2xl">¿Qué tipo de proyectos desarrolla QR Innovations?</span>
+                    <span class="faq-icon"><i class="fa-solid fa-plus text-xs"></i></span>
+                </button>
+                <div class="faq-answer-wrap">
+                    <div class="faq-answer-inner">
+                        <p class="text-qrInkSoft text-base md:text-lg leading-relaxed pb-7 max-w-2xl">Construimos agentes de IA, aplicaciones móviles nativas, sistemas de facturación electrónica bajo el protocolo de Hacienda, auditorías de ciberseguridad e infraestructura de API para pagos e integraciones. Todo a la medida de la operación de cada cliente, no plantillas genéricas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question" aria-expanded="false">
+                    <span class="font-display font-extrabold text-qrInk text-xl md:text-2xl">¿Trabajan con la facturación electrónica de Hacienda?</span>
+                    <span class="faq-icon"><i class="fa-solid fa-plus text-xs"></i></span>
+                </button>
+                <div class="faq-answer-wrap">
+                    <div class="faq-answer-inner">
+                        <p class="text-qrInkSoft text-base md:text-lg leading-relaxed pb-7 max-w-2xl">Sí. Implementamos y automatizamos la facturación electrónica bajo el protocolo v4.4 de Hacienda, como lo hicimos para Hotel Cañas y CICSA Ingeniería Civil, conectada al resto de tu operación en un mismo sistema.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question" aria-expanded="false">
+                    <span class="font-display font-extrabold text-qrInk text-xl md:text-2xl">¿Cómo es el soporte técnico después de la entrega?</span>
+                    <span class="faq-icon"><i class="fa-solid fa-plus text-xs"></i></span>
+                </button>
+                <div class="faq-answer-wrap">
+                    <div class="faq-answer-inner">
+                        <p class="text-qrInkSoft text-base md:text-lg leading-relaxed pb-7 max-w-2xl">Escribís por WhatsApp y te responde un ingeniero real, no un bot ni un ticket que espera turno. El soporte está disponible 24/7 para las operaciones que ya tenemos en producción.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question" aria-expanded="false">
+                    <span class="font-display font-extrabold text-qrInk text-xl md:text-2xl">¿Solo trabajan con empresas en Costa Rica?</span>
+                    <span class="faq-icon"><i class="fa-solid fa-plus text-xs"></i></span>
+                </button>
+                <div class="faq-answer-wrap">
+                    <div class="faq-answer-inner">
+                        <p class="text-qrInkSoft text-base md:text-lg leading-relaxed pb-7 max-w-2xl">Estamos basados en San José, Costa Rica, y ahí está la mayoría de nuestros clientes actuales, pero trabajamos proyectos remotos para negocios en toda la región.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question" aria-expanded="false">
+                    <span class="font-display font-extrabold text-qrInk text-xl md:text-2xl">¿Qué es Cloud Mail y quién lo necesita?</span>
+                    <span class="faq-icon"><i class="fa-solid fa-plus text-xs"></i></span>
+                </button>
+                <div class="faq-answer-wrap">
+                    <div class="faq-answer-inner">
+                        <p class="text-qrInkSoft text-base md:text-lg leading-relaxed pb-7 max-w-2xl">Es correo corporativo con tu propio dominio (.com o .cr), filtro de spam con IA, almacenamiento ilimitado y seguridad SSL/TLS. Ideal para negocios que todavía usan un correo genérico y quieren verse tan serios como son.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question" aria-expanded="false">
+                    <span class="font-display font-extrabold text-qrInk text-xl md:text-2xl">¿Cómo empiezo un proyecto?</span>
+                    <span class="faq-icon"><i class="fa-solid fa-plus text-xs"></i></span>
+                </button>
+                <div class="faq-answer-wrap">
+                    <div class="faq-answer-inner">
+                        <p class="text-qrInkSoft text-base md:text-lg leading-relaxed pb-7 max-w-2xl">Escribinos directo por WhatsApp desde cualquier botón de la página. Hablás con un ingeniero, nos contás qué necesita tu operación, y de ahí armamos la propuesta — sin formularios largos ni intermediarios.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="py-24 md:py-32 px-6 md:px-16 max-w-[1800px] mx-auto">
         <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-10 bg-qrInk p-10 md:p-20 reveal-up">
             <h2 class="font-display font-extrabold text-white text-4xl md:text-7xl leading-none max-w-2xl">¿Construimos <span class="text-qrPink">tu sistema?</span></h2>
@@ -659,6 +813,15 @@
                     link_url: link.href
                 });
             }
+        });
+
+        // Acordeón de FAQ
+        document.querySelectorAll('.faq-item').forEach((item) => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isOpen = item.classList.toggle('open');
+                question.setAttribute('aria-expanded', String(isOpen));
+            });
         });
     </script>
 
