@@ -47,19 +47,26 @@
     </script>
 
     <style>
-        :root { --magenta: #d11f8a; --purple: #673de6; }
+        :root { --magenta: #d11f8a; --purple: #673de6; --dark: #050505; }
+        html { scroll-padding-top: 7rem; }
         body { background-color: #ffffff; color: #1e293b; overflow-x: hidden; scroll-behavior: smooth; }
 
         /* MESH GRADIENT ANIMADO (Vida en el Main) */
         .mesh-gradient {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background-color: #ffffff;
-            background-image: 
+            background-image:
                 radial-gradient(at 0% 0%, rgba(209, 31, 138, 0.05) 0px, transparent 50%),
                 radial-gradient(at 100% 0%, rgba(103, 61, 230, 0.05) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(209, 31, 138, 0.03) 0px, transparent 50%),
                 radial-gradient(at 0% 100%, rgba(103, 61, 230, 0.03) 0px, transparent 50%);
             filter: blur(80px);
+        }
+
+        /* GRANO FIJO — textura física, nunca sobre contenedores con scroll */
+        .grain-overlay {
+            position: fixed; inset: 0; z-index: 999; pointer-events: none; opacity: 0.035; mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
         /* TIPOGRAFÍA MONUMENTAL */
@@ -90,12 +97,6 @@
         .marquee-content { display: inline-block; animation: marquee 40s linear infinite; }
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* SECCIONES DE GRADIENTE QR */
-        .qr-grad-section {
-            background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 100%);
-            color: white;
-        }
-
         /* CUSTOM SCROLLBAR */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
@@ -104,18 +105,26 @@
         .text-glow { text-shadow: 0 0 30px rgba(209, 31, 138, 0.3); }
         .feature-check { color: var(--magenta); margin-right: 8px; font-weight: bold; }
 
-        /* BOTÓN GRADIENTE DE MARCA */
-        .btn-primary {
-            background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 100%);
-            background-size: 160% 160%;
-            background-position: 0% 50%;
-            transition: background-position 0.6s ease, transform 0.4s cubic-bezier(0.19,1,0.22,1), box-shadow 0.4s ease;
+        /* BOTÓN ISLA — un solo acento sólido, magenta reservado al hover/glow */
+        .btn-primary, .btn-invert {
+            display: inline-flex; align-items: center; gap: 0.75rem;
+            transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s cubic-bezier(0.16,1,0.3,1), background-color 0.4s ease;
         }
-        .btn-primary:hover {
-            background-position: 100% 50%;
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px -12px rgba(209, 31, 138, 0.45);
+        .btn-primary { background: var(--dark); color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); }
+        .btn-primary:hover { background: var(--purple); transform: translateY(-3px); box-shadow: 0 22px 45px -18px rgba(209,31,138,0.5); }
+        .btn-primary:active { transform: translateY(-1px) scale(0.97); }
+        .btn-invert { background: #fff; color: var(--dark); }
+        .btn-invert:hover { transform: translateY(-3px); box-shadow: 0 22px 45px -18px rgba(0,0,0,0.35); }
+        .btn-invert:active { transform: translateY(-1px) scale(0.97); }
+        .btn-icon {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 1.75rem; height: 1.75rem; border-radius: 9999px; background: rgba(255,255,255,0.14);
+            transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), background-color 0.4s ease;
+            font-size: 0.7rem; flex-shrink: 0;
         }
+        .btn-invert .btn-icon { background: rgba(5,5,5,0.08); }
+        .btn-primary:hover .btn-icon { transform: translate(3px,-3px); background: rgba(255,255,255,0.24); }
+        .btn-invert:hover .btn-icon { transform: translate(3px,-3px); background: rgba(5,5,5,0.16); }
 
         /* TEXTURA DE PUNTOS PARA EL HERO */
         .dot-grid {
@@ -123,19 +132,44 @@
             background-size: 28px 28px;
         }
 
-        /* BARRA DE PROGRESO DE SCROLL */
+        /* BARRA DE PROGRESO DE SCROLL — un solo acento */
         #scroll-progress {
-            position: fixed; top: 0; left: 0; height: 3px; width: 0%;
-            background: linear-gradient(90deg, var(--magenta), var(--purple));
+            position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+            background: var(--purple);
             z-index: 300;
         }
 
-        /* NAV CON SOMBRA AL HACER SCROLL */
-        #navbar { transition: box-shadow 0.3s ease, background-color 0.3s ease; }
-        #navbar.scrolled { box-shadow: 0 10px 40px -20px rgba(15, 23, 42, 0.2); background-color: rgba(255,255,255,0.9); }
+        /* NAV FLOTANTE */
+        #navbar {
+            background: rgba(5, 5, 5, 0.78);
+            -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 30px 60px -30px rgba(0,0,0,0.6);
+            transition: box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        #navbar.scrolled { box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 70px -25px rgba(0,0,0,0.75); }
 
-        /* MENÚ MÓVIL */
-        #mobile-menu { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.19,1,0.22,1), opacity 0.4s ease; }
+        /* MENÚ MÓVIL — overlay a pantalla completa */
+        #menu-toggle { position: relative; }
+        .menu-bar {
+            position: absolute; left: 50%; top: 50%; width: 18px; height: 2px; background: #fff; border-radius: 2px;
+            transform: translate(-50%, -50%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease;
+        }
+        .menu-bar-1 { margin-top: -4px; }
+        .menu-bar-2 { margin-top: 4px; }
+        #menu-toggle.open .menu-bar-1 { margin-top: 0; transform: translate(-50%, -50%) rotate(45deg); }
+        #menu-toggle.open .menu-bar-2 { margin-top: 0; transform: translate(-50%, -50%) rotate(-45deg); }
+
+        #mobile-menu {
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1);
+        }
+        #mobile-menu.open { opacity: 1; pointer-events: auto; }
+        #mobile-menu .mobile-link {
+            opacity: 0; transform: translateY(16px);
+            transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);
+        }
+        #mobile-menu.open .mobile-link { opacity: 1; transform: translateY(0); }
     </style>
 
         <script type="application/ld+json">
@@ -173,55 +207,45 @@
 
     <div id="scroll-progress"></div>
     <div class="mesh-gradient"></div>
+    <div class="grain-overlay"></div>
 
-    <nav id="navbar" class="fixed top-0 w-full z-[200] bg-white/70 backdrop-blur-xl border-b border-slate-100">
-        <div class="max-w-[1800px] mx-auto w-full flex justify-between items-center h-24 px-6 md:px-16">
-            <div class="flex items-center gap-4 group">
-                <img src="assets/FavIcon2.png" alt="QR" class="w-10 h-10 group-hover:rotate-12 transition-transform duration-500">
-                <span class="text-xl md:text-2xl font-black tracking-tighter text-qrDark uppercase italic">QR Innovations</span>
+    <div class="fixed top-4 md:top-6 inset-x-0 z-[300] flex justify-center px-4 md:px-6">
+        <nav id="navbar" class="w-full max-w-5xl rounded-full pl-3 pr-2 py-2 md:pl-6 md:pr-3 md:py-3 flex items-center justify-between gap-4">
+            <a href="#" class="flex items-center gap-3 group shrink-0">
+                <img src="assets/FavIcon2.png" alt="QR" class="w-9 h-9 md:w-10 md:h-10 rounded-full group-hover:rotate-12 transition-transform duration-500">
+                <span class="hidden sm:block text-lg md:text-xl font-black tracking-tighter text-white uppercase italic">QR Innovations</span>
+            </a>
+            <div class="hidden xl:flex items-center gap-9 text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">
+                <a href="#ecosistema" class="hover:text-white transition-colors">Ecosistema</a>
+                <a href="#horizons" class="hover:text-white transition-colors">Horizon IA</a>
+                <a href="#proyectos" class="hover:text-white transition-colors">Proyectos</a>
+                <a href="#mail" class="hover:text-white transition-colors">Cloud Mail</a>
+                <a href="#marcas" class="hover:text-white transition-colors">Marcas</a>
             </div>
-            <div class="hidden xl:flex items-center gap-12 text-[11px] font-black uppercase tracking-[0.2em] text-slate-500">
-                <a href="#ecosistema" class="hover:text-qrMagenta transition-colors">Ecosistema</a>
-                <a href="#horizons" class="hover:text-qrMagenta transition-colors">Horizon IA</a>
-                <a href="#proyectos" class="hover:text-qrMagenta transition-colors">Proyectos</a>
-                <a href="#mail" class="hover:text-qrMagenta transition-colors">Cloud Mail</a>
-                <a href="#marcas" class="hover:text-qrMagenta transition-colors">Marcas</a>
-                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary text-white px-8 py-4 rounded-full hover:shadow-2xl hover:shadow-qrMagenta/40 transition-all scale-105 active:scale-95">Iniciar Proyecto</a>
-            </div>
-            <button id="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu" class="xl:hidden text-xl text-qrDark w-11 h-11 flex items-center justify-center rounded-full hover:bg-qrMagenta/5 transition-colors">
-                <i class="fa-solid fa-bars"></i>
+            <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-invert hidden xl:inline-flex px-6 py-3 rounded-full font-black uppercase tracking-widest text-[11px]">
+                Iniciar Proyecto <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+            <button id="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu" class="xl:hidden w-11 h-11 rounded-full bg-white/10 hover:bg-white/15 transition-colors shrink-0">
+                <span class="menu-bar menu-bar-1"></span>
+                <span class="menu-bar menu-bar-2"></span>
             </button>
-        </div>
-        <div id="mobile-menu" class="xl:hidden px-6">
-            <div class="flex flex-col gap-1 py-6 border-t border-slate-100 text-xs font-black uppercase tracking-widest text-slate-600">
-                <a href="#ecosistema" class="mobile-link py-3 hover:text-qrMagenta transition-colors">Ecosistema</a>
-                <a href="#horizons" class="mobile-link py-3 hover:text-qrMagenta transition-colors">Horizon IA</a>
-                <a href="#proyectos" class="mobile-link py-3 hover:text-qrMagenta transition-colors">Proyectos</a>
-                <a href="#mail" class="mobile-link py-3 hover:text-qrMagenta transition-colors">Cloud Mail</a>
-                <a href="#marcas" class="mobile-link py-3 hover:text-qrMagenta transition-colors">Marcas</a>
-                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary text-white text-center px-8 py-4 rounded-full mt-4">Iniciar Proyecto</a>
-            </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 
-    <header class="relative pt-48 md:pt-64 pb-24 md:pb-48 px-6 md:px-16 dot-grid overflow-hidden">
-        <div class="hidden lg:block absolute top-72 left-[6%] glass-panel rounded-2xl px-7 py-5 reveal-up">
-            <div class="text-4xl font-black text-qrMagenta italic leading-none">100%</div>
-            <div class="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 mt-2">Pura Vida Tech</div>
-        </div>
-        <div class="hidden lg:block absolute bottom-40 right-[6%] glass-panel rounded-2xl px-7 py-5 reveal-up">
-            <div class="text-4xl font-black text-qrPurple italic leading-none">24/7</div>
-            <div class="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 mt-2">Soporte Técnico</div>
-        </div>
+    <div id="mobile-menu" class="fixed inset-0 z-[290] bg-qrDark/98 backdrop-blur-2xl flex flex-col items-center justify-center gap-1 xl:hidden">
+        <a href="#ecosistema" class="mobile-link text-3xl font-black uppercase tracking-tight text-white/80 hover:text-white py-4 transition-colors" style="transition-delay: 60ms">Ecosistema</a>
+        <a href="#horizons" class="mobile-link text-3xl font-black uppercase tracking-tight text-white/80 hover:text-white py-4 transition-colors" style="transition-delay: 110ms">Horizon IA</a>
+        <a href="#proyectos" class="mobile-link text-3xl font-black uppercase tracking-tight text-white/80 hover:text-white py-4 transition-colors" style="transition-delay: 160ms">Proyectos</a>
+        <a href="#mail" class="mobile-link text-3xl font-black uppercase tracking-tight text-white/80 hover:text-white py-4 transition-colors" style="transition-delay: 210ms">Cloud Mail</a>
+        <a href="#marcas" class="mobile-link text-3xl font-black uppercase tracking-tight text-white/80 hover:text-white py-4 transition-colors" style="transition-delay: 260ms">Marcas</a>
+        <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="mobile-link btn-primary px-8 py-4 rounded-full font-black uppercase tracking-widest text-xs mt-8" style="transition-delay: 310ms">
+            Iniciar Proyecto <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+    </div>
+
+    <header class="relative pt-40 md:pt-56 pb-20 md:pb-40 px-6 md:px-16 dot-grid overflow-hidden">
         <div class="max-w-[1800px] mx-auto">
             <div class="flex flex-col items-center text-center">
-                <div class="reveal-up inline-flex items-center gap-3 px-6 py-2 rounded-full border border-qrMagenta/20 bg-qrMagenta/5 text-[10px] font-black uppercase tracking-[0.3em] text-qrMagenta mb-12">
-                    <span class="relative flex h-3 w-3">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-qrMagenta opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-3 w-3 bg-qrMagenta"></span>
-                    </span>
-                    Sistemas de Grado Industrial Activos
-                </div>
                 <h1 class="heading-mega text-slate-900 mb-12 reveal-up">
                     Architecture <br> for <span class="text-qrMagenta italic text-glow">Leaders.</span>
                 </h1>
@@ -229,25 +253,28 @@
                     Desarrollamos el software crítico que sostiene a los gigantes industriales. Ingeniería Pura Vida desde Costa Rica.
                 </p>
                 <div class="flex flex-wrap justify-center gap-6 md:gap-8 reveal-up">
-                    <a href="#ecosistema" class="btn-primary text-white px-10 md:px-12 py-5 md:py-6 rounded-3xl font-black uppercase tracking-widest text-xs transition-all">Ver Ecosistema</a>
-                    <a href="#trayectoria" class="glass-panel px-10 md:px-12 py-5 md:py-6 rounded-3xl font-black uppercase tracking-widest text-xs text-slate-600">Nuestros Socios</a>
+                    <a href="#ecosistema" class="btn-primary px-10 md:px-12 py-5 md:py-6 rounded-full font-black uppercase tracking-widest text-xs">
+                        Ver Ecosistema <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+                    <a href="#trayectoria" class="glass-panel px-10 md:px-12 py-5 md:py-6 rounded-full font-black uppercase tracking-widest text-xs text-slate-600">Nuestros Socios</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <section id="trayectoria" class="qr-grad-section py-24 marquee border border-white/10 bg-black/10 backdrop-blur-md shadow-2xl rounded-2xl">
-        <div class="marquee-content">
-            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Edsawind</span>
-            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Hotel Cañas</span>
-            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Dulce Gusto</span>
-            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Mi Tierra</span>
-            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">CICSA</span>
-            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Edsawind</span>
-            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Hotel Cañas</span>
-            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Dulce Gusto</span>
-            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Mi Tierra</span>
-            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">CICSA</span>
+    <section id="trayectoria" class="relative py-20 marquee border border-white/10 bg-qrDark shadow-2xl rounded-[32px] overflow-hidden mx-4 md:mx-8">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-qrPurple/20 blur-[130px] rounded-full pointer-events-none"></div>
+        <div class="marquee-content relative">
+            <span class="mx-20 text-5xl font-black opacity-90 uppercase text-white">Edsawind</span>
+            <span class="mx-20 text-5xl font-black opacity-60 uppercase text-white italic">Hotel Cañas</span>
+            <span class="mx-20 text-5xl font-black opacity-90 uppercase text-white">Dulce Gusto</span>
+            <span class="mx-20 text-5xl font-black opacity-60 uppercase text-white italic">Mi Tierra</span>
+            <span class="mx-20 text-5xl font-black opacity-90 uppercase text-qrMagenta">CICSA</span>
+            <span class="mx-20 text-5xl font-black opacity-90 uppercase text-white">Edsawind</span>
+            <span class="mx-20 text-5xl font-black opacity-60 uppercase text-white italic">Hotel Cañas</span>
+            <span class="mx-20 text-5xl font-black opacity-90 uppercase text-white">Dulce Gusto</span>
+            <span class="mx-20 text-5xl font-black opacity-60 uppercase text-white italic">Mi Tierra</span>
+            <span class="mx-20 text-5xl font-black opacity-90 uppercase text-qrMagenta">CICSA</span>
         </div>
     </section>
 
@@ -287,14 +314,16 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 auto-rows-auto md:auto-rows-[300px]">
-            
-            <div class="md:col-span-8 md:row-span-2 glass-panel p-8 md:p-16 flex flex-col justify-end bg-qrDark text-white relative overflow-hidden group reveal-up min-h-[320px] md:min-h-auto">
-                <div class="absolute -top-10 -right-10 md:-top-20 md:-right-20 p-5 md:p-10 opacity-5 text-[12rem] md:text-[25rem] font-black italic group-hover:text-qrMagenta transition-colors duration-700 pointer-events-none">IA</div>
-                <div class="relative z-10">
-                    <span class="text-qrMagenta font-black text-[10px] md:text-xs uppercase tracking-[0.4em] mb-4 md:mb-6 block">Intelligence Systems</span>
-                    <h3 class="text-3xl md:text-6xl font-black mb-4 md:mb-8 leading-none uppercase">Artificial <br class="hidden md:block"> Agents.</h3>
-                    <p class="text-slate-400 max-w-md text-sm md:text-lg">Chatbots autónomos y visión computacional que gestionan procesos críticos en tiempo real.</p>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 auto-rows-auto md:auto-rows-[300px] grid-flow-dense">
+
+            <div class="md:col-span-8 md:row-span-2 p-1.5 md:p-2 rounded-[2rem] md:rounded-[2.75rem] bg-white/5 ring-1 ring-black/5 reveal-up">
+                <div class="w-full h-full p-8 md:p-16 rounded-[1.625rem] md:rounded-[2.375rem] flex flex-col justify-end bg-qrDark text-white relative overflow-hidden group min-h-[290px] md:min-h-auto shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                    <div class="absolute -top-10 -right-10 md:-top-20 md:-right-20 p-5 md:p-10 opacity-5 text-[12rem] md:text-[25rem] font-black italic group-hover:text-qrMagenta transition-colors duration-700 pointer-events-none">IA</div>
+                    <div class="relative z-10">
+                        <span class="text-qrMagenta font-black text-[10px] md:text-xs uppercase tracking-[0.4em] mb-4 md:mb-6 block">Intelligence Systems</span>
+                        <h3 class="text-3xl md:text-6xl font-black mb-4 md:mb-8 leading-none uppercase">Artificial <br class="hidden md:block"> Agents.</h3>
+                        <p class="text-slate-400 max-w-md text-sm md:text-lg">Chatbots autónomos y visión computacional que gestionan procesos críticos en tiempo real.</p>
+                    </div>
                 </div>
             </div>
 
@@ -345,7 +374,9 @@
                 
                 <h2 class="text-4xl md:text-8xl font-black mb-6 md:mix-blend-overlay leading-none tracking-tighter text-glow break-words">Ideas humanas <br> impulsadas por IA</h2>
                 <p class="text-sm md:text-xl text-white/60 mb-10 max-w-3xl mx-auto font-medium leading-relaxed">Nuestras herramientas de ingeniería con IA te ayudan a escalar operaciones industriales mientras mantienes el control total sobre tu éxito en un mismo ecosistema.</p>
-                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary inline-block text-white px-10 py-4 md:px-12 md:py-5 rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl shadow-qrPurple/40">Empezar ya</a>
+                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary px-10 py-4 md:px-12 md:py-5 rounded-full font-black text-xs uppercase tracking-widest shadow-2xl shadow-qrPurple/40">
+                    Empezar ya <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+                </a>
 
                 <div class="mt-16 md:mt-32 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[24px] md:rounded-[40px] p-6 md:p-24 text-left relative overflow-hidden group hover:border-qrMagenta/50 transition-colors duration-500">
                     <div class="absolute -right-20 -bottom-20 w-64 h-64 md:w-96 md:h-96 bg-gradient-to-tl from-qrMagenta to-qrPurple opacity-30 blur-[100px] rounded-full group-hover:opacity-50 transition-opacity duration-500"></div>
@@ -368,15 +399,17 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-            <div class="md:col-span-7 glass-panel p-8 md:p-14 bg-qrDark text-white rounded-[32px] md:rounded-[40px] relative overflow-hidden group reveal-up">
-                <div class="absolute -top-20 -right-20 p-10 opacity-5 text-[12rem] md:text-[20rem] font-black italic group-hover:text-qrMagenta transition-colors duration-700 pointer-events-none"><i class="fa-solid fa-drafting-compass"></i></div>
-                <span class="text-qrMagenta font-black text-[10px] md:text-xs uppercase tracking-[0.4em] mb-6 block relative z-10">Ingeniería Civil · Sistema a Medida</span>
-                <h3 class="text-3xl md:text-5xl font-black mb-6 uppercase leading-none relative z-10">CICSA <br>Ingeniería Civil</h3>
-                <p class="text-slate-400 text-sm md:text-lg max-w-md mb-10 relative z-10">Plataforma 100% especializada en su operación: el equipo de CICSA registra el avance de cada obra y sus clientes dan seguimiento al progreso del proyecto en tiempo real, todo desde un mismo sistema.</p>
-                <div class="flex flex-wrap gap-3 relative z-10">
-                    <span class="px-4 py-2 rounded-full bg-white/10 text-xs font-bold uppercase tracking-widest">Gestión de Proyectos</span>
-                    <span class="px-4 py-2 rounded-full bg-white/10 text-xs font-bold uppercase tracking-widest">Portal de Clientes</span>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 grid-flow-dense">
+            <div class="md:col-span-7 p-1.5 md:p-2 rounded-[2rem] md:rounded-[2.75rem] bg-white/5 ring-1 ring-black/5 reveal-up">
+                <div class="p-8 md:p-14 bg-qrDark text-white rounded-[1.625rem] md:rounded-[2.375rem] relative overflow-hidden group h-full shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                    <div class="absolute -top-20 -right-20 p-10 opacity-5 text-[12rem] md:text-[20rem] font-black italic group-hover:text-qrMagenta transition-colors duration-700 pointer-events-none"><i class="fa-solid fa-drafting-compass"></i></div>
+                    <span class="text-qrMagenta font-black text-[10px] md:text-xs uppercase tracking-[0.4em] mb-6 block relative z-10">Ingeniería Civil · Sistema a Medida</span>
+                    <h3 class="text-3xl md:text-5xl font-black mb-6 uppercase leading-none relative z-10">CICSA <br>Ingeniería Civil</h3>
+                    <p class="text-slate-400 text-sm md:text-lg max-w-md mb-10 relative z-10">Plataforma 100% especializada en su operación: el equipo de CICSA registra el avance de cada obra y sus clientes dan seguimiento al progreso del proyecto en tiempo real, todo desde un mismo sistema.</p>
+                    <div class="flex flex-wrap gap-3 relative z-10">
+                        <span class="px-4 py-2 rounded-full bg-white/10 text-xs font-bold uppercase tracking-widest">Gestión de Proyectos</span>
+                        <span class="px-4 py-2 rounded-full bg-white/10 text-xs font-bold uppercase tracking-widest">Portal de Clientes</span>
+                    </div>
                 </div>
             </div>
 
@@ -414,7 +447,9 @@
 
         <div class="mt-16 md:mt-20 text-center reveal-up">
             <p class="text-lg md:text-xl text-slate-400 font-medium mb-8">¿Listo para que tu negocio sea el próximo caso de éxito?</p>
-            <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary text-white px-10 md:px-12 py-5 md:py-6 rounded-3xl font-black uppercase tracking-widest text-xs transition-all inline-block">Quiero mi Sistema</a>
+            <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary px-10 md:px-12 py-5 md:py-6 rounded-full font-black uppercase tracking-widest text-xs">
+                Quiero mi Sistema <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+            </a>
         </div>
     </section>
 
@@ -457,7 +492,9 @@
                     <div class="flex items-center font-bold text-sm text-slate-700"><span class="feature-check">✓</span> Seguridad SSL/TLS</div>
                     <div class="flex items-center font-bold text-sm text-slate-700"><span class="feature-check">✓</span> Mobile Sync Pro</div>
                 </div>
-                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary text-white px-10 md:px-12 py-5 md:py-6 rounded-3xl font-black uppercase tracking-widest text-xs transition-all inline-block shadow-xl shadow-qrDark/10">Obtener Mail Pro</a>
+                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary px-10 md:px-12 py-5 md:py-6 rounded-full font-black uppercase tracking-widest text-xs shadow-xl shadow-qrDark/10">
+                    Obtener Mail Pro <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+                </a>
             </div>
         </div>
     </section>
@@ -468,7 +505,7 @@
             <h2 class="text-4xl md:text-7xl font-black text-slate-900 tracking-tighter uppercase leading-none">Marcas que <br><span class="text-qrMagenta italic text-glow">confían en nosotros.</span></h2>
         </div>
 
-        <div class="relative rounded-[32px] md:rounded-[50px] p-6 md:p-16 overflow-hidden reveal-up" style="background: linear-gradient(135deg, rgba(209,31,138,0.05) 0%, rgba(103,61,230,0.05) 100%);">
+        <div class="relative rounded-[32px] md:rounded-[50px] p-6 md:p-16 overflow-hidden reveal-up" style="background: radial-gradient(circle at 20% 15%, rgba(103,61,230,0.07), transparent 55%), radial-gradient(circle at 85% 85%, rgba(209,31,138,0.06), transparent 55%);">
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-8">
                 <div class="glass-panel rounded-[24px] md:rounded-[30px] p-6 md:p-10 flex items-center justify-center h-28 md:h-40 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-500">
                     <img src="assets/LogoCICSA.png" alt="CICSA Ingeniería Civil" class="max-h-full max-w-full object-contain">
@@ -491,13 +528,13 @@
     </section>
 
     <section class="py-20 md:py-32 px-6 md:px-16 max-w-[1800px] mx-auto">
-        <div class="rounded-[32px] md:rounded-[50px] p-10 md:p-20 text-center text-white relative overflow-hidden shadow-2xl reveal-up" style="background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 100%);">
-            <div class="absolute -top-32 -right-32 w-96 h-96 bg-white/10 blur-[100px] rounded-full pointer-events-none"></div>
-            <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 blur-[100px] rounded-full pointer-events-none"></div>
+        <div class="rounded-[32px] md:rounded-[50px] p-10 md:p-20 text-center text-white relative overflow-hidden shadow-2xl reveal-up" style="background: radial-gradient(circle at 50% 30%, #2e1065 0%, #050505 65%); border: 1px solid rgba(103,61,230,0.25);">
+            <div class="absolute -top-32 -right-32 w-96 h-96 bg-qrPurple/25 blur-[110px] rounded-full pointer-events-none"></div>
+            <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-qrMagenta/15 blur-[110px] rounded-full pointer-events-none"></div>
             <h2 class="text-3xl md:text-6xl font-black uppercase tracking-tighter mb-6 leading-none relative z-10">¿Construimos tu <br>sistema?</h2>
-            <p class="text-white/80 text-base md:text-lg max-w-xl mx-auto mb-10 font-medium relative z-10">Hablemos por WhatsApp y te decimos, sin rodeos, qué necesita tu operación.</p>
-            <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="relative z-10 inline-flex items-center gap-3 bg-white text-qrMagenta px-8 md:px-10 py-4 md:py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform shadow-xl">
-                <i class="fa-brands fa-whatsapp text-lg"></i> Escribinos ahora
+            <p class="text-white/60 text-base md:text-lg max-w-xl mx-auto mb-10 font-medium relative z-10">Hablemos por WhatsApp y te decimos, sin rodeos, qué necesita tu operación.</p>
+            <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-invert relative z-10 px-8 md:px-10 py-4 md:py-5 rounded-full font-black text-xs uppercase tracking-widest">
+                <i class="fa-brands fa-whatsapp text-base"></i> Escribinos ahora <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
             </a>
         </div>
     </section>
@@ -584,26 +621,17 @@
             navbar.classList.toggle('scrolled', scrollTop > 40);
         });
 
-        // Menú móvil
+        // Menú móvil — overlay a pantalla completa
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = menuToggle.querySelector('i');
         let menuOpen = false;
 
         function toggleMenu(forceClose) {
             menuOpen = forceClose ? false : !menuOpen;
             menuToggle.setAttribute('aria-expanded', String(menuOpen));
-            if (menuOpen) {
-                mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
-                mobileMenu.style.opacity = '1';
-                menuIcon.classList.remove('fa-bars');
-                menuIcon.classList.add('fa-xmark');
-            } else {
-                mobileMenu.style.maxHeight = '0px';
-                mobileMenu.style.opacity = '0';
-                menuIcon.classList.remove('fa-xmark');
-                menuIcon.classList.add('fa-bars');
-            }
+            menuToggle.classList.toggle('open', menuOpen);
+            mobileMenu.classList.toggle('open', menuOpen);
+            document.body.style.overflow = menuOpen ? 'hidden' : '';
         }
 
         menuToggle.addEventListener('click', () => toggleMenu(false));
