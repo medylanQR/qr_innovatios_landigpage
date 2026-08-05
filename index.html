@@ -26,7 +26,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
@@ -42,7 +42,8 @@
                         qrHaze: '#f6f4fc',
                     },
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        sans: ['Manrope', 'sans-serif'],
+                        display: ['Bricolage Grotesque', 'sans-serif'],
                     },
                     borderRadius: {
                         '4xl': '2rem',
@@ -75,9 +76,10 @@
                 radial-gradient(700px circle at 50% 100%, rgba(109, 62, 232, 0.06), transparent 60%);
         }
 
-        h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: -0.02em; }
+        h1, h2, h3, h4 { font-family: 'Bricolage Grotesque', sans-serif; letter-spacing: -0.02em; }
 
         .heading-hero {
+            font-family: 'Bricolage Grotesque', sans-serif;
             font-size: clamp(2.75rem, 6vw, 5.25rem);
             font-weight: 800;
             line-height: 1.04;
@@ -111,6 +113,7 @@
         /* CARRUSEL INFINITO */
         .marquee { overflow: hidden; white-space: nowrap; }
         .marquee-content { display: inline-block; animation: marquee 42s linear infinite; }
+        .marquee:hover .marquee-content, .marquee:focus-within .marquee-content { animation-play-state: paused; }
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
         /* FLOTAR — deriva vertical suave para las tarjetas decorativas del hero */
