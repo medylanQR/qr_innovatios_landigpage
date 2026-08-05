@@ -93,8 +93,6 @@
 
         .case-band { border-top: 1px solid var(--line); }
         .case-band:last-child { border-bottom: 1px solid var(--line); }
-        .case-swatch { position: relative; overflow: hidden; aspect-ratio: 4/3; background: #fff; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; padding: 3rem; }
-        .case-swatch img { max-height: 55%; max-width: 65%; object-fit: contain; }
 
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--paper); }
@@ -157,7 +155,6 @@
         #mobile-menu.open .mobile-link { opacity: 1; transform: translateY(0); }
 
         .tabular-nums { font-variant-numeric: tabular-nums; }
-        .qr-motif path, .qr-motif rect, .qr-motif circle { stroke: url(#qrGrad); }
 
         /* TARJETA DE CLIENTE — logo siempre visible sobre blanco, sin importar el tema */
         .client-card {
@@ -244,31 +241,6 @@
     </div>
 
     <header class="relative pt-40 md:pt-52 pb-24 md:pb-32 px-6 md:px-16 overflow-hidden">
-        <svg class="qr-motif absolute -right-24 md:-right-10 top-24 md:top-16 opacity-[0.5] pointer-events-none z-0" width="600" height="600" viewBox="0 0 200 200" fill="none">
-            <defs>
-                <linearGradient id="qrGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#6b0e3a"/>
-                    <stop offset="55%" stop-color="#b31564"/>
-                    <stop offset="100%" stop-color="#e62893"/>
-                </linearGradient>
-            </defs>
-            <g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" class="qr-draw">
-                <path d="M20 60 V24 A4 4 0 0 1 24 20 H60"/>
-                <path d="M140 20 H176 A4 4 0 0 1 180 24 V60"/>
-                <path d="M180 140 V176 A4 4 0 0 1 176 180 H140"/>
-                <path d="M60 180 H24 A4 4 0 0 1 20 176 V140"/>
-                <rect x="80" y="45" width="10" height="30" rx="3"/>
-                <rect x="110" y="45" width="10" height="30" rx="3"/>
-                <rect x="45" y="80" width="30" height="10" rx="3"/>
-                <rect x="45" y="110" width="30" height="10" rx="3"/>
-                <rect x="125" y="80" width="30" height="10" rx="3"/>
-                <rect x="125" y="110" width="30" height="10" rx="3"/>
-                <rect x="80" y="125" width="10" height="30" rx="3"/>
-                <rect x="110" y="125" width="10" height="30" rx="3"/>
-                <circle cx="100" cy="100" r="22"/>
-            </g>
-        </svg>
-
         <div class="max-w-[1800px] mx-auto relative z-10">
             <div class="max-w-3xl">
                 <p class="reveal-up text-[13px] font-bold uppercase tracking-[0.2em] brand-text mb-8">Sistemas de grado industrial · Costa Rica</p>
@@ -387,33 +359,14 @@
     </section>
 
     <section id="horizons" class="py-24 md:py-32 px-6 md:px-16 max-w-[1800px] mx-auto reveal-up">
-        <div class="grid md:grid-cols-2 gap-14 items-center bg-qrInk p-10 md:p-20">
-            <div>
+        <div class="bg-qrInk p-10 md:p-20">
+            <div class="max-w-2xl">
                 <span class="text-[13px] font-bold uppercase tracking-[0.2em] text-qrPink mb-6 block">Horizon IA</span>
                 <h2 class="font-display font-extrabold text-white text-3xl md:text-6xl leading-none mb-6">Inteligencia humana, potenciada por IA.</h2>
                 <p class="text-base md:text-lg text-white/55 mb-10 leading-relaxed max-w-md">Nuestras herramientas de ingeniería con IA te ayudan a escalar operaciones industriales mientras mantienes el control total sobre tu éxito.</p>
                 <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-invert btn-fill magnetic">
                     <span>Empezar ya</span> <i class="fa-solid fa-arrow-right text-xs"></i>
                 </a>
-            </div>
-            <div class="relative aspect-square hidden md:block">
-                <svg viewBox="0 0 200 200" fill="none" class="w-full h-full relative opacity-90">
-                    <g stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="url(#qrGrad)">
-                        <path d="M20 60 V24 A4 4 0 0 1 24 20 H60"/>
-                        <path d="M140 20 H176 A4 4 0 0 1 180 24 V60"/>
-                        <path d="M180 140 V176 A4 4 0 0 1 176 180 H140"/>
-                        <path d="M60 180 H24 A4 4 0 0 1 20 176 V140"/>
-                        <rect x="80" y="45" width="10" height="30" rx="3"/>
-                        <rect x="110" y="45" width="10" height="30" rx="3"/>
-                        <rect x="45" y="80" width="30" height="10" rx="3"/>
-                        <rect x="45" y="110" width="30" height="10" rx="3"/>
-                        <rect x="125" y="80" width="30" height="10" rx="3"/>
-                        <rect x="125" y="110" width="30" height="10" rx="3"/>
-                        <rect x="80" y="125" width="10" height="30" rx="3"/>
-                        <rect x="110" y="125" width="10" height="30" rx="3"/>
-                        <circle cx="100" cy="100" r="24"/>
-                    </g>
-                </svg>
             </div>
         </div>
     </section>
@@ -426,59 +379,69 @@
         </div>
 
         <div>
-            <div class="case-band reveal-up grid md:grid-cols-2 gap-10 md:gap-16 items-center py-12 md:py-16">
-                <div class="order-2 md:order-1">
-                    <span class="brand-text font-bold text-xs uppercase tracking-[0.2em] mb-4 block">Ingeniería Civil · Sistema a Medida</span>
-                    <h3 class="font-display font-extrabold text-qrInk text-3xl md:text-5xl mb-5 leading-tight">CICSA Ingeniería Civil</h3>
-                    <p class="text-qrInkSoft text-base md:text-lg leading-relaxed mb-6 max-w-md">Plataforma 100% especializada en su operación: el equipo registra el avance de cada obra y sus clientes dan seguimiento al progreso del proyecto en tiempo real.</p>
-                    <p class="text-qrInk/35 text-xs font-bold uppercase tracking-widest">Gestión de Proyectos · Portal de Clientes</p>
-                </div>
-                <div class="case-swatch order-1 md:order-2">
-                    <img src="assets/LogoCICSA.png" alt="Logo de CICSA Ingeniería Civil">
-                </div>
-            </div>
-
-            <div class="case-band reveal-up grid md:grid-cols-2 gap-10 md:gap-16 items-center py-12 md:py-16">
-                <div class="case-swatch">
-                    <img src="assets/Hotelcañas.png" alt="Logo de Hotel Cañas">
-                </div>
-                <div>
-                    <span class="brand-text font-bold text-xs uppercase tracking-[0.2em] mb-4 block">Hospitalidad · Hacienda v4.4</span>
-                    <h3 class="font-display font-extrabold text-qrInk text-3xl md:text-5xl mb-5 leading-tight">Hotel Cañas</h3>
-                    <p class="text-qrInkSoft text-base md:text-lg leading-relaxed max-w-md">Automatizamos la facturación electrónica bajo el nuevo protocolo de Hacienda y conectamos su operación a un ecosistema cloud unificado.</p>
+            <div class="case-band reveal-up py-10 md:py-12">
+                <div class="flex items-start gap-6 md:gap-8">
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-white border border-qrLine flex items-center justify-center shrink-0 p-2">
+                        <img src="assets/LogoCICSA.png" alt="Logo de CICSA Ingeniería Civil" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <div class="flex-1">
+                        <span class="brand-text font-bold text-xs uppercase tracking-[0.2em] mb-3 block">Ingeniería Civil · Sistema a Medida</span>
+                        <h3 class="font-display font-extrabold text-qrInk text-2xl md:text-4xl mb-3 leading-tight">CICSA Ingeniería Civil</h3>
+                        <p class="text-qrInkSoft text-base md:text-lg leading-relaxed mb-4 max-w-2xl">Plataforma 100% especializada en su operación: el equipo registra el avance de cada obra y sus clientes dan seguimiento al progreso del proyecto en tiempo real.</p>
+                        <p class="text-qrInk/35 text-xs font-bold uppercase tracking-widest">Gestión de Proyectos · Portal de Clientes</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="case-band reveal-up grid md:grid-cols-2 gap-10 md:gap-16 items-center py-12 md:py-16">
-                <div class="order-2 md:order-1">
-                    <span class="brand-text font-bold text-xs uppercase tracking-[0.2em] mb-4 block">Industrial · Web Corporativa</span>
-                    <h3 class="font-display font-extrabold text-qrInk text-3xl md:text-5xl mb-5 leading-tight">Edsawind</h3>
-                    <p class="text-qrInkSoft text-base md:text-lg leading-relaxed max-w-md">Sitio web corporativo a la medida, con identidad de marca reforzada y presencia digital de nivel industrial.</p>
-                </div>
-                <div class="case-swatch order-1 md:order-2">
-                    <img src="assets/edsa.png" alt="Logo de EdsaWind">
-                </div>
-            </div>
-
-            <div class="case-band reveal-up grid md:grid-cols-2 gap-10 md:gap-16 items-center py-12 md:py-16">
-                <div class="case-swatch">
-                    <img src="assets/Mitierra.jpg" alt="Logo de Restaurante Mi Tierra">
-                </div>
-                <div>
-                    <span class="brand-text font-bold text-xs uppercase tracking-[0.2em] mb-4 block">Restaurante</span>
-                    <h3 class="font-display font-extrabold text-qrInk text-3xl md:text-5xl mb-5 leading-tight">Mi Tierra</h3>
-                    <p class="text-qrInkSoft text-base md:text-lg leading-relaxed max-w-md">Plataforma web y sistema de gestión operativa, con soporte técnico directo de nuestro equipo.</p>
+            <div class="case-band reveal-up py-10 md:py-12">
+                <div class="flex items-start gap-6 md:gap-8">
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-white border border-qrLine flex items-center justify-center shrink-0 p-2">
+                        <img src="assets/Hotelcañas.png" alt="Logo de Hotel Cañas" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <div class="flex-1">
+                        <span class="brand-text font-bold text-xs uppercase tracking-[0.2em] mb-3 block">Hospitalidad · Hacienda v4.4</span>
+                        <h3 class="font-display font-extrabold text-qrInk text-2xl md:text-4xl mb-3 leading-tight">Hotel Cañas</h3>
+                        <p class="text-qrInkSoft text-base md:text-lg leading-relaxed max-w-2xl">Automatizamos la facturación electrónica bajo el nuevo protocolo de Hacienda y conectamos su operación a un ecosistema cloud unificado.</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="case-band reveal-up grid md:grid-cols-2 gap-10 md:gap-16 items-center py-12 md:py-16">
-                <div class="order-2 md:order-1">
-                    <span class="brand-text font-bold text-xs uppercase tracking-[0.2em] mb-4 block">Retail / Alimentos</span>
-                    <h3 class="font-display font-extrabold text-qrInk text-3xl md:text-5xl mb-5 leading-tight">Dulce Gusto</h3>
-                    <p class="text-qrInkSoft text-base md:text-lg leading-relaxed max-w-md">Infraestructura digital y sistema de pedidos pensados para escalar la operación sin fricción.</p>
+            <div class="case-band reveal-up py-10 md:py-12">
+                <div class="flex items-start gap-6 md:gap-8">
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-white border border-qrLine flex items-center justify-center shrink-0 p-2">
+                        <img src="assets/edsa.png" alt="Logo de EdsaWind" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <div class="flex-1">
+                        <span class="brand-text font-bold text-xs uppercase tracking-[0.2em] mb-3 block">Industrial · Web Corporativa</span>
+                        <h3 class="font-display font-extrabold text-qrInk text-2xl md:text-4xl mb-3 leading-tight">Edsawind</h3>
+                        <p class="text-qrInkSoft text-base md:text-lg leading-relaxed max-w-2xl">Sitio web corporativo a la medida, con identidad de marca reforzada y presencia digital de nivel industrial.</p>
+                    </div>
                 </div>
-                <div class="case-swatch order-1 md:order-2">
-                    <img src="assets/logos/dulce-gusto.png" alt="Logo de Cafetería Dulce Gusto">
+            </div>
+
+            <div class="case-band reveal-up py-10 md:py-12">
+                <div class="flex items-start gap-6 md:gap-8">
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-white border border-qrLine flex items-center justify-center shrink-0 p-2">
+                        <img src="assets/Mitierra.jpg" alt="Logo de Restaurante Mi Tierra" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <div class="flex-1">
+                        <span class="brand-text font-bold text-xs uppercase tracking-[0.2em] mb-3 block">Restaurante</span>
+                        <h3 class="font-display font-extrabold text-qrInk text-2xl md:text-4xl mb-3 leading-tight">Mi Tierra</h3>
+                        <p class="text-qrInkSoft text-base md:text-lg leading-relaxed max-w-2xl">Plataforma web y sistema de gestión operativa, con soporte técnico directo de nuestro equipo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-band reveal-up py-10 md:py-12">
+                <div class="flex items-start gap-6 md:gap-8">
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-white border border-qrLine flex items-center justify-center shrink-0 p-2">
+                        <img src="assets/logos/dulce-gusto.png" alt="Logo de Cafetería Dulce Gusto" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <div class="flex-1">
+                        <span class="brand-text font-bold text-xs uppercase tracking-[0.2em] mb-3 block">Retail / Alimentos</span>
+                        <h3 class="font-display font-extrabold text-qrInk text-2xl md:text-4xl mb-3 leading-tight">Dulce Gusto</h3>
+                        <p class="text-qrInkSoft text-base md:text-lg leading-relaxed max-w-2xl">Infraestructura digital y sistema de pedidos pensados para escalar la operación sin fricción.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -492,11 +455,8 @@
     </section>
 
     <section id="mail" class="py-24 md:py-32 px-6 md:px-16 max-w-[1800px] mx-auto reveal-up">
-        <div class="grid md:grid-cols-2 gap-14 items-center border border-qrLine p-10 md:p-20">
-            <div class="relative aspect-square hidden md:flex items-center justify-center brand-gradient">
-                <i class="fa-solid fa-envelope-open-text text-white/25 text-[10rem]"></i>
-            </div>
-            <div>
+        <div class="border border-qrLine p-10 md:p-20">
+            <div class="max-w-2xl">
                 <span class="ghost-num block mb-4">03</span>
                 <h2 class="font-display font-extrabold text-qrInk text-3xl md:text-6xl leading-none mb-6">Emails con confianza total.</h2>
                 <p class="text-lg text-qrInkSoft mb-9 leading-relaxed">Eleva tu marca con infraestructura de correo corporativo ultra-segura, con filtros IA avanzados y dominios personalizados (.com / .cr).</p>
@@ -631,9 +591,6 @@
         gsap.from('.idx-row', { opacity: 0, y: 24, duration: 0.7, ease: 'power3.out', stagger: 0.07, scrollTrigger: { trigger: '#ecosistema', start: 'top 75%' } });
         gsap.from('.stat-item', { opacity: 0, y: 24, duration: 0.7, ease: 'power3.out', stagger: 0.08, scrollTrigger: { trigger: '.stat-group', start: 'top 90%' } });
         gsap.from('#marcas .grid > div', { opacity: 0, y: 24, duration: 0.7, ease: 'power3.out', stagger: 0.07, scrollTrigger: { trigger: '#marcas .grid', start: 'top 85%' } });
-
-        gsap.set('.qr-draw > *', { opacity: 0, scale: 0.85, transformOrigin: '100px 100px' });
-        gsap.to('.qr-draw > *', { opacity: 1, scale: 1, duration: 0.9, ease: 'back.out(1.6)', stagger: 0.045, delay: 0.3 });
 
         document.querySelectorAll('.counter').forEach((el) => {
             const target = parseFloat(el.dataset.target);
