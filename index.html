@@ -37,17 +37,15 @@
                         qrWine: '#3d0821',
                         qrWineMid: '#6b0e3a',
                         qrMagenta: '#b31564',
-                        qrPink: '#e62693',
+                        qrPink: '#e62893',
                         qrPinkLight: '#ff6ec0',
                         qrDark: '#0b0509',
                         qrInk: '#160a12',
-                        qrCream: '#faf6ef',
                     },
                     fontFamily: {
                         sans: ['Manrope', 'sans-serif'],
                         display: ['Bricolage Grotesque', 'sans-serif'],
                     },
-                    borderRadius: { '4xl': '2rem', '5xl': '2.5rem' },
                 }
             }
         }
@@ -58,24 +56,21 @@
             --wine: #3d0821; --wine-mid: #6b0e3a; --magenta: #b31564; --pink: #e62893; --pink-light: #ff6ec0;
             --ink: #0b0509;
             --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-            --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
         }
         * { -webkit-font-smoothing: antialiased; }
-        html { scroll-padding-top: 6rem; }
-        body { background-color: var(--ink); color: #f3eef1; overflow-x: hidden; scroll-behavior: smooth; cursor: default; }
+        html { scroll-padding-top: 5.5rem; }
+        body { background-color: var(--ink); color: #f3eef1; overflow-x: hidden; scroll-behavior: smooth; }
         h1, h2, h3, h4 { font-family: 'Bricolage Grotesque', sans-serif; letter-spacing: -0.02em; }
 
-        /* GRADIENTE DE MARCA REAL — extraído del logo, wine oscuro a magenta vibrante */
         .brand-gradient { background: linear-gradient(135deg, var(--wine) 0%, var(--magenta) 55%, var(--pink) 100%); }
         .brand-gradient-text {
             background: linear-gradient(120deg, var(--pink-light) 0%, var(--pink) 45%, var(--wine-mid) 100%);
             -webkit-background-clip: text; background-clip: text; color: transparent;
         }
 
-        /* CURSOR DE BRILLO — solo desktop, sigue el mouse con retraso (spring vía GSAP) */
         #cursor-glow {
-            position: fixed; top: 0; left: 0; width: 480px; height: 480px; border-radius: 9999px;
-            background: radial-gradient(circle, rgba(230,38,147,0.16) 0%, rgba(107,14,58,0.08) 45%, transparent 70%);
+            position: fixed; top: 0; left: 0; width: 460px; height: 460px; border-radius: 9999px;
+            background: radial-gradient(circle, rgba(230,38,147,0.14) 0%, rgba(107,14,58,0.06) 45%, transparent 70%);
             transform: translate(-50%, -50%); pointer-events: none; z-index: 1; will-change: transform;
         }
         @media (hover: none), (pointer: coarse) { #cursor-glow { display: none; } }
@@ -85,41 +80,42 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        .heading-hero { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(2.75rem, 6.5vw, 5.75rem); font-weight: 800; line-height: 1.02; letter-spacing: -0.035em; }
-
-        .kicker {
-            display: inline-flex; align-items: center; gap: 0.55rem;
-            font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em;
-            color: var(--pink-light); background: rgba(230,38,147,0.1); border: 1px solid rgba(230,38,147,0.25);
-            padding: 0.5rem 1rem; border-radius: 9999px;
+        /* NÚMEROS FANTASMA — el índice visual de cada sección, no un badge */
+        .ghost-num {
+            font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700;
+            font-size: clamp(4rem, 11vw, 9rem); line-height: 1; color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.14);
         }
-        .kicker-dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--pink); }
 
-        /* TARJETA — vidrio oscuro con borde que se ilumina en gradiente al pasar el mouse */
-        .card {
-            position: relative; background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
-            transition: transform 220ms var(--ease-out), border-color 420ms ease, box-shadow 420ms ease;
-            transform-style: preserve-3d; will-change: transform;
+        .hairline { height: 1px; background: rgba(255,255,255,0.1); }
+
+        /* FILA DE ÍNDICE — reemplaza la tarjeta. Relleno que entra desde la izquierda al pasar el mouse */
+        .idx-row {
+            position: relative; overflow: hidden; display: block;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .idx-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .idx-row::before {
+            content: ''; position: absolute; inset: 0; background: linear-gradient(120deg, var(--wine-mid), var(--pink));
+            transform: scaleX(0); transform-origin: left; transition: transform 550ms var(--ease-out); z-index: 0;
         }
         @media (hover: hover) and (pointer: fine) {
-            .card:hover { border-color: rgba(230,38,147,0.4); box-shadow: 0 30px 70px -30px rgba(230,38,147,0.35); }
+            .idx-row:hover::before { transform: scaleX(1); }
+            .idx-row:hover .idx-row-title { color: #fff; transform: translateX(10px); }
+            .idx-row:hover .idx-row-desc { color: rgba(255,255,255,0.85); }
+            .idx-row:hover .idx-row-arrow { transform: translateX(6px); opacity: 1; background: rgba(255,255,255,0.18); }
+            .idx-row:hover .idx-row-num { color: rgba(255,255,255,0.4); -webkit-text-stroke: 0; }
         }
-        .card::before {
-            content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
-            background: linear-gradient(135deg, var(--pink), transparent 40%);
-            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-            -webkit-mask-composite: xor; mask-composite: exclude;
-            opacity: 0; transition: opacity 420ms ease; pointer-events: none;
-        }
-        .card:hover::before { opacity: 1; }
+        .idx-row-num { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.25); transition: color 300ms ease; }
+        .idx-row-title { transition: transform 450ms var(--ease-out), color 300ms ease; }
+        .idx-row-desc { transition: color 300ms ease; }
+        .idx-row-arrow { transition: transform 450ms var(--ease-out), opacity 300ms ease, background-color 300ms ease; }
 
-        /* CARRUSEL INFINITO */
-        .marquee { overflow: hidden; white-space: nowrap; }
-        .marquee-content { display: inline-block; animation: marquee 42s linear infinite; }
-        .marquee:hover .marquee-content, .marquee:focus-within .marquee-content { animation-play-state: paused; }
-        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        /* BANDA DE CASO — reemplaza la tarjeta de proyecto. Sin borde redondeado, sin sombra. */
+        .case-band { border-top: 1px solid rgba(255,255,255,0.1); }
+        .case-band:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .case-swatch { position: relative; overflow: hidden; aspect-ratio: 4/3; }
+        .case-swatch .qr-motif-mini { position: absolute; opacity: 0.5; }
 
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--ink); }
@@ -127,28 +123,24 @@
 
         .feature-check { color: var(--pink); margin-right: 8px; font-weight: 700; }
 
-        /* BOTONES — magnéticos vía JS (transform), presión real */
-        .btn-primary, .btn-invert, .btn-outline {
-            display: inline-flex; align-items: center; gap: 0.75rem; position: relative;
-            transition: box-shadow 320ms var(--ease-out), background-color 220ms ease, border-color 220ms ease;
+        /* BOTONES — relleno que se desliza, sin píldora ni ícono en círculo */
+        .btn-fill {
+            position: relative; display: inline-flex; align-items: center; gap: 0.65rem;
+            padding: 1rem 2rem; border-radius: 0.6rem; overflow: hidden; font-weight: 700; font-size: 0.85rem;
+            z-index: 0; transition: transform 200ms var(--ease-out);
         }
-        .btn-primary { background: linear-gradient(135deg, var(--wine-mid), var(--pink)); color: #fff; box-shadow: 0 16px 34px -14px rgba(230,38,147,0.55); }
-        .btn-primary:hover { box-shadow: 0 22px 46px -14px rgba(230,38,147,0.7); }
-        .btn-primary:active { transform: scale(0.97) !important; transition: transform 120ms var(--ease-out); }
+        .btn-fill span { position: relative; z-index: 1; transition: transform 400ms var(--ease-out); }
+        .btn-fill i { position: relative; z-index: 1; transition: transform 400ms var(--ease-out); }
+        .btn-fill::before { content: ''; position: absolute; inset: 0; transform: scaleX(0); transform-origin: left; transition: transform 480ms var(--ease-out); z-index: 0; }
+        .btn-fill:hover i { transform: translateX(4px); }
+        .btn-fill:active { transform: scale(0.97); transition-duration: 120ms; }
+        .btn-primary { background: var(--ink); color: #fff; border: 1px solid rgba(255,255,255,0.15); }
+        .btn-primary::before { background: linear-gradient(120deg, var(--wine-mid), var(--pink)); }
+        .btn-primary:hover::before { transform: scaleX(1); }
         .btn-invert { background: #fff; color: var(--ink); }
-        .btn-invert:hover { box-shadow: 0 20px 40px -16px rgba(0,0,0,0.4); }
-        .btn-invert:active { transform: scale(0.97) !important; transition: transform 120ms var(--ease-out); }
-        .btn-outline { border: 1.5px solid rgba(255,255,255,0.18); color: #fff; }
-        .btn-outline:hover { border-color: var(--pink); }
-        .btn-outline:active { transform: scale(0.97) !important; transition: transform 120ms var(--ease-out); }
-        .btn-icon {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 1.7rem; height: 1.7rem; border-radius: 9999px; background: rgba(255,255,255,0.2);
-            transition: transform 320ms var(--ease-out), background-color 220ms ease; font-size: 0.68rem; flex-shrink: 0;
-        }
-        .btn-invert .btn-icon, .btn-outline .btn-icon { background: rgba(0,0,0,0.08); }
-        .btn-outline .btn-icon { background: rgba(255,255,255,0.1); }
-        .btn-primary:hover .btn-icon, .btn-outline:hover .btn-icon { transform: translate(3px,-3px); }
+        .btn-invert::before { background: var(--ink); }
+        .btn-invert:hover::before { transform: scaleX(1); }
+        .btn-invert:hover span, .btn-invert:hover i { color: #fff; }
 
         .link-underline { position: relative; }
         .link-underline::after {
@@ -158,6 +150,11 @@
         }
         .link-underline:hover::after { transform: scaleX(1); transform-origin: left; }
 
+        .marquee { overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: inline-block; animation: marquee 42s linear infinite; }
+        .marquee:hover .marquee-content, .marquee:focus-within .marquee-content { animation-play-state: paused; }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
         #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--wine-mid), var(--pink)); z-index: 300; }
 
         #navbar {
@@ -166,7 +163,7 @@
             border-bottom: 1px solid rgba(255,255,255,0.07);
             transition: box-shadow 400ms ease, border-color 400ms ease;
         }
-        #navbar.scrolled { box-shadow: 0 20px 50px -30px rgba(230,38,147,0.35); border-color: rgba(230,38,147,0.2); }
+        #navbar.scrolled { box-shadow: 0 20px 50px -30px rgba(230,38,147,0.3); border-color: rgba(230,38,147,0.18); }
 
         #menu-toggle { position: relative; }
         .menu-bar { position: absolute; left: 50%; top: 50%; width: 18px; height: 2px; background: #fff; border-radius: 2px; transform: translate(-50%, -50%); transition: transform 380ms var(--ease-out), opacity 260ms ease; }
@@ -179,14 +176,11 @@
         #mobile-menu.open .mobile-link { opacity: 1; transform: translateY(0); }
 
         .tabular-nums { font-variant-numeric: tabular-nums; }
-
-        /* MOTIVO QR — brackets del logo, usados como textura decorativa */
-        .qr-motif rect, .qr-motif path { stroke: url(#qrGrad); }
-        .qr-motif-glow { filter: drop-shadow(0 0 18px rgba(230,38,147,0.45)); }
+        .qr-motif rect, .qr-motif path, .qr-motif circle { stroke: url(#qrGrad); }
 
         @media (prefers-reduced-motion: reduce) {
             .marquee-content, #cursor-glow { animation: none !important; transition: none !important; }
-            .card, .btn-primary, .btn-invert, .btn-outline { transition-duration: 1ms !important; }
+            .idx-row::before, .btn-fill::before { transition-duration: 1ms !important; }
         }
     </style>
 
@@ -240,8 +234,8 @@
                 <a href="#mail" class="link-underline hover:text-white transition-colors">Cloud Mail</a>
                 <a href="#marcas" class="link-underline hover:text-white transition-colors">Marcas</a>
             </div>
-            <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary magnetic hidden xl:inline-flex px-6 py-3 rounded-full text-[13px] font-bold">
-                Iniciar Proyecto <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+            <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary btn-fill magnetic hidden xl:inline-flex">
+                <span>Iniciar Proyecto</span> <i class="fa-solid fa-arrow-right text-xs"></i>
             </a>
             <button id="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu" class="xl:hidden w-11 h-11 shrink-0">
                 <span class="menu-bar menu-bar-1"></span>
@@ -256,56 +250,52 @@
         <a href="#proyectos" class="mobile-link text-3xl font-extrabold text-white/70 hover:text-white py-4 transition-colors" style="transition-delay: 160ms">Proyectos</a>
         <a href="#mail" class="mobile-link text-3xl font-extrabold text-white/70 hover:text-white py-4 transition-colors" style="transition-delay: 210ms">Cloud Mail</a>
         <a href="#marcas" class="mobile-link text-3xl font-extrabold text-white/70 hover:text-white py-4 transition-colors" style="transition-delay: 260ms">Marcas</a>
-        <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="mobile-link btn-primary px-8 py-4 rounded-full text-sm font-bold mt-8" style="transition-delay: 310ms">
-            Iniciar Proyecto <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+        <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="mobile-link btn-primary btn-fill mt-8" style="transition-delay: 310ms">
+            <span>Iniciar Proyecto</span> <i class="fa-solid fa-arrow-right text-xs"></i>
         </a>
     </div>
 
-    <header class="relative pt-40 md:pt-52 pb-20 md:pb-28 px-6 md:px-16 overflow-hidden">
-        <div class="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(230,38,147,0.16) 0%, rgba(107,14,58,0.08) 40%, transparent 68%);"></div>
+    <header class="relative pt-40 md:pt-52 pb-24 md:pb-32 px-6 md:px-16 overflow-hidden">
+        <svg class="qr-motif absolute -right-24 md:-right-10 top-24 md:top-16 opacity-[0.35] pointer-events-none z-0" width="640" height="640" viewBox="0 0 200 200" fill="none">
+            <defs>
+                <linearGradient id="qrGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#6b0e3a"/>
+                    <stop offset="55%" stop-color="#b31564"/>
+                    <stop offset="100%" stop-color="#ff6ec0"/>
+                </linearGradient>
+            </defs>
+            <g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" class="qr-draw">
+                <path d="M20 60 V24 A4 4 0 0 1 24 20 H60"/>
+                <path d="M140 20 H176 A4 4 0 0 1 180 24 V60"/>
+                <path d="M180 140 V176 A4 4 0 0 1 176 180 H140"/>
+                <path d="M60 180 H24 A4 4 0 0 1 20 176 V140"/>
+                <rect x="80" y="45" width="10" height="30" rx="3"/>
+                <rect x="110" y="45" width="10" height="30" rx="3"/>
+                <rect x="45" y="80" width="30" height="10" rx="3"/>
+                <rect x="45" y="110" width="30" height="10" rx="3"/>
+                <rect x="125" y="80" width="30" height="10" rx="3"/>
+                <rect x="125" y="110" width="30" height="10" rx="3"/>
+                <rect x="80" y="125" width="10" height="30" rx="3"/>
+                <rect x="110" y="125" width="10" height="30" rx="3"/>
+                <circle cx="100" cy="100" r="22"/>
+            </g>
+        </svg>
 
-        <div class="max-w-[1800px] mx-auto relative">
-            <svg class="qr-motif qr-motif-glow absolute -right-10 top-0 hidden lg:block opacity-80" width="380" height="380" viewBox="0 0 200 200" fill="none">
-                <defs>
-                    <linearGradient id="qrGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#6b0e3a"/>
-                        <stop offset="55%" stop-color="#b31564"/>
-                        <stop offset="100%" stop-color="#ff6ec0"/>
-                    </linearGradient>
-                </defs>
-                <g stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none" class="qr-draw">
-                    <path d="M20 60 V24 A4 4 0 0 1 24 20 H60"/>
-                    <path d="M140 20 H176 A4 4 0 0 1 180 24 V60"/>
-                    <path d="M180 140 V176 A4 4 0 0 1 176 180 H140"/>
-                    <path d="M60 180 H24 A4 4 0 0 1 20 176 V140"/>
-                    <rect x="80" y="45" width="10" height="30" rx="3"/>
-                    <rect x="110" y="45" width="10" height="30" rx="3"/>
-                    <rect x="45" y="80" width="30" height="10" rx="3"/>
-                    <rect x="45" y="110" width="30" height="10" rx="3"/>
-                    <rect x="125" y="80" width="30" height="10" rx="3"/>
-                    <rect x="125" y="110" width="30" height="10" rx="3"/>
-                    <rect x="80" y="125" width="10" height="30" rx="3"/>
-                    <rect x="110" y="125" width="10" height="30" rx="3"/>
-                    <circle cx="100" cy="100" r="22"/>
-                </g>
-            </svg>
-
-            <div class="max-w-3xl relative z-10">
-                <div class="reveal-up mb-8">
-                    <span class="kicker"><span class="kicker-dot"></span>Sistemas de grado industrial</span>
-                </div>
-                <h1 class="heading-hero text-white reveal-up mb-7">
-                    Ingeniería que <span class="brand-gradient-text">brilla</span> bajo presión.
+        <div class="max-w-[1800px] mx-auto relative z-10">
+            <div class="max-w-3xl">
+                <p class="reveal-up text-[13px] font-bold uppercase tracking-[0.2em] text-qrPinkLight mb-8">Sistemas de grado industrial · Costa Rica</p>
+                <h1 class="reveal-up font-display font-extrabold text-white leading-[0.98] mb-8" style="font-size: clamp(2.75rem, 7vw, 6.5rem); letter-spacing: -0.03em;">
+                    Ingeniería que<br><span class="brand-gradient-text">brilla</span> bajo presión.
                 </h1>
-                <p class="text-lg md:text-xl text-white/55 font-medium leading-relaxed max-w-xl mb-11 reveal-up">
+                <p class="reveal-up text-lg md:text-xl text-white/55 font-medium leading-relaxed max-w-xl mb-11">
                     Agentes de IA, apps a medida e infraestructura cloud construidos desde Costa Rica para operaciones que no pueden fallar.
                 </p>
-                <div class="flex flex-wrap gap-4 reveal-up">
-                    <a href="#ecosistema" class="btn-primary magnetic px-9 py-4 rounded-full text-sm font-bold">
-                        Ver Ecosistema <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+                <div class="reveal-up flex flex-wrap gap-4">
+                    <a href="#ecosistema" class="btn-primary btn-fill magnetic">
+                        <span>Ver Ecosistema</span> <i class="fa-solid fa-arrow-right text-xs"></i>
                     </a>
-                    <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-outline magnetic px-9 py-4 rounded-full text-sm font-bold">
-                        Hablar con un ingeniero
+                    <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-invert btn-fill magnetic">
+                        <span>Hablar con un ingeniero</span>
                     </a>
                 </div>
             </div>
@@ -336,244 +326,243 @@
         </div>
     </section>
 
-    <section class="py-16 md:py-20 px-6 md:px-16 max-w-[1800px] mx-auto">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6 stat-group">
-            <div class="text-center md:text-left stat-item">
-                <div class="heading-hero text-3xl md:text-5xl text-white"><span class="counter tabular-nums" data-target="5">0</span>+</div>
+    <section class="py-16 md:py-20 px-6 md:px-16 max-w-[1800px] mx-auto border-b border-white/8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 stat-group">
+            <div class="stat-item">
+                <div class="font-display font-extrabold text-white text-3xl md:text-5xl"><span class="counter tabular-nums" data-target="5">0</span>+</div>
                 <p class="text-sm font-semibold text-white/40 mt-2">Sistemas en producción</p>
             </div>
-            <div class="text-center md:text-left stat-item">
-                <div class="heading-hero text-3xl md:text-5xl text-white"><span class="counter tabular-nums" data-target="24">0</span>/7</div>
+            <div class="stat-item">
+                <div class="font-display font-extrabold text-white text-3xl md:text-5xl"><span class="counter tabular-nums" data-target="24">0</span>/7</div>
                 <p class="text-sm font-semibold text-white/40 mt-2">Soporte técnico real</p>
             </div>
-            <div class="text-center md:text-left stat-item">
-                <div class="heading-hero text-3xl md:text-5xl text-white"><span class="counter tabular-nums" data-target="100">0</span>%</div>
+            <div class="stat-item">
+                <div class="font-display font-extrabold text-white text-3xl md:text-5xl"><span class="counter tabular-nums" data-target="100">0</span>%</div>
                 <p class="text-sm font-semibold text-white/40 mt-2">Ingeniería costarricense</p>
             </div>
-            <div class="text-center md:text-left stat-item">
-                <div class="heading-hero text-3xl md:text-5xl text-white"><span class="counter tabular-nums" data-target="1">0</span></div>
+            <div class="stat-item">
+                <div class="font-display font-extrabold text-white text-3xl md:text-5xl"><span class="counter tabular-nums" data-target="1">0</span></div>
                 <p class="text-sm font-semibold text-white/40 mt-2">Ingeniero por WhatsApp, no un bot</p>
             </div>
         </div>
     </section>
 
-    <section id="ecosistema" class="py-20 md:py-28 px-6 md:px-16 max-w-[1800px] mx-auto">
-        <div class="max-w-2xl mx-auto text-center mb-16 md:mb-20 reveal-up">
-            <span class="kicker mb-6"><span class="kicker-dot"></span>Ecosistema</span>
-            <h2 class="heading-hero text-3xl md:text-6xl text-white mb-5">Full-stack, de punta a punta.</h2>
-            <p class="text-lg text-white/55 leading-relaxed">Nuestra ingeniería resuelve desde el núcleo del servidor hasta la experiencia del usuario final.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 grid-flow-dense">
-            <div class="tilt md:col-span-8 md:row-span-2 card rounded-4xl p-10 md:p-14 flex flex-col justify-end relative overflow-hidden min-h-[300px] md:min-h-[420px]">
-                <div class="absolute top-8 right-8 w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl brand-gradient">
-                    <i class="fa-solid fa-brain"></i>
-                </div>
-                <span class="brand-gradient-text font-bold text-xs uppercase tracking-[0.2em] mb-4 block">Intelligence Systems</span>
-                <h3 class="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight">Agentes de IA<br>que sí trabajan.</h3>
-                <p class="text-white/50 max-w-md text-base md:text-lg">Chatbots autónomos y visión computacional que gestionan procesos críticos en tiempo real.</p>
-            </div>
-
-            <div class="tilt md:col-span-4 card rounded-4xl p-10 flex flex-col items-center justify-center text-center min-h-[200px] brand-gradient">
-                <div class="text-6xl font-extrabold text-white leading-none mb-3">v4.4</div>
-                <p class="text-xs font-bold uppercase tracking-[0.2em] text-white/70">Hacienda Protocol</p>
-            </div>
-
-            <div class="tilt md:col-span-4 card rounded-4xl p-10 flex flex-col justify-between min-h-[200px]">
-                <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-qrPinkLight text-xl bg-qrPink/10">
-                    <i class="fa-solid fa-mobile-screen-button"></i>
-                </div>
-                <div>
-                    <h3 class="text-xl font-extrabold text-white mb-2">Mobile Apps</h3>
-                    <p class="text-sm text-white/45 leading-relaxed">Native iOS & Android con pagos biométricos integrados.</p>
-                </div>
-            </div>
-
-            <div class="tilt md:col-span-4 card rounded-4xl p-10 min-h-[200px] flex flex-col justify-between">
-                <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-qrPinkLight text-xl bg-qrPink/10">
-                    <i class="fa-solid fa-shield-halved"></i>
-                </div>
-                <div>
-                    <h3 class="text-xl font-extrabold text-white mb-2">Cyber Defense</h3>
-                    <p class="text-sm text-white/45 leading-relaxed mb-4">Auditoría perimetral y blindaje de datos industriales.</p>
-                    <div class="flex gap-2 items-center">
-                        <div class="w-1.5 h-1.5 rounded-full bg-qrPink animate-pulse"></div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-qrPinkLight">Protección Activa</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tilt md:col-span-8 card rounded-4xl p-10 flex items-center justify-between gap-8 min-h-[180px]">
-                <div>
-                    <h3 class="text-2xl font-extrabold text-white mb-2">API Infrastructure</h3>
-                    <p class="text-sm text-white/45 max-w-md leading-relaxed">Conexión masiva con Stripe, Evertec y OTAs globales. Sincronización en milisegundos.</p>
-                </div>
-                <div class="hidden sm:flex gap-5 text-2xl text-white/20 shrink-0">
-                    <i class="fa-brands fa-stripe"></i>
-                    <i class="fa-solid fa-cloud"></i>
-                    <i class="fa-solid fa-database"></i>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="horizons" class="py-20 md:py-28 px-6 md:px-16 max-w-[1800px] mx-auto">
-        <div class="rounded-4xl md:rounded-5xl p-10 md:p-24 text-center relative overflow-hidden reveal-up brand-gradient">
-            <div class="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-white/10 blur-[100px] pointer-events-none"></div>
-            <div class="absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-white/10 blur-[100px] pointer-events-none"></div>
-
-            <div class="relative z-10 max-w-3xl mx-auto">
-                <span class="kicker mb-8" style="background: rgba(255,255,255,0.16); color: #fff; border-color: rgba(255,255,255,0.3);"><span class="kicker-dot" style="background:#fff; box-shadow:none;"></span>Horizon IA</span>
-                <h2 class="heading-hero text-3xl md:text-6xl text-white mb-6">Inteligencia humana, potenciada por IA.</h2>
-                <p class="text-base md:text-lg text-white/75 mb-10 leading-relaxed">Nuestras herramientas de ingeniería con IA te ayudan a escalar operaciones industriales mientras mantienes el control total sobre tu éxito.</p>
-                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-invert magnetic px-9 py-4 rounded-full text-sm font-bold">
-                    Empezar ya <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="proyectos" class="py-20 md:py-28 px-6 md:px-16 max-w-[1800px] mx-auto">
-        <div class="max-w-2xl mx-auto text-center mb-16 md:mb-20 reveal-up">
-            <span class="kicker mb-6"><span class="kicker-dot"></span>Casos reales</span>
-            <h2 class="heading-hero text-3xl md:text-6xl text-white mb-5">Trabajos realizados.</h2>
-            <p class="text-lg text-white/55 leading-relaxed">Sistemas en producción, resolviendo operaciones reales para negocios en Costa Rica.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 grid-flow-dense">
-            <div class="tilt md:col-span-7 card rounded-4xl p-10 md:p-14 relative overflow-hidden min-h-[380px] flex flex-col justify-end">
-                <i class="fa-solid fa-drafting-compass absolute -top-8 -right-4 text-[14rem] text-white/[0.05] pointer-events-none"></i>
-                <span class="brand-gradient-text font-bold text-xs uppercase tracking-[0.2em] mb-5 block relative z-10">Ingeniería Civil · Sistema a Medida</span>
-                <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-5 leading-tight relative z-10">CICSA Ingeniería Civil</h3>
-                <p class="text-white/50 text-base md:text-lg max-w-md mb-8 relative z-10 leading-relaxed">Plataforma 100% especializada en su operación: el equipo de CICSA registra el avance de cada obra y sus clientes dan seguimiento al progreso del proyecto en tiempo real.</p>
-                <div class="flex flex-wrap gap-3 relative z-10">
-                    <span class="bg-white/8 text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest">Gestión de Proyectos</span>
-                    <span class="bg-white/8 text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest">Portal de Clientes</span>
-                </div>
-            </div>
-
-            <div class="tilt md:col-span-5 card rounded-4xl p-10 md:p-14 flex flex-col justify-between min-h-[380px]">
-                <span class="brand-gradient-text font-bold text-xs uppercase tracking-[0.2em] mb-5 block">Hospitalidad · Hacienda v4.4</span>
-                <div>
-                    <h3 class="text-2xl md:text-3xl font-extrabold text-white mb-4">Hotel Cañas</h3>
-                    <p class="text-white/45 text-base leading-relaxed">Automatizamos la facturación electrónica bajo el nuevo protocolo de Hacienda y conectamos su operación a un ecosistema cloud unificado.</p>
-                </div>
-            </div>
-
-            <div class="tilt md:col-span-5 card rounded-4xl p-10 md:p-14 min-h-[300px] flex flex-col justify-between brand-gradient">
-                <span class="text-white/70 font-bold text-xs uppercase tracking-[0.2em] mb-5 block">Industrial · Web Corporativa</span>
-                <div>
-                    <h3 class="text-2xl md:text-3xl font-extrabold text-white mb-4">Edsawind</h3>
-                    <p class="text-white/75 text-base leading-relaxed">Sitio web corporativo a la medida, con identidad de marca reforzada y presencia digital de nivel industrial.</p>
-                </div>
-            </div>
-
-            <div class="tilt md:col-span-7 card rounded-4xl p-10 md:p-14 flex flex-col justify-between min-h-[300px]">
-                <span class="brand-gradient-text font-bold text-xs uppercase tracking-[0.2em] mb-5 block">Restaurante</span>
-                <div>
-                    <h3 class="text-2xl md:text-3xl font-extrabold text-white mb-4">Mi Tierra</h3>
-                    <p class="text-white/45 text-base leading-relaxed">Plataforma web y sistema de gestión operativa, con soporte técnico directo de nuestro equipo.</p>
-                </div>
-            </div>
-
-            <div class="tilt md:col-span-12 card rounded-4xl p-10 md:p-14 flex items-center justify-between gap-8 min-h-[180px]">
-                <div>
-                    <span class="brand-gradient-text font-bold text-xs uppercase tracking-[0.2em] mb-4 block">Retail / Alimentos</span>
-                    <h3 class="text-2xl md:text-3xl font-extrabold text-white mb-3">Dulce Gusto</h3>
-                    <p class="text-white/45 text-base leading-relaxed max-w-md">Infraestructura digital y sistema de pedidos pensados para escalar la operación sin fricción.</p>
-                </div>
-                <i class="fa-solid fa-arrow-up-right-dots text-5xl text-white/10 hidden lg:block"></i>
+    <section id="ecosistema" class="py-24 md:py-32 px-6 md:px-16 max-w-[1800px] mx-auto">
+        <div class="flex items-end justify-between gap-10 mb-16 md:mb-20 reveal-up">
+            <div class="max-w-xl">
+                <span class="ghost-num block mb-4">01</span>
+                <h2 class="font-display font-extrabold text-white text-3xl md:text-6xl leading-none mb-5">Full-stack, de punta a punta.</h2>
+                <p class="text-lg text-white/50 leading-relaxed">Nuestra ingeniería resuelve desde el núcleo del servidor hasta la experiencia del usuario final.</p>
             </div>
         </div>
 
-        <div class="mt-16 text-center reveal-up">
-            <p class="text-lg font-semibold text-white/55 mb-7">¿Listo para que tu negocio sea el próximo caso de éxito?</p>
-            <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary magnetic px-9 py-4 rounded-full text-sm font-bold">
-                Quiero mi Sistema <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+        <div class="reveal-up">
+            <a href="#horizons" class="idx-row group flex items-center gap-6 md:gap-10 py-8 md:py-10 px-4 md:px-8">
+                <span class="idx-row-num text-3xl md:text-5xl w-14 md:w-20 shrink-0 relative z-10">01</span>
+                <div class="flex-1 relative z-10 grid md:grid-cols-2 gap-2 md:gap-10 items-center">
+                    <h3 class="idx-row-title font-display font-extrabold text-white text-2xl md:text-4xl">Agentes de IA</h3>
+                    <p class="idx-row-desc text-white/45 text-sm md:text-base leading-relaxed">Chatbots autónomos y visión computacional que gestionan procesos críticos en tiempo real.</p>
+                </div>
+                <span class="idx-row-arrow relative z-10 w-11 h-11 md:w-14 md:h-14 rounded-full border border-white/15 flex items-center justify-center text-white opacity-70 shrink-0"><i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+            <a href="#proyectos" class="idx-row group flex items-center gap-6 md:gap-10 py-8 md:py-10 px-4 md:px-8">
+                <span class="idx-row-num text-3xl md:text-5xl w-14 md:w-20 shrink-0 relative z-10">02</span>
+                <div class="flex-1 relative z-10 grid md:grid-cols-2 gap-2 md:gap-10 items-center">
+                    <h3 class="idx-row-title font-display font-extrabold text-white text-2xl md:text-4xl">Hacienda Protocol v4.4</h3>
+                    <p class="idx-row-desc text-white/45 text-sm md:text-base leading-relaxed">Facturación electrónica automatizada bajo el nuevo protocolo, sin errores manuales.</p>
+                </div>
+                <span class="idx-row-arrow relative z-10 w-11 h-11 md:w-14 md:h-14 rounded-full border border-white/15 flex items-center justify-center text-white opacity-70 shrink-0"><i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+            <a href="#proyectos" class="idx-row group flex items-center gap-6 md:gap-10 py-8 md:py-10 px-4 md:px-8">
+                <span class="idx-row-num text-3xl md:text-5xl w-14 md:w-20 shrink-0 relative z-10">03</span>
+                <div class="flex-1 relative z-10 grid md:grid-cols-2 gap-2 md:gap-10 items-center">
+                    <h3 class="idx-row-title font-display font-extrabold text-white text-2xl md:text-4xl">Mobile Apps</h3>
+                    <p class="idx-row-desc text-white/45 text-sm md:text-base leading-relaxed">Native iOS & Android con pagos biométricos integrados.</p>
+                </div>
+                <span class="idx-row-arrow relative z-10 w-11 h-11 md:w-14 md:h-14 rounded-full border border-white/15 flex items-center justify-center text-white opacity-70 shrink-0"><i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+            <a href="#ecosistema" class="idx-row group flex items-center gap-6 md:gap-10 py-8 md:py-10 px-4 md:px-8">
+                <span class="idx-row-num text-3xl md:text-5xl w-14 md:w-20 shrink-0 relative z-10">04</span>
+                <div class="flex-1 relative z-10 grid md:grid-cols-2 gap-2 md:gap-10 items-center">
+                    <h3 class="idx-row-title font-display font-extrabold text-white text-2xl md:text-4xl">Cyber Defense</h3>
+                    <p class="idx-row-desc text-white/45 text-sm md:text-base leading-relaxed">Auditoría perimetral y blindaje de datos industriales, protección activa 24/7.</p>
+                </div>
+                <span class="idx-row-arrow relative z-10 w-11 h-11 md:w-14 md:h-14 rounded-full border border-white/15 flex items-center justify-center text-white opacity-70 shrink-0"><i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+            <a href="#mail" class="idx-row group flex items-center gap-6 md:gap-10 py-8 md:py-10 px-4 md:px-8">
+                <span class="idx-row-num text-3xl md:text-5xl w-14 md:w-20 shrink-0 relative z-10">05</span>
+                <div class="flex-1 relative z-10 grid md:grid-cols-2 gap-2 md:gap-10 items-center">
+                    <h3 class="idx-row-title font-display font-extrabold text-white text-2xl md:text-4xl">API Infrastructure</h3>
+                    <p class="idx-row-desc text-white/45 text-sm md:text-base leading-relaxed">Conexión masiva con Stripe, Evertec y OTAs globales. Sincronización en milisegundos.</p>
+                </div>
+                <span class="idx-row-arrow relative z-10 w-11 h-11 md:w-14 md:h-14 rounded-full border border-white/15 flex items-center justify-center text-white opacity-70 shrink-0"><i class="fa-solid fa-arrow-right"></i></span>
             </a>
         </div>
     </section>
 
-    <section id="mail" class="py-20 md:py-28 px-6 md:px-16 max-w-[1800px] mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 md:gap-20 items-center card rounded-5xl p-8 md:p-16 reveal-up">
-            <div class="relative order-2 lg:order-1">
-                <div class="card rounded-4xl p-8 md:p-10">
-                    <div class="flex items-center justify-between mb-10">
-                        <h3 class="text-2xl font-extrabold text-white">Cloud <span class="brand-gradient-text">Mail.</span></h3>
-                        <div class="flex gap-2">
-                            <div class="w-3 h-3 rounded-full bg-white/15"></div>
-                            <div class="w-3 h-3 rounded-full bg-white/15"></div>
-                            <div class="w-3 h-3 rounded-full bg-qrPink"></div>
-                        </div>
-                    </div>
-                    <div class="space-y-5">
-                        <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/8 flex items-center gap-5">
-                            <div class="w-11 h-11 rounded-xl brand-gradient"></div>
-                            <div class="h-3 w-40 bg-white/10 rounded-full"></div>
-                        </div>
-                        <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/8 flex items-center gap-5">
-                            <div class="w-11 h-11 rounded-xl bg-qrPink/25"></div>
-                            <div class="h-3 w-56 bg-white/10 rounded-full"></div>
-                        </div>
-                        <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/8 flex items-center gap-5">
-                            <div class="w-11 h-11 rounded-xl brand-gradient"></div>
-                            <div class="h-3 w-32 bg-white/10 rounded-full"></div>
-                        </div>
-                    </div>
+    <section id="horizons" class="py-24 md:py-32 px-6 md:px-16 max-w-[1800px] mx-auto reveal-up">
+        <div class="grid md:grid-cols-2 gap-14 items-center bg-qrDark border border-white/10 p-10 md:p-20">
+            <div>
+                <span class="ghost-num block mb-4">02</span>
+                <h2 class="font-display font-extrabold text-white text-3xl md:text-6xl leading-none mb-6">Inteligencia humana, potenciada por IA.</h2>
+                <p class="text-base md:text-lg text-white/50 mb-10 leading-relaxed max-w-md">Nuestras herramientas de ingeniería con IA te ayudan a escalar operaciones industriales mientras mantienes el control total sobre tu éxito.</p>
+                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary btn-fill magnetic">
+                    <span>Empezar ya</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+            <div class="relative aspect-square hidden md:block">
+                <div class="absolute inset-0 rounded-full" style="background: radial-gradient(circle, rgba(230,38,147,0.16) 0%, transparent 70%);"></div>
+                <svg viewBox="0 0 200 200" fill="none" class="w-full h-full relative">
+                    <g stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="url(#qrGrad)" opacity="0.9">
+                        <path d="M20 60 V24 A4 4 0 0 1 24 20 H60"/>
+                        <path d="M140 20 H176 A4 4 0 0 1 180 24 V60"/>
+                        <path d="M180 140 V176 A4 4 0 0 1 176 180 H140"/>
+                        <path d="M60 180 H24 A4 4 0 0 1 20 176 V140"/>
+                        <rect x="80" y="45" width="10" height="30" rx="3"/>
+                        <rect x="110" y="45" width="10" height="30" rx="3"/>
+                        <rect x="45" y="80" width="30" height="10" rx="3"/>
+                        <rect x="45" y="110" width="30" height="10" rx="3"/>
+                        <rect x="125" y="80" width="30" height="10" rx="3"/>
+                        <rect x="125" y="110" width="30" height="10" rx="3"/>
+                        <rect x="80" y="125" width="10" height="30" rx="3"/>
+                        <rect x="110" y="125" width="10" height="30" rx="3"/>
+                        <circle cx="100" cy="100" r="24"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section id="proyectos" class="py-24 md:py-32 px-6 md:px-16 max-w-[1800px] mx-auto">
+        <div class="max-w-xl mb-16 md:mb-20 reveal-up">
+            <span class="ghost-num block mb-4">03</span>
+            <h2 class="font-display font-extrabold text-white text-3xl md:text-6xl leading-none mb-5">Trabajos realizados.</h2>
+            <p class="text-lg text-white/50 leading-relaxed">Sistemas en producción, resolviendo operaciones reales para negocios en Costa Rica.</p>
+        </div>
+
+        <div>
+            <div class="case-band reveal-up grid md:grid-cols-2 gap-10 md:gap-16 items-center py-12 md:py-16">
+                <div class="order-2 md:order-1">
+                    <span class="text-qrPinkLight font-bold text-xs uppercase tracking-[0.2em] mb-4 block">Ingeniería Civil · Sistema a Medida</span>
+                    <h3 class="font-display font-extrabold text-white text-3xl md:text-5xl mb-5 leading-tight">CICSA Ingeniería Civil</h3>
+                    <p class="text-white/45 text-base md:text-lg leading-relaxed mb-6 max-w-md">Plataforma 100% especializada en su operación: el equipo registra el avance de cada obra y sus clientes dan seguimiento al progreso del proyecto en tiempo real.</p>
+                    <p class="text-white/30 text-xs font-bold uppercase tracking-widest">Gestión de Proyectos · Portal de Clientes</p>
+                </div>
+                <div class="case-swatch order-1 md:order-2 brand-gradient">
+                    <i class="fa-solid fa-drafting-compass absolute -bottom-10 -right-6 text-[10rem] text-white/10"></i>
                 </div>
             </div>
-            <div class="order-1 lg:order-2">
-                <span class="kicker mb-6"><span class="kicker-dot"></span>Professional Comms</span>
-                <h2 class="heading-hero text-3xl md:text-6xl text-white mb-6">Emails con confianza total.</h2>
-                <p class="text-lg text-white/55 mb-9 leading-relaxed">Eleva tu marca con infraestructura de correo corporativo ultra-segura, con filtros IA avanzados y dominios personalizados (.com / .cr).</p>
+
+            <div class="case-band reveal-up grid md:grid-cols-2 gap-10 md:gap-16 items-center py-12 md:py-16">
+                <div class="case-swatch bg-white/[0.03] border border-white/10">
+                    <i class="fa-solid fa-hotel absolute -bottom-8 -left-6 text-[9rem] text-qrPink/15"></i>
+                </div>
+                <div>
+                    <span class="text-qrPinkLight font-bold text-xs uppercase tracking-[0.2em] mb-4 block">Hospitalidad · Hacienda v4.4</span>
+                    <h3 class="font-display font-extrabold text-white text-3xl md:text-5xl mb-5 leading-tight">Hotel Cañas</h3>
+                    <p class="text-white/45 text-base md:text-lg leading-relaxed max-w-md">Automatizamos la facturación electrónica bajo el nuevo protocolo de Hacienda y conectamos su operación a un ecosistema cloud unificado.</p>
+                </div>
+            </div>
+
+            <div class="case-band reveal-up grid md:grid-cols-2 gap-10 md:gap-16 items-center py-12 md:py-16">
+                <div class="order-2 md:order-1">
+                    <span class="text-qrPinkLight font-bold text-xs uppercase tracking-[0.2em] mb-4 block">Industrial · Web Corporativa</span>
+                    <h3 class="font-display font-extrabold text-white text-3xl md:text-5xl mb-5 leading-tight">Edsawind</h3>
+                    <p class="text-white/45 text-base md:text-lg leading-relaxed max-w-md">Sitio web corporativo a la medida, con identidad de marca reforzada y presencia digital de nivel industrial.</p>
+                </div>
+                <div class="case-swatch order-1 md:order-2 bg-white/[0.03] border border-white/10">
+                    <i class="fa-solid fa-wind absolute -bottom-8 -right-6 text-[9rem] text-qrPink/15"></i>
+                </div>
+            </div>
+
+            <div class="case-band reveal-up grid md:grid-cols-2 gap-10 md:gap-16 items-center py-12 md:py-16">
+                <div class="case-swatch brand-gradient">
+                    <i class="fa-solid fa-utensils absolute -bottom-8 -left-6 text-[9rem] text-white/10"></i>
+                </div>
+                <div>
+                    <span class="text-qrPinkLight font-bold text-xs uppercase tracking-[0.2em] mb-4 block">Restaurante</span>
+                    <h3 class="font-display font-extrabold text-white text-3xl md:text-5xl mb-5 leading-tight">Mi Tierra</h3>
+                    <p class="text-white/45 text-base md:text-lg leading-relaxed max-w-md">Plataforma web y sistema de gestión operativa, con soporte técnico directo de nuestro equipo.</p>
+                </div>
+            </div>
+
+            <div class="case-band reveal-up grid md:grid-cols-2 gap-10 md:gap-16 items-center py-12 md:py-16">
+                <div class="order-2 md:order-1">
+                    <span class="text-qrPinkLight font-bold text-xs uppercase tracking-[0.2em] mb-4 block">Retail / Alimentos</span>
+                    <h3 class="font-display font-extrabold text-white text-3xl md:text-5xl mb-5 leading-tight">Dulce Gusto</h3>
+                    <p class="text-white/45 text-base md:text-lg leading-relaxed max-w-md">Infraestructura digital y sistema de pedidos pensados para escalar la operación sin fricción.</p>
+                </div>
+                <div class="case-swatch order-1 md:order-2 bg-white/[0.03] border border-white/10">
+                    <i class="fa-solid fa-mug-hot absolute -bottom-8 -right-6 text-[9rem] text-qrPink/15"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-16 md:mt-20 flex flex-col md:flex-row items-center justify-between gap-6 reveal-up">
+            <p class="text-lg font-semibold text-white/55">¿Listo para que tu negocio sea el próximo caso de éxito?</p>
+            <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary btn-fill magnetic">
+                <span>Quiero mi Sistema</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+        </div>
+    </section>
+
+    <section id="mail" class="py-24 md:py-32 px-6 md:px-16 max-w-[1800px] mx-auto reveal-up">
+        <div class="grid md:grid-cols-2 gap-14 items-center border border-white/10 p-10 md:p-20">
+            <div class="relative aspect-square hidden md:flex items-center justify-center brand-gradient">
+                <i class="fa-solid fa-envelope-open-text text-white/20 text-[10rem]"></i>
+            </div>
+            <div>
+                <span class="ghost-num block mb-4">04</span>
+                <h2 class="font-display font-extrabold text-white text-3xl md:text-6xl leading-none mb-6">Emails con confianza total.</h2>
+                <p class="text-lg text-white/50 mb-9 leading-relaxed">Eleva tu marca con infraestructura de correo corporativo ultra-segura, con filtros IA avanzados y dominios personalizados (.com / .cr).</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
                     <div class="flex items-center font-semibold text-sm text-white/70"><span class="feature-check">✓</span> 99.9% Spam Filter IA</div>
                     <div class="flex items-center font-semibold text-sm text-white/70"><span class="feature-check">✓</span> Storage Ilimitado</div>
                     <div class="flex items-center font-semibold text-sm text-white/70"><span class="feature-check">✓</span> Seguridad SSL/TLS</div>
                     <div class="flex items-center font-semibold text-sm text-white/70"><span class="feature-check">✓</span> Mobile Sync Pro</div>
                 </div>
-                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary magnetic px-9 py-4 rounded-full text-sm font-bold">
-                    Obtener Mail Pro <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary btn-fill magnetic">
+                    <span>Obtener Mail Pro</span> <i class="fa-solid fa-arrow-right text-xs"></i>
                 </a>
             </div>
         </div>
     </section>
 
-    <section id="marcas" class="py-20 md:py-28 px-6 md:px-16 max-w-[1800px] mx-auto">
-        <div class="max-w-2xl mx-auto text-center mb-14 md:mb-16 reveal-up">
-            <span class="kicker mb-6"><span class="kicker-dot"></span>Confianza comprobada</span>
-            <h2 class="heading-hero text-3xl md:text-6xl text-white">Marcas que confían en nosotros.</h2>
+    <section id="marcas" class="py-24 md:py-32 px-6 md:px-16 max-w-[1800px] mx-auto">
+        <div class="max-w-xl mb-14 md:mb-16 reveal-up">
+            <span class="ghost-num block mb-4">05</span>
+            <h2 class="font-display font-extrabold text-white text-3xl md:text-6xl leading-none">Marcas que confían en nosotros.</h2>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6 reveal-up">
-            <div class="card rounded-3xl p-6 md:p-8 flex items-center justify-center h-28 md:h-36 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-500">
-                <img src="assets/LogoCICSA.png" alt="CICSA Ingeniería Civil" class="max-h-full max-w-full object-contain rounded-lg">
+        <div class="flex flex-wrap items-center reveal-up border-t border-white/10">
+            <div class="flex-1 min-w-[140px] border-b border-r border-white/10 h-28 md:h-36 flex items-center justify-center p-6 grayscale hover:grayscale-0 opacity-55 hover:opacity-100 transition-all duration-500">
+                <img src="assets/LogoCICSA.png" alt="CICSA Ingeniería Civil" class="max-h-full max-w-full object-contain">
             </div>
-            <div class="card rounded-3xl p-6 md:p-8 flex items-center justify-center h-28 md:h-36 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-500">
-                <img src="assets/Hotelcañas.png" alt="Hotel Cañas" class="max-h-full max-w-full object-contain rounded-lg">
+            <div class="flex-1 min-w-[140px] border-b border-r border-white/10 h-28 md:h-36 flex items-center justify-center p-6 grayscale hover:grayscale-0 opacity-55 hover:opacity-100 transition-all duration-500">
+                <img src="assets/Hotelcañas.png" alt="Hotel Cañas" class="max-h-full max-w-full object-contain">
             </div>
-            <div class="card rounded-3xl p-6 md:p-8 flex items-center justify-center h-28 md:h-36 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-500">
-                <img src="assets/edsa.png" alt="EdsaWind" class="max-h-full max-w-full object-contain rounded-lg">
+            <div class="flex-1 min-w-[140px] border-b border-r border-white/10 h-28 md:h-36 flex items-center justify-center p-6 grayscale hover:grayscale-0 opacity-55 hover:opacity-100 transition-all duration-500">
+                <img src="assets/edsa.png" alt="EdsaWind" class="max-h-full max-w-full object-contain">
             </div>
-            <div class="card rounded-3xl p-6 md:p-8 flex items-center justify-center h-28 md:h-36 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-500">
-                <img src="assets/logos/dulce-gusto.png" alt="Cafetería Dulce Gusto" class="max-h-full max-w-full object-contain rounded-lg">
+            <div class="flex-1 min-w-[140px] border-b border-r border-white/10 h-28 md:h-36 flex items-center justify-center p-6 grayscale hover:grayscale-0 opacity-55 hover:opacity-100 transition-all duration-500">
+                <img src="assets/logos/dulce-gusto.png" alt="Cafetería Dulce Gusto" class="max-h-full max-w-full object-contain">
             </div>
-            <div class="card rounded-3xl p-6 md:p-8 flex items-center justify-center h-28 md:h-36 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-500">
-                <img src="assets/Mitierra.jpg" alt="Restaurante Mi Tierra" class="max-h-full max-w-full object-contain rounded-lg">
+            <div class="flex-1 min-w-[140px] border-b border-r border-white/10 h-28 md:h-36 flex items-center justify-center p-6 grayscale hover:grayscale-0 opacity-55 hover:opacity-100 transition-all duration-500">
+                <img src="assets/Mitierra.jpg" alt="Restaurante Mi Tierra" class="max-h-full max-w-full object-contain">
             </div>
         </div>
-        <p class="text-center text-sm font-semibold text-white/35 mt-12 reveal-up">Y seguimos construyendo el sistema de la próxima empresa que confíe en nosotros.</p>
+        <p class="text-center text-sm font-semibold text-white/30 mt-10 reveal-up">Y seguimos construyendo el sistema de la próxima empresa que confíe en nosotros.</p>
     </section>
 
-    <section class="py-20 md:py-28 px-6 md:px-16 max-w-[1800px] mx-auto">
-        <div class="rounded-4xl md:rounded-5xl p-10 md:p-20 text-center relative overflow-hidden reveal-up brand-gradient">
-            <div class="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-white/12 blur-[90px] pointer-events-none"></div>
-            <div class="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-white/10 blur-[90px] pointer-events-none"></div>
-            <h2 class="heading-hero text-3xl md:text-6xl text-white mb-6 relative z-10">¿Construimos tu sistema?</h2>
-            <p class="text-white/75 text-base md:text-lg max-w-xl mx-auto mb-10 relative z-10 leading-relaxed">Hablemos por WhatsApp y te decimos, sin rodeos, qué necesita tu operación.</p>
-            <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-invert magnetic relative z-10 px-9 py-4 rounded-full text-sm font-bold">
-                <i class="fa-brands fa-whatsapp text-base"></i> Escribinos ahora <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
-            </a>
+    <section class="py-24 md:py-32 px-6 md:px-16 max-w-[1800px] mx-auto">
+        <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-10 border-t border-b border-white/10 py-16 md:py-20 reveal-up">
+            <h2 class="font-display font-extrabold text-white text-4xl md:text-7xl leading-none max-w-2xl">¿Construimos <span class="brand-gradient-text">tu sistema?</span></h2>
+            <div class="shrink-0">
+                <p class="text-white/45 text-base mb-6 max-w-xs">Hablemos por WhatsApp y te decimos, sin rodeos, qué necesita tu operación.</p>
+                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-invert btn-fill magnetic">
+                    <i class="fa-brands fa-whatsapp"></i> <span>Escribinos ahora</span>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -635,24 +624,17 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // Reveal individual
         document.querySelectorAll('.reveal-up').forEach((el) => {
             gsap.from(el, { opacity: 0, y: 36, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
         });
-
-        // Stagger de grids
-        document.querySelectorAll('.grid-flow-dense').forEach((grid) => {
-            gsap.from(grid.children, { opacity: 0, y: 40, duration: 0.8, ease: 'power3.out', stagger: 0.08, scrollTrigger: { trigger: grid, start: 'top 85%' } });
-        });
+        gsap.from('.idx-row', { opacity: 0, y: 24, duration: 0.7, ease: 'power3.out', stagger: 0.07, scrollTrigger: { trigger: '#ecosistema', start: 'top 75%' } });
         gsap.from('.stat-item', { opacity: 0, y: 24, duration: 0.7, ease: 'power3.out', stagger: 0.08, scrollTrigger: { trigger: '.stat-group', start: 'top 90%' } });
-        gsap.from('#marcas .grid > div', { opacity: 0, y: 24, duration: 0.7, ease: 'power3.out', stagger: 0.06, scrollTrigger: { trigger: '#marcas .grid', start: 'top 88%' } });
+        gsap.from('#marcas .flex.flex-wrap > div', { opacity: 0, y: 24, duration: 0.7, ease: 'power3.out', stagger: 0.06, scrollTrigger: { trigger: '#marcas .flex.flex-wrap', start: 'top 88%' } });
 
-        // Dibujo del motivo QR del hero al cargar, luego pulso de brillo constante
         gsap.set('.qr-draw > *', { opacity: 0, scale: 0.85, transformOrigin: '100px 100px' });
         gsap.to('.qr-draw > *', { opacity: 1, scale: 1, duration: 0.9, ease: 'back.out(1.6)', stagger: 0.045, delay: 0.3 });
-        gsap.to('.qr-motif', { opacity: 0.55, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.5 });
+        gsap.to('.qr-motif', { opacity: 0.5, duration: 2.6, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.5 });
 
-        // Contador animado
         document.querySelectorAll('.counter').forEach((el) => {
             const target = parseFloat(el.dataset.target);
             ScrollTrigger.create({
@@ -661,7 +643,6 @@
             });
         });
 
-        // Barra de progreso + sombra del nav
         const navbar = document.getElementById('navbar');
         const progressBar = document.getElementById('scroll-progress');
         window.addEventListener('scroll', () => {
@@ -671,7 +652,6 @@
             navbar.classList.toggle('scrolled', scrollTop > 40);
         });
 
-        // Menú móvil
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         let menuOpen = false;
@@ -685,7 +665,6 @@
         menuToggle.addEventListener('click', () => toggleMenu(false));
         document.querySelectorAll('.mobile-link').forEach((link) => link.addEventListener('click', () => toggleMenu(true)));
 
-        // Brillo que sigue al cursor (con retraso tipo resorte)
         const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (isFinePointer && !prefersReducedMotion) {
@@ -694,30 +673,15 @@
             const glowY = gsap.quickTo(glow, 'y', { duration: 0.7, ease: 'power3.out' });
             window.addEventListener('mousemove', (e) => { glowX(e.clientX); glowY(e.clientY); });
 
-            // Botones magnéticos
             document.querySelectorAll('.magnetic').forEach((btn) => {
                 const moveX = gsap.quickTo(btn, 'x', { duration: 0.4, ease: 'power3.out' });
                 const moveY = gsap.quickTo(btn, 'y', { duration: 0.4, ease: 'power3.out' });
                 btn.addEventListener('mousemove', (e) => {
                     const rect = btn.getBoundingClientRect();
-                    moveX((e.clientX - rect.left - rect.width / 2) * 0.28);
-                    moveY((e.clientY - rect.top - rect.height / 2) * 0.28);
+                    moveX((e.clientX - rect.left - rect.width / 2) * 0.25);
+                    moveY((e.clientY - rect.top - rect.height / 2) * 0.25);
                 });
                 btn.addEventListener('mouseleave', () => { moveX(0); moveY(0); });
-            });
-
-            // Inclinación 3D en tarjetas
-            document.querySelectorAll('.tilt').forEach((card) => {
-                const rotX = gsap.quickTo(card, 'rotationX', { duration: 0.5, ease: 'power3.out' });
-                const rotY = gsap.quickTo(card, 'rotationY', { duration: 0.5, ease: 'power3.out' });
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const px = (e.clientX - rect.left) / rect.width - 0.5;
-                    const py = (e.clientY - rect.top) / rect.height - 0.5;
-                    rotY(px * 6);
-                    rotX(py * -6);
-                });
-                card.addEventListener('mouseleave', () => { rotX(0); rotY(0); });
             });
         }
     </script>
