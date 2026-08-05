@@ -74,6 +74,7 @@
         /* GLASSMORPHISM PRO */
         .glass-panel {
             background: rgba(255, 255, 255, 0.7);
+            -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(209, 31, 138, 0.1);
             transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
@@ -103,17 +104,38 @@
         .text-glow { text-shadow: 0 0 30px rgba(209, 31, 138, 0.3); }
         .feature-check { color: var(--magenta); margin-right: 8px; font-weight: bold; }
 
-        /* Forzar la ocultación de la barra de scroll en el carrusel */
-        #carousel-contenedor {
-            -ms-overflow-style: none;  /* Internet Explorer y Edge */
-            scrollbar-width: none;  /* Firefox */
+        /* BOTÓN GRADIENTE DE MARCA */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 100%);
+            background-size: 160% 160%;
+            background-position: 0% 50%;
+            transition: background-position 0.6s ease, transform 0.4s cubic-bezier(0.19,1,0.22,1), box-shadow 0.4s ease;
+        }
+        .btn-primary:hover {
+            background-position: 100% 50%;
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px -12px rgba(209, 31, 138, 0.45);
         }
 
-        #carousel-contenedor::-webkit-scrollbar {
-            display: none; /* Chrome, Safari y Opera */
-            width: 0 !important;
-            height: 0 !important;
+        /* TEXTURA DE PUNTOS PARA EL HERO */
+        .dot-grid {
+            background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1.5px, transparent 1.5px);
+            background-size: 28px 28px;
         }
+
+        /* BARRA DE PROGRESO DE SCROLL */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+            background: linear-gradient(90deg, var(--magenta), var(--purple));
+            z-index: 300;
+        }
+
+        /* NAV CON SOMBRA AL HACER SCROLL */
+        #navbar { transition: box-shadow 0.3s ease, background-color 0.3s ease; }
+        #navbar.scrolled { box-shadow: 0 10px 40px -20px rgba(15, 23, 42, 0.2); background-color: rgba(255,255,255,0.9); }
+
+        /* MENÚ MÓVIL */
+        #mobile-menu { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.19,1,0.22,1), opacity 0.4s ease; }
     </style>
 
         <script type="application/ld+json">
@@ -149,26 +171,48 @@
 
 <body class="font-sans">
 
+    <div id="scroll-progress"></div>
     <div class="mesh-gradient"></div>
 
-    <nav class="fixed top-0 w-full z-[200] bg-white/70 backdrop-blur-xl border-b border-slate-100 h-24 flex items-center px-8 md:px-16">
-        <div class="max-w-[1800px] mx-auto w-full flex justify-between items-center">
+    <nav id="navbar" class="fixed top-0 w-full z-[200] bg-white/70 backdrop-blur-xl border-b border-slate-100">
+        <div class="max-w-[1800px] mx-auto w-full flex justify-between items-center h-24 px-6 md:px-16">
             <div class="flex items-center gap-4 group">
                 <img src="assets/FavIcon2.png" alt="QR" class="w-10 h-10 group-hover:rotate-12 transition-transform duration-500">
-                <span class="text-2xl font-black tracking-tighter text-qrDark uppercase italic">QR Innovations</span>
+                <span class="text-xl md:text-2xl font-black tracking-tighter text-qrDark uppercase italic">QR Innovations</span>
             </div>
             <div class="hidden xl:flex items-center gap-12 text-[11px] font-black uppercase tracking-[0.2em] text-slate-500">
                 <a href="#ecosistema" class="hover:text-qrMagenta transition-colors">Ecosistema</a>
                 <a href="#horizons" class="hover:text-qrMagenta transition-colors">Horizon IA</a>
-                <a href="#planes" class="hover:text-qrMagenta transition-colors">Planes</a>
+                <a href="#proyectos" class="hover:text-qrMagenta transition-colors">Proyectos</a>
                 <a href="#mail" class="hover:text-qrMagenta transition-colors">Cloud Mail</a>
-                <a href="#testimonios" class="hover:text-qrMagenta transition-colors">Testimonios</a>
-                <a href="https://wa.me/50689081652" class="bg-qrMagenta text-white px-8 py-4 rounded-full hover:shadow-2xl hover:shadow-qrMagenta/40 transition-all scale-105 active:scale-95">Iniciar Proyecto</a>
+                <a href="#marcas" class="hover:text-qrMagenta transition-colors">Marcas</a>
+                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary text-white px-8 py-4 rounded-full hover:shadow-2xl hover:shadow-qrMagenta/40 transition-all scale-105 active:scale-95">Iniciar Proyecto</a>
+            </div>
+            <button id="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu" class="xl:hidden text-xl text-qrDark w-11 h-11 flex items-center justify-center rounded-full hover:bg-qrMagenta/5 transition-colors">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+        <div id="mobile-menu" class="xl:hidden px-6">
+            <div class="flex flex-col gap-1 py-6 border-t border-slate-100 text-xs font-black uppercase tracking-widest text-slate-600">
+                <a href="#ecosistema" class="mobile-link py-3 hover:text-qrMagenta transition-colors">Ecosistema</a>
+                <a href="#horizons" class="mobile-link py-3 hover:text-qrMagenta transition-colors">Horizon IA</a>
+                <a href="#proyectos" class="mobile-link py-3 hover:text-qrMagenta transition-colors">Proyectos</a>
+                <a href="#mail" class="mobile-link py-3 hover:text-qrMagenta transition-colors">Cloud Mail</a>
+                <a href="#marcas" class="mobile-link py-3 hover:text-qrMagenta transition-colors">Marcas</a>
+                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary text-white text-center px-8 py-4 rounded-full mt-4">Iniciar Proyecto</a>
             </div>
         </div>
     </nav>
 
-    <header class="relative pt-64 pb-48 px-8 md:px-16">
+    <header class="relative pt-48 md:pt-64 pb-24 md:pb-48 px-6 md:px-16 dot-grid overflow-hidden">
+        <div class="hidden lg:block absolute top-72 left-[6%] glass-panel rounded-2xl px-7 py-5 reveal-up">
+            <div class="text-4xl font-black text-qrMagenta italic leading-none">100%</div>
+            <div class="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 mt-2">Pura Vida Tech</div>
+        </div>
+        <div class="hidden lg:block absolute bottom-40 right-[6%] glass-panel rounded-2xl px-7 py-5 reveal-up">
+            <div class="text-4xl font-black text-qrPurple italic leading-none">24/7</div>
+            <div class="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 mt-2">Soporte Técnico</div>
+        </div>
         <div class="max-w-[1800px] mx-auto">
             <div class="flex flex-col items-center text-center">
                 <div class="reveal-up inline-flex items-center gap-3 px-6 py-2 rounded-full border border-qrMagenta/20 bg-qrMagenta/5 text-[10px] font-black uppercase tracking-[0.3em] text-qrMagenta mb-12">
@@ -181,12 +225,12 @@
                 <h1 class="heading-mega text-slate-900 mb-12 reveal-up">
                     Architecture <br> for <span class="text-qrMagenta italic text-glow">Leaders.</span>
                 </h1>
-                <p class="text-2xl md:text-3xl text-slate-400 max-w-3xl font-medium leading-tight mb-16 reveal-up">
+                <p class="text-xl md:text-3xl text-slate-400 max-w-3xl font-medium leading-tight mb-16 reveal-up">
                     Desarrollamos el software crítico que sostiene a los gigantes industriales. Ingeniería Pura Vida desde Costa Rica.
                 </p>
-                <div class="flex flex-wrap justify-center gap-8 reveal-up">
-                    <a href="#ecosistema" class="bg-qrDark text-white px-12 py-6 rounded-3xl font-black uppercase tracking-widest text-xs hover:bg-qrMagenta hover:shadow-2xl hover:shadow-qrMagenta/30 transition-all">Ver Ecosistema</a>
-                    <a href="#trayectoria" class="glass-panel px-12 py-6 rounded-3xl font-black uppercase tracking-widest text-xs text-slate-600">Nuestros Socios</a>
+                <div class="flex flex-wrap justify-center gap-6 md:gap-8 reveal-up">
+                    <a href="#ecosistema" class="btn-primary text-white px-10 md:px-12 py-5 md:py-6 rounded-3xl font-black uppercase tracking-widest text-xs transition-all">Ver Ecosistema</a>
+                    <a href="#trayectoria" class="glass-panel px-10 md:px-12 py-5 md:py-6 rounded-3xl font-black uppercase tracking-widest text-xs text-slate-600">Nuestros Socios</a>
                 </div>
             </div>
         </div>
@@ -198,7 +242,37 @@
             <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Hotel Cañas</span>
             <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Dulce Gusto</span>
             <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Mi Tierra</span>
-            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Cicsa</span>
+            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">CICSA</span>
+            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Edsawind</span>
+            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Hotel Cañas</span>
+            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Dulce Gusto</span>
+            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">Mi Tierra</span>
+            <span class="mx-20 text-5xl font-black opacity-80 uppercase [text-shadow:10px_15px_4px_rgba(0,0,0,0.50)]">CICSA</span>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 px-6 md:px-16 max-w-[1800px] mx-auto border-b border-slate-100">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-10">
+            <div class="reveal-up lg:pr-8 lg:border-r border-slate-100">
+                <i class="fa-solid fa-industry text-3xl text-qrMagenta mb-6 block"></i>
+                <h3 class="font-black uppercase text-sm tracking-widest mb-3">Ingeniería Industrial</h3>
+                <p class="text-sm text-slate-400 font-medium leading-relaxed">Software crítico para operaciones que no pueden fallar.</p>
+            </div>
+            <div class="reveal-up lg:pr-8 lg:border-r border-slate-100">
+                <i class="fa-solid fa-headset text-3xl text-qrPurple mb-6 block"></i>
+                <h3 class="font-black uppercase text-sm tracking-widest mb-3">Soporte Real 24/7</h3>
+                <p class="text-sm text-slate-400 font-medium leading-relaxed">Un ingeniero responde, no un bot genérico.</p>
+            </div>
+            <div class="reveal-up lg:pr-8 lg:border-r border-slate-100">
+                <i class="fa-solid fa-bolt text-3xl text-qrMagenta mb-6 block"></i>
+                <h3 class="font-black uppercase text-sm tracking-widest mb-3">Entrega Ágil</h3>
+                <p class="text-sm text-slate-400 font-medium leading-relaxed">De la idea a producción sin fricción innecesaria.</p>
+            </div>
+            <div class="reveal-up">
+                <i class="fa-solid fa-shield-halved text-3xl text-qrPurple mb-6 block"></i>
+                <h3 class="font-black uppercase text-sm tracking-widest mb-3">Seguro por Diseño</h3>
+                <p class="text-sm text-slate-400 font-medium leading-relaxed">Cada sistema nace blindado, no parchado después.</p>
+            </div>
         </div>
     </section>
 
@@ -271,7 +345,7 @@
                 
                 <h2 class="text-4xl md:text-8xl font-black mb-6 md:mix-blend-overlay leading-none tracking-tighter text-glow break-words">Ideas humanas <br> impulsadas por IA</h2>
                 <p class="text-sm md:text-xl text-white/60 mb-10 max-w-3xl mx-auto font-medium leading-relaxed">Nuestras herramientas de ingeniería con IA te ayudan a escalar operaciones industriales mientras mantienes el control total sobre tu éxito en un mismo ecosistema.</p>
-                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="inline-block bg-qrPurple text-white px-10 py-4 md:px-12 md:py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform shadow-2xl shadow-qrPurple/40">Empezar ya</a>
+                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary inline-block text-white px-10 py-4 md:px-12 md:py-5 rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl shadow-qrPurple/40">Empezar ya</a>
 
                 <div class="mt-16 md:mt-32 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[24px] md:rounded-[40px] p-6 md:p-24 text-left relative overflow-hidden group hover:border-qrMagenta/50 transition-colors duration-500">
                     <div class="absolute -right-20 -bottom-20 w-64 h-64 md:w-96 md:h-96 bg-gradient-to-tl from-qrMagenta to-qrPurple opacity-30 blur-[100px] rounded-full group-hover:opacity-50 transition-opacity duration-500"></div>
@@ -283,182 +357,150 @@
         </div>
     </section>
 
-    <section id="planes" class="py-20 px-4 md:px-16 max-w-[1500px] mx-auto reveal-up">
-        <div class="text-center mb-24">
-            <h2 class="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter uppercase mb-6 leading-none">Choose your <br> <span class="text-qrMagenta italic text-glow">Engine.</span></h2>
-            <p class="text-slate-500 font-medium text-lg max-w-2xl mx-auto">Selecciona la infraestructura ideal para el nivel de exigencia de tu operación.</p>
+    <section id="proyectos" class="py-20 px-6 md:px-16 max-w-[1800px] mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-32 gap-6 md:gap-10">
+            <div class="max-w-2xl reveal-up">
+                <h2 class="text-4xl md:text-7xl font-black tracking-tighter uppercase leading-none mb-6 md:mb-8">Trabajos <br><span class="text-qrMagenta">Realizados.</span></h2>
+                <p class="text-lg md:text-xl text-slate-400 font-medium leading-relaxed">Sistemas en producción, resolviendo operaciones reales para negocios en Costa Rica.</p>
+            </div>
+            <div class="hidden md:block text-right reveal-up">
+                <span class="text-8xl font-black opacity-5 italic">CASES</span>
+            </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-
-            <div class="bg-white border border-slate-200 rounded-[40px] p-10 hover:border-qrPurple hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-2 block">Básico</span>
-                <h3 class="text-3xl font-black uppercase italic text-slate-900 mb-2">Starter Core</h3>
-                <p class="text-xs text-slate-500 font-medium mb-8">Todo lo que necesitas para empezar</p>
-                <div class="text-5xl font-black text-slate-900 mb-2">$200<span class="text-sm text-slate-400 font-bold">/mes</span></div>
-                <button id="btn-starter" class="w-full py-4 border-2 border-qrPurple text-qrPurple rounded-xl font-black text-[10px] uppercase tracking-widest mt-8 mb-10 hover:bg-qrPurple hover:text-white transition-colors">Elegir Plan</button>
-                <ul class="space-y-5 text-xs font-bold text-slate-600">
-                    <li class="flex items-center"><i class="fa-solid fa-check text-qrPurple mr-3 text-lg"></i> Facturación Hacienda v4.4</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-qrPurple mr-3 text-lg"></i> Hosting Cloud</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-qrPurple mr-3 text-lg"></i> Web personalida</li>
-                    <li class="flex items-center opacity-40"><i class="fa-solid fa-xmark text-slate-400 mr-3 text-lg"></i> Sin Agentes IA</li>
-                </ul>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+            <div class="md:col-span-7 glass-panel p-8 md:p-14 bg-qrDark text-white rounded-[32px] md:rounded-[40px] relative overflow-hidden group reveal-up">
+                <div class="absolute -top-20 -right-20 p-10 opacity-5 text-[12rem] md:text-[20rem] font-black italic group-hover:text-qrMagenta transition-colors duration-700 pointer-events-none"><i class="fa-solid fa-drafting-compass"></i></div>
+                <span class="text-qrMagenta font-black text-[10px] md:text-xs uppercase tracking-[0.4em] mb-6 block relative z-10">Ingeniería Civil · Sistema a Medida</span>
+                <h3 class="text-3xl md:text-5xl font-black mb-6 uppercase leading-none relative z-10">CICSA <br>Ingeniería Civil</h3>
+                <p class="text-slate-400 text-sm md:text-lg max-w-md mb-10 relative z-10">Plataforma 100% especializada en su operación: el equipo de CICSA registra el avance de cada obra y sus clientes dan seguimiento al progreso del proyecto en tiempo real, todo desde un mismo sistema.</p>
+                <div class="flex flex-wrap gap-3 relative z-10">
+                    <span class="px-4 py-2 rounded-full bg-white/10 text-xs font-bold uppercase tracking-widest">Gestión de Proyectos</span>
+                    <span class="px-4 py-2 rounded-full bg-white/10 text-xs font-bold uppercase tracking-widest">Portal de Clientes</span>
+                </div>
             </div>
 
-            <div class="bg-qrPurple rounded-[40px] p-10 transform scale-105 shadow-[0_30px_60px_-15px_rgba(103,61,230,0.5)] relative z-10 border border-qrPurple">
-                <div class="absolute top-0 right-0 bg-white text-qrPurple px-5 py-2 rounded-bl-3xl text-[9px] font-black uppercase tracking-widest">Más Vendido</div>
-                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-white/60 mb-2 block mt-4">Avanzado</span>
-                <h3 class="text-3xl font-black uppercase italic text-white mb-2">Enterprise Pro</h3>
-                <p class="text-xs text-white/80 font-medium mb-8">Más herramientas y potencia IA</p>
-                <div class="text-5xl font-black text-white mb-2">$350<span class="text-sm text-white/60 font-bold">/mes</span></div>
-                <button id="btn-enterprise" class="w-full py-4 bg-white text-qrPurple rounded-xl font-black text-[10px] uppercase tracking-widest mt-8 mb-10 hover:scale-105 transition-transform shadow-xl">Elegir Plan</button>
-                <ul class="space-y-5 text-xs font-bold text-white/90">
-                    <li class="flex items-center"><i class="fa-solid fa-check text-white mr-3 text-lg"></i> IA Agent (WhatsApp) 24/7</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-white mr-3 text-lg"></i> Integración con pasalera de pagos</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-white mr-3 text-lg"></i> Cloud Mail Ilimitado con su propio dominio</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-white mr-3 text-lg"></i> Soporte VIP Prioritario</li>
-                </ul>
+            <div class="md:col-span-5 glass-panel p-8 md:p-14 rounded-[32px] md:rounded-[40px] flex flex-col justify-between reveal-up">
+                <span class="text-qrPurple font-black text-[10px] md:text-xs uppercase tracking-[0.4em] mb-6 block">Hospitalidad · Hacienda v4.4</span>
+                <div>
+                    <h3 class="text-2xl md:text-4xl font-black mb-6 uppercase leading-none">Hotel Cañas</h3>
+                    <p class="text-slate-500 text-sm md:text-base font-medium">Automatizamos la facturación electrónica bajo el nuevo protocolo de Hacienda y conectamos su operación a un ecosistema cloud unificado.</p>
+                </div>
             </div>
 
-            <div class="bg-white border border-slate-200 rounded-[40px] p-10 hover:border-qrPurple hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-2 block">Dedicado</span>
-                <h3 class="text-3xl font-black uppercase italic text-slate-900 mb-2">Custom Stack</h3>
-                <p class="text-xs text-slate-500 font-medium mb-8">20 veces más potencia de servidor</p>
-                <div class="text-5xl font-black text-slate-900 italic mb-2">Cotizar</div>
-                <button class="w-full py-4 border-2 border-qrPurple text-qrPurple rounded-xl font-black text-[10px] uppercase tracking-widest mt-8 mb-10 hover:bg-qrPurple hover:text-white transition-colors">Hablar con Experto</button>
-                <ul class="space-y-5 text-xs font-bold text-slate-600">
-                    <li class="flex items-center"><i class="fa-solid fa-check text-qrPurple mr-3 text-lg"></i> Arquitectura personalizada a su negocio</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-qrPurple mr-3 text-lg"></i> Web a la medida con pasarela de pago</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-qrPurple mr-3 text-lg"></i> Ciberseguridad Cloudflare</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-qrPurple mr-3 text-lg"></i> SLA Empresarial VIP</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-qrPurple mr-3 text-lg"></i> Cotizacion a la medida de su necesidad</li>
-                </ul>
+            <div class="md:col-span-5 glass-panel p-8 md:p-14 rounded-[32px] md:rounded-[40px] bg-qrPurple text-white reveal-up">
+                <span class="text-white/60 font-black text-[10px] md:text-xs uppercase tracking-[0.4em] mb-6 block">Industrial · Web Corporativa</span>
+                <h3 class="text-2xl md:text-4xl font-black mb-6 uppercase leading-none">Edsawind</h3>
+                <p class="text-white/80 text-sm md:text-base font-medium">Sitio web corporativo a la medida, con identidad de marca reforzada y presencia digital de nivel industrial.</p>
+            </div>
+
+            <div class="md:col-span-7 glass-panel p-8 md:p-14 rounded-[32px] md:rounded-[40px] flex flex-col justify-between reveal-up">
+                <span class="text-qrMagenta font-black text-[10px] md:text-xs uppercase tracking-[0.4em] mb-6 block">Restaurante</span>
+                <div>
+                    <h3 class="text-2xl md:text-4xl font-black mb-6 uppercase leading-none">Mi Tierra</h3>
+                    <p class="text-slate-500 text-sm md:text-base font-medium">Plataforma web y sistema de gestión operativa, con soporte técnico directo de nuestro equipo.</p>
+                </div>
+            </div>
+
+            <div class="md:col-span-12 glass-panel p-8 md:p-14 rounded-[32px] md:rounded-[40px] flex items-center justify-between gap-6 md:gap-10 reveal-up">
+                <div>
+                    <span class="text-qrMagenta font-black text-[10px] md:text-xs uppercase tracking-[0.4em] mb-6 block">Retail / Alimentos</span>
+                    <h3 class="text-2xl md:text-4xl font-black mb-4 uppercase leading-none">Dulce Gusto</h3>
+                    <p class="text-slate-500 text-sm md:text-base font-medium max-w-md">Infraestructura digital y sistema de pedidos pensados para escalar la operación sin fricción.</p>
+                </div>
+                <i class="fa-solid fa-arrow-up-right-dots text-5xl text-qrMagenta opacity-30 hidden lg:block"></i>
+            </div>
+        </div>
+
+        <div class="mt-16 md:mt-20 text-center reveal-up">
+            <p class="text-lg md:text-xl text-slate-400 font-medium mb-8">¿Listo para que tu negocio sea el próximo caso de éxito?</p>
+            <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary text-white px-10 md:px-12 py-5 md:py-6 rounded-3xl font-black uppercase tracking-widest text-xs transition-all inline-block">Quiero mi Sistema</a>
+        </div>
+    </section>
+
+    <section id="mail" class="py-20 md:py-48 bg-slate-50 relative overflow-hidden">
+        <div class="max-w-[1800px] mx-auto px-6 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-32 items-center">
+            <div class="relative order-2 lg:order-1 reveal-up">
+                <div class="absolute -inset-20 bg-qrPurple/5 blur-[120px] rounded-full"></div>
+                <div class="glass-panel p-8 md:p-16 relative bg-white shadow-2xl border-white">
+                    <div class="flex items-center justify-between mb-10 md:mb-12">
+                        <h3 class="text-2xl md:text-3xl font-black tracking-tighter">Cloud <span class="text-qrMagenta italic">Mail.</span></h3>
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-6 md:space-y-8">
+                        <div class="p-5 md:p-6 rounded-3xl bg-slate-50 border border-slate-100 flex items-center gap-6 animate-pulse">
+                            <div class="w-12 h-12 rounded-2xl bg-qrMagenta/20"></div>
+                            <div class="h-4 w-40 bg-slate-200 rounded-full"></div>
+                        </div>
+                        <div class="p-5 md:p-6 rounded-3xl bg-white border border-slate-100 shadow-sm flex items-center gap-6">
+                            <div class="w-12 h-12 rounded-2xl bg-qrPurple/20"></div>
+                            <div class="h-4 w-56 bg-slate-200 rounded-full"></div>
+                        </div>
+                        <div class="p-5 md:p-6 rounded-3xl bg-slate-50 border border-slate-100 flex items-center gap-6">
+                            <div class="w-12 h-12 rounded-2xl bg-qrMagenta/20"></div>
+                            <div class="h-4 w-32 bg-slate-200 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="order-1 lg:order-2 reveal-up">
+                <span class="bg-qrMagenta/10 text-qrMagenta px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-8 md:mb-10 inline-block">Professional Comms</span>
+                <h2 class="text-4xl md:text-8xl font-black tracking-tighter mb-8 md:mb-10 leading-none uppercase">Emails with <br> <span class="text-qrPurple italic">Confidence.</span></h2>
+                <p class="text-lg md:text-xl text-slate-500 mb-10 md:mb-12 font-medium leading-relaxed">Eleva tu marca con infraestructura de correo corporativo ultra-segura, con filtros IA avanzados y dominios personalizados (.com / .cr).</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-12 md:mb-16">
+                    <div class="flex items-center font-bold text-sm text-slate-700"><span class="feature-check">✓</span> 99.9% Spam Filter IA</div>
+                    <div class="flex items-center font-bold text-sm text-slate-700"><span class="feature-check">✓</span> Storage Ilimitado</div>
+                    <div class="flex items-center font-bold text-sm text-slate-700"><span class="feature-check">✓</span> Seguridad SSL/TLS</div>
+                    <div class="flex items-center font-bold text-sm text-slate-700"><span class="feature-check">✓</span> Mobile Sync Pro</div>
+                </div>
+                <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="btn-primary text-white px-10 md:px-12 py-5 md:py-6 rounded-3xl font-black uppercase tracking-widest text-xs transition-all inline-block shadow-xl shadow-qrDark/10">Obtener Mail Pro</a>
             </div>
         </div>
     </section>
 
-    <section id="testimonios" class="qr-grad-section py-40 px-6 md:px-16 overflow-x-hidden">
-    <div class="max-w-[1800px] mx-auto">
-        
-        <div class="text-center mb-16 reveal-up relative">
-            <span class="block text-5xl md:text-7xl font-black tracking-tighter uppercase italic opacity-20 select-none mb-[-1rem] md:mb-[-2rem]">Testimonials.</span>
-            <h2 class="text-3xl md:text-5xl font-black tracking-tighter uppercase relative z-10">Líderes que confían.</h2>
+    <section id="marcas" class="py-20 md:py-32 px-6 md:px-16 max-w-[1800px] mx-auto">
+        <div class="text-center mb-14 md:mb-20 reveal-up">
+            <span class="text-[10px] font-black uppercase tracking-[0.3em] text-qrMagenta mb-6 inline-block">Confianza Comprobada</span>
+            <h2 class="text-4xl md:text-7xl font-black text-slate-900 tracking-tighter uppercase leading-none">Marcas que <br><span class="text-qrMagenta italic text-glow">confían en nosotros.</span></h2>
         </div>
-        
-        <div id="carousel-contenedor" class="flex gap-6 overflow-x-auto pb-6 scrollbar-hide w-full scroll-smooth">
-            
-            <div class="w-[300px] md:w-[400px] shrink-0 testimonial-card bg-white/10 rounded-[2rem] border border-white/20 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:bg-white/15">
-                <div class="toggleCard p-6 cursor-pointer">
-                    <div class="flex justify-between items-center gap-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-white/5 p-1">
-                                <img src="assets/Hotelcañas.png" alt="Hotel Cañas" class="w-full h-full object-contain" />
-                            </div>
-                            <div>
-                                <p class="font-black uppercase tracking-widest text-[11px] leading-tight">Gerencia General</p>
-                                <p class="text-[9px] uppercase font-bold opacity-60 tracking-wider mt-0.5">Hotel Cañas, Guanacaste</p>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-chevron-down arrow text-base transition-all duration-500 opacity-70"></i>
-                    </div>
-                    <div class="content max-h-0 overflow-hidden transition-all duration-700">
-                        <p class="text-xs leading-relaxed opacity-85 mt-4 mb-2">
-                            "QR Innovations transformó nuestra operación implementamos automatización Hacienda v4.4, optimización operativa, integración administrativa y mejoras completas en productividad interna."
-                        </p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="w-[300px] md:w-[400px] shrink-0 testimonial-card bg-white/10 rounded-[2rem] border border-white/20 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:bg-white/15">
-                <div class="toggleCard p-6 cursor-pointer">
-                    <div class="flex justify-between items-center gap-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-white/5 p-1">
-                                <img src="assets/Mitierra.jpg" alt="Restaurante mi tierra" class="w-full h-full object-contain" />
-                            </div>
-                            <div>
-                                <p class="font-black uppercase tracking-widest text-[11px] leading-tight">Propietario</p>
-                                <p class="text-[9px] uppercase font-bold opacity-60 tracking-wider mt-0.5">Restaurante Mi Tierra</p>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-chevron-down arrow text-base transition-all duration-500 opacity-70"></i>
-                    </div>
-                    <div class="content max-h-0 overflow-hidden transition-all duration-700">
-                        <p class="text-xs leading-relaxed opacity-85 mt-4 mb-2">
-                            "El compromiso y responsabilidad de la marca es de otro nivel. Nos ayudaron a mejorar nuestra presencia digital y optimizar procesos tecnológicos internos."
-                        </p>
-                    </div>
+        <div class="relative rounded-[32px] md:rounded-[50px] p-6 md:p-16 overflow-hidden reveal-up" style="background: linear-gradient(135deg, rgba(209,31,138,0.05) 0%, rgba(103,61,230,0.05) 100%);">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-8">
+                <div class="glass-panel rounded-[24px] md:rounded-[30px] p-6 md:p-10 flex items-center justify-center h-28 md:h-40 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-500">
+                    <img src="assets/LogoCICSA.png" alt="CICSA Ingeniería Civil" class="max-h-full max-w-full object-contain">
+                </div>
+                <div class="glass-panel rounded-[24px] md:rounded-[30px] p-6 md:p-10 flex items-center justify-center h-28 md:h-40 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-500">
+                    <img src="assets/Hotelcañas.png" alt="Hotel Cañas" class="max-h-full max-w-full object-contain">
+                </div>
+                <div class="glass-panel rounded-[24px] md:rounded-[30px] p-6 md:p-10 flex items-center justify-center h-28 md:h-40 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-500">
+                    <img src="assets/edsa.png" alt="EdsaWind" class="max-h-full max-w-full object-contain">
+                </div>
+                <div class="glass-panel rounded-[24px] md:rounded-[30px] p-6 md:p-10 flex items-center justify-center h-28 md:h-40 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-500">
+                    <img src="assets/logos/dulce-gusto.png" alt="Cafetería Dulce Gusto" class="max-h-full max-w-full object-contain">
+                </div>
+                <div class="glass-panel rounded-[24px] md:rounded-[30px] p-6 md:p-10 flex items-center justify-center h-28 md:h-40 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-500">
+                    <img src="assets/Mitierra.jpg" alt="Restaurante Mi Tierra" class="max-h-full max-w-full object-contain">
                 </div>
             </div>
-
-            <div class="w-[300px] md:w-[400px] shrink-0 testimonial-card bg-white/10 rounded-[2rem] border border-white/20 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:bg-white/15">
-                <div class="toggleCard p-6 cursor-pointer">
-                    <div class="flex justify-between items-center gap-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-white/5 p-1">
-                                <img src="assets/edsa1.png" alt="EDSAWIND" class="w-full h-full object-contain" />
-                            </div>
-                            <div>
-                                <p class="font-black uppercase tracking-widest text-[11px] leading-tight">Gerencia General</p>
-                                <p class="text-[9px] uppercase font-bold opacity-60 tracking-wider mt-0.5">Edsawind</p>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-chevron-down arrow text-base transition-all duration-500 opacity-70"></i>
-                    </div>
-                    <div class="content max-h-0 overflow-hidden transition-all duration-700">
-                        <p class="text-xs leading-relaxed opacity-85 mt-4 mb-2">
-                            "Nos encantó el acabado de nuestro sitio web desarrollado por QR Innovations. El diseño moderno y rendimiento superó nuestras expectativas."
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-[300px] md:w-[400px] shrink-0 testimonial-card bg-white/10 rounded-[2rem] border border-white/20 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:bg-white/15">
-                <div class="toggleCard p-6 cursor-pointer">
-                    <div class="flex justify-between items-center gap-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-white/5 p-1">
-                                <img src="assets/LogoCICSA.png" alt="CICSA" class="w-full h-full object-contain" />
-                            </div>
-                            <div>
-                                <p class="font-black uppercase tracking-widest text-[11px] leading-tight">Gerencia General</p>
-                                <p class="text-[9px] uppercase font-bold opacity-60 tracking-wider mt-0.5">CICSA</p>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-chevron-down arrow text-base transition-all duration-500 opacity-70"></i>
-                    </div>
-                    <div class="content max-h-0 overflow-hidden transition-all duration-700">
-                        <p class="text-xs leading-relaxed opacity-85 mt-4 mb-2">
-                            "Excelente soporte técnico y soluciones a la medida. Una experiencia impecable en el desarrollo de infraestructura corporativa."
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-[300px] md:w-[400px] shrink-0 testimonial-card bg-white/10 rounded-[2rem] border border-white/20 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:bg-white/15">
-                <div class="toggleCard p-6 cursor-pointer">
-                    <div class="flex justify-between items-center gap-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-white/5 p-1">
-                                <img src="assets/LogoCICSA.png" alt="CICSA" class="w-full h-full object-contain" />
-                            </div>
-                            <div>
-                                <p class="font-black uppercase tracking-widest text-[11px] leading-tight">Gerencia General</p>
-                                <p class="text-[9px] uppercase font-bold opacity-60 tracking-wider mt-0.5">CICSA</p>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-chevron-down arrow text-base transition-all duration-500 opacity-70"></i>
-                    </div>
-                    <div class="content max-h-0 overflow-hidden transition-all duration-700">
-                        <p class="text-xs leading-relaxed opacity-85 mt-4 mb-2">
-                            "Excelente soporte técnico y soluciones a la medida. Una experiencia impecable en el desarrollo de infraestructura corporativa."
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <p class="text-center text-xs md:text-sm text-slate-400 font-bold uppercase tracking-[0.2em] mt-10 md:mt-14">Y seguimos construyendo el sistema de la próxima empresa que confíe en nosotros.</p>
         </div>
-    </div>
-    </section>      
+    </section>
+
+    <section class="py-20 md:py-32 px-6 md:px-16 max-w-[1800px] mx-auto">
+        <div class="rounded-[32px] md:rounded-[50px] p-10 md:p-20 text-center text-white relative overflow-hidden shadow-2xl reveal-up" style="background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 100%);">
+            <div class="absolute -top-32 -right-32 w-96 h-96 bg-white/10 blur-[100px] rounded-full pointer-events-none"></div>
+            <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 blur-[100px] rounded-full pointer-events-none"></div>
+            <h2 class="text-3xl md:text-6xl font-black uppercase tracking-tighter mb-6 leading-none relative z-10">¿Construimos tu <br>sistema?</h2>
+            <p class="text-white/80 text-base md:text-lg max-w-xl mx-auto mb-10 font-medium relative z-10">Hablemos por WhatsApp y te decimos, sin rodeos, qué necesita tu operación.</p>
+            <a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="relative z-10 inline-flex items-center gap-3 bg-white text-qrMagenta px-8 md:px-10 py-4 md:py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform shadow-xl">
+                <i class="fa-brands fa-whatsapp text-lg"></i> Escribinos ahora
+            </a>
+        </div>
+    </section>
 
     <footer class="bg-qrDark text-white pt-48 pb-20 px-8 md:px-16 overflow-hidden relative">
         <div class="absolute top-0 right-0 p-20 opacity-5 text-[30rem] font-black italic select-none">QR</div>
@@ -483,8 +525,8 @@
                 <h4 class="font-black text-xs uppercase tracking-[0.3em] text-qrMagenta mb-10">Ecosistema</h4>
                 <ul class="space-y-6 text-slate-400 text-sm font-bold uppercase tracking-widest">
                     <li><a href="#ecosistema" class="hover:text-white transition-all">Inteligencia Artificial</a></li>
-                    <li><a href="#planes" class="hover:text-white transition-all">Hacienda Protocol</a></li>
-                    <li><a href="#planes" class="hover:text-white transition-all">Cloud Mail Pro</a></li>
+                    <li><a href="#proyectos" class="hover:text-white transition-all">Hacienda Protocol</a></li>
+                    <li><a href="#mail" class="hover:text-white transition-all">Cloud Mail Pro</a></li>
                     <li><a href="#ecosistema" class="hover:text-white transition-all">Enterprise Apps</a></li>
                 </ul>
             </div>
@@ -493,7 +535,7 @@
                 <ul class="space-y-6 text-slate-400 text-sm font-bold uppercase tracking-widest">
                     <li><a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="hover:text-white transition-all">WhatsApp VIP</a></li>
                     <li><a href="#ecosistema" class="hover:text-white transition-all">Estado del Sistema</a></li>
-                    <li><a href="#planes" class="hover:text-white transition-all">Planes & Motores</a></li>
+                    <li><a href="#proyectos" class="hover:text-white transition-all">Trabajos Realizados</a></li>
                     <li><a href="#ecosistema" class="hover:text-white transition-all">API Access</a></li>
                 </ul>
             </div>
@@ -502,7 +544,7 @@
                 <ul class="space-y-6 text-slate-400 text-sm font-bold uppercase tracking-widest">
                     <li><a href="#horizons" class="hover:text-white transition-all">Sobre Nosotros</a></li>
                     <li><a href="#trayectoria" class="hover:text-white transition-all">Trayectoria</a></li>
-                    <li><a href="#testimonios" class="hover:text-white transition-all">Casos de Éxito</a></li>
+                    <li><a href="#marcas" class="hover:text-white transition-all">Casos de Éxito</a></li>
                     <li><a href="https://wa.me/50689081652" target="_blank" rel="noopener" class="hover:text-white transition-all">Contacto</a></li>
                 </ul>
             </div>
@@ -516,117 +558,6 @@
             </div>
         </div>
     </footer>
-    <div id="modal-checkout" class="fixed inset-0 z-[300] hidden items-center justify-center bg-qrDark/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
-        <div class="glass-panel bg-white p-10 rounded-[30px] w-full max-w-md mx-4 relative transform scale-95 transition-transform duration-300" id="modal-content">
-
-            <button onclick="cerrarModal()" class="absolute top-6 right-6 text-slate-400 hover:text-qrMagenta transition-colors">
-                <i class="fa-solid fa-xmark text-2xl"></i>
-            </button>
-
-            <span class="text-[10px] font-black uppercase tracking-[0.3em] text-qrMagenta mb-2 block">Paso 1 de 2</span>
-            <h3 class="text-3xl font-black uppercase italic text-slate-900 mb-6">Detalles del <br>Proyecto</h3>
-            <p class="text-sm text-slate-500 mb-8 font-medium">Ingresa tus datos para generar tu orden segura en Tilopay.</p>
-
-            <form id="form-checkout" class="space-y-5">
-                <input type="hidden" id="plan-seleccionado" value="">
-
-                <div>
-                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-600 mb-2">Nombre Completo</label>
-                    <input type="text" id="cliente-nombre" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-qrPurple focus:ring-1 focus:ring-qrPurple transition-all">
-                </div>
-
-                <div>
-                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-600 mb-2">Correo Electrónico</label>
-                    <input type="email" id="cliente-correo" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-qrPurple focus:ring-1 focus:ring-qrPurple transition-all">
-                </div>
-
-                <div>
-                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-600 mb-2">Empresa / Teléfono</label>
-                    <input type="text" id="cliente-empresa" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-qrPurple focus:ring-1 focus:ring-qrPurple transition-all">
-                </div>
-
-                <button type="submit" id="btn-submit-form" class="w-full py-4 bg-qrDark text-white rounded-xl font-black text-[10px] uppercase tracking-widest mt-4 hover:bg-qrMagenta hover:shadow-lg hover:shadow-qrMagenta/30 transition-all">
-                    Continuar al Pago
-                </button>
-            </form>
-        </div>
-    </div>
-    <div id="modal-resultado" class="fixed inset-0 z-[400] hidden items-center justify-center bg-qrDark/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
-        <div class="glass-panel bg-white p-10 rounded-[30px] w-full max-w-md mx-4 relative transform scale-95 transition-transform duration-300 text-center" id="modal-resultado-content">
-
-            <div id="icono-resultado" class="text-7xl mb-6"></div>
-
-            <h3 id="titulo-resultado" class="text-3xl font-black uppercase italic text-slate-900 mb-4"></h3>
-
-            <p id="mensaje-resultado" class="text-sm text-slate-500 mb-8 font-medium leading-relaxed"></p>
-
-            <button onclick="cerrarModalResultado()" class="w-full py-4 bg-qrDark text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-qrSlate transition-all shadow-xl">
-                Entendido
-            </button>
-        </div>
-    </div>
-
-    <div id="pantalla-exito" class="fixed inset-0 z-[500] hidden bg-qrDark text-white overflow-y-auto">
-        <div class="max-w-4xl mx-auto px-8 py-20 flex flex-col min-h-screen">
-
-            <div class="flex items-center gap-4 mb-16 animate-fade-in-down">
-                <img src="assets/FavIcon2.png" alt="QR" class="w-12 h-12">
-                <span class="text-2xl font-black tracking-tighter uppercase italic">QR Innovations</span>
-            </div>
-
-            <div class="flex-1">
-                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 text-green-400 text-[10px] font-black uppercase tracking-[0.3em] mb-8">
-                    <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                    Transacción Aprobada
-                </span>
-
-                <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-none">
-                    Iniciando <br><span class="text-qrMagenta italic">Arquitectura.</span>
-                </h1>
-                <p class="text-xl text-slate-400 font-medium max-w-2xl mb-16 leading-relaxed">
-                    Tu pago ha sido procesado con éxito. Hemos comenzado a asignar los recursos para tu ecosistema.
-                </p>
-
-                <div class="space-y-6 max-w-xl relative before:absolute before:inset-0 before:ml-6 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-800 before:to-transparent">
-
-                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-green-500 text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_20px_rgba(34,197,94,0.3)] z-10">
-                            <i class="fa-solid fa-check"></i>
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                            <h3 class="font-black text-lg mb-1 uppercase tracking-wider">Pago Confirmado</h3>
-                            <p class="text-sm text-slate-400">Fondos recibidos y acreditados.</p>
-                        </div>
-                    </div>
-
-                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-qrPurple text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_20px_rgba(103,61,230,0.5)] z-10">
-                            <i class="fa-solid fa-server animate-pulse"></i>
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-6 rounded-2xl border border-qrPurple/50 bg-qrPurple/10 backdrop-blur-sm">
-                            <h3 class="font-black text-lg mb-1 uppercase tracking-wider text-qrPurple">Despliegue de Servidor</h3>
-                            <p class="text-sm text-slate-300">Asignando infraestructura Cloudflare y bases de datos.</p>
-                        </div>
-                    </div>
-
-                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-slate-800 text-slate-500 font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                            <i class="fa-solid fa-headset"></i>
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-6 rounded-2xl border border-slate-800 bg-transparent">
-                            <h3 class="font-black text-lg mb-1 uppercase tracking-wider text-slate-500">Contacto Técnico</h3>
-                            <p class="text-sm text-slate-500">Un ingeniero de QR Innovations te contactará en los próximos 15 minutos.</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="mt-20 pt-8 border-t border-white/10 text-center">
-                <a href="https://qrinnovationss.com" class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-qrMagenta transition-colors">Volver al inicio</a>
-            </div>
-        </div>
-    </div>
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
@@ -642,260 +573,44 @@
             });
         });
 
-        const modal = document.getElementById('modal-checkout');
-        const modalContent = document.getElementById('modal-content');
-        const inputPlan = document.getElementById('plan-seleccionado');
-        const formCheckout = document.getElementById('form-checkout');
-        const btnSubmit = document.getElementById('btn-submit-form');
-
-        // 1. Funciones para abrir y cerrar la ventanita
-        function abrirModal(tipoPlan) {
-            inputPlan.value = tipoPlan; // Guardamos si es starter o enterprise
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modalContent.classList.remove('scale-95');
-            }, 10);
-        }
-
-        function cerrarModal() {
-            modal.classList.add('opacity-0');
-            modalContent.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }, 300);
-        }
-
-        // 2. Escuchar clics en los botones de "Elegir Plan"
-        document.getElementById('btn-starter').addEventListener('click', (e) => {
-            e.preventDefault();
-            abrirModal('starter');
+        // Barra de progreso de scroll + sombra del nav
+        const navbar = document.getElementById('navbar');
+        const progressBar = document.getElementById('scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+            navbar.classList.toggle('scrolled', scrollTop > 40);
         });
 
-        document.getElementById('btn-enterprise').addEventListener('click', (e) => {
-            e.preventDefault();
-            abrirModal('enterprise');
-        });
+        // Menú móvil
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = menuToggle.querySelector('i');
+        let menuOpen = false;
 
-        // 3. ¿Qué pasa cuando le dan a "Continuar al Pago"?
-        formCheckout.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Evitamos que recargue la página
-
-            const textoOriginal = btnSubmit.innerText;
-            btnSubmit.innerText = "Generando Link...";
-            btnSubmit.disabled = true;
-
-            // Recolectamos los datos
-            const datosCliente = {
-                plan: inputPlan.value,
-                nombre: document.getElementById('cliente-nombre').value,
-                correo: document.getElementById('cliente-correo').value,
-                empresa: document.getElementById('cliente-empresa').value
-            };
-
-            try {
-                // Mandamos los datos a la cocina (Cloudflare)
-                const respuesta = await fetch('/api/pago', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(datosCliente)
-                });
-
-                if (!respuesta.ok) throw new Error("Error en el servidor");
-
-                const datos = await respuesta.json();
-
-                // Si hay link, redirigimos a Tilopay
-                if (datos.url) {
-                    localStorage.setItem('qr_cliente_pendiente', JSON.stringify(datosCliente));
-                    window.location.href = datos.url;
-                } else {
-                    alert("Hubo un problema con la pasarela.");
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                alert("Error de conexión. Intenta de nuevo.");
-            } finally {
-                btnSubmit.innerText = textoOriginal;
-                btnSubmit.disabled = false;
+        function toggleMenu(forceClose) {
+            menuOpen = forceClose ? false : !menuOpen;
+            menuToggle.setAttribute('aria-expanded', String(menuOpen));
+            if (menuOpen) {
+                mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+                mobileMenu.style.opacity = '1';
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            } else {
+                mobileMenu.style.maxHeight = '0px';
+                mobileMenu.style.opacity = '0';
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
             }
-        });
-
-        // ==========================================
-        // LÓGICA PARA LEER LA RESPUESTA DE TILOPAY
-        // ==========================================
-        window.addEventListener('DOMContentLoaded', () => {
-            // Leemos la URL para ver si Tilopay nos mandó variables
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');
-            const description = urlParams.get('description');
-
-            // Si existe la variable "code", significa que el cliente viene de pagar
-            if (code) {
-                const modalRes = document.getElementById('modal-resultado');
-                const modalResContent = document.getElementById('modal-resultado-content');
-                const icono = document.getElementById('icono-resultado');
-                const titulo = document.getElementById('titulo-resultado');
-                const mensaje = document.getElementById('mensaje-resultado');
-
-                // Limpiamos colores previos
-                titulo.classList.remove('text-green-500', 'text-red-500');
-
-                if (code === '1') {
-                    // PAGO APROBADO
-                    icono.innerHTML = '<i class="fa-solid fa-circle-check text-green-500 drop-shadow-lg"></i>';
-                    titulo.innerText = "¡Pago Exitoso!";
-                    titulo.classList.add('text-green-500');
-                    mensaje.innerText = "Tu infraestructura ha sido reservada. Nuestro equipo técnico se pondrá en contacto contigo en breve para la configuración inicial.";
-                    document.body.style.overflow = 'hidden'; // Bloquea el scroll del fondo
-                    const pantallaExito = document.getElementById('pantalla-exito');
-                    pantallaExito.classList.remove('hidden');
-                    // 2. Recuperamos los datos de quién acaba de pagar
-                    const datosGuardados = localStorage.getItem('qr_cliente_pendiente');
-
-                    if (datosGuardados) {
-                        // 3. Llamamos a nuestra nueva API para enviar el correo
-                        fetch('/api/notificar', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: datosGuardados
-                        }).then(res => {
-                            if (res.ok) console.log("Notificación enviada exitosamente a la agencia");
-                        });
-
-                        // 4. Borramos la memoria para evitar correos duplicados
-                        localStorage.removeItem('qr_cliente_pendiente');
-                    }
-
-                } else {
-                    // PAGO RECHAZADO O FALLIDO
-                    icono.innerHTML = '<i class="fa-solid fa-circle-xmark text-red-500 drop-shadow-lg"></i>';
-                    titulo.innerText = "Pago Rechazado";
-                    titulo.classList.add('text-red-500');
-
-                    // Mostramos el motivo real que mandó el banco (ej. Not sufficient funds)
-                    const motivo = description ? decodeURIComponent(description) : "La transacción no pudo ser procesada.";
-                    mensaje.innerText = `Motivo: ${motivo}. Por favor, verifica tus fondos o intenta con otra tarjeta de crédito/débito.`;
-
-                    const datosGuardados = localStorage.getItem('qr_cliente_pendiente');
-
-                    if (datosGuardados) {
-                        // 3. Llamamos a nuestra nueva API para enviar el correo
-                        fetch('/api/notificar', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: datosGuardados
-                        }).then(res => {
-                            if (res.ok) console.log("Notificación enviada exitosamente a la agencia");
-                        });
-
-                        // 4. Borramos la memoria para evitar correos duplicados
-                        localStorage.removeItem('qr_cliente_pendiente');
-                    }
-
-                    // Mostramos el modal con animación
-                    modalRes.classList.remove('hidden');
-                    modalRes.classList.add('flex');
-                    setTimeout(() => {
-                        modalRes.classList.remove('opacity-0');
-                        modalResContent.classList.remove('scale-95');
-                    }, 10);
-
-                    // TRUCO DE AGENCIA: Limpiamos la URL para borrar las variables de Tilopay
-                    // Así, si el cliente recarga la página, no le vuelve a salir el modal.
-                    window.history.replaceState({}, document.title, window.location.pathname);
-                }
-            }
-        });
-
-        // Función para cerrar el modal de resultado
-        function cerrarModalResultado() {
-            const modalRes = document.getElementById('modal-resultado');
-            const modalResContent = document.getElementById('modal-resultado-content');
-            modalRes.classList.add('opacity-0');
-            modalResContent.classList.add('scale-95');
-            setTimeout(() => {
-                modalRes.classList.add('hidden');
-                modalRes.classList.remove('flex');
-            }, 300);
         }
 
-    </script>
-
-    // LÓGICA PARA TESTIMONIOS DESPLEGABLES
-    <script>
-
-        const cards = document.querySelectorAll(".testimonial-card");
-
-        cards.forEach(card => {
-
-            const toggle = card.querySelector(".toggleCard");
-            const content = card.querySelector(".content");
-            const arrow = card.querySelector(".arrow");
-
-            toggle.addEventListener("click", () => {
-
-                const isOpen = content.style.maxHeight;
-
-                // cerrar todas
-                cards.forEach(otherCard => {
-
-                    otherCard.querySelector(".content").style.maxHeight = null;
-
-                    otherCard.querySelector(".arrow")
-                        .classList.remove("rotate-180");
-
-                });
-
-                // abrir actual
-                if (!isOpen) {
-
-                    content.style.maxHeight =
-                        content.scrollHeight + "px";
-
-                    arrow.classList.add("rotate-180");
-
-                }
-
-            });
-
+        menuToggle.addEventListener('click', () => toggleMenu(false));
+        document.querySelectorAll('.mobile-link').forEach((link) => {
+            link.addEventListener('click', () => toggleMenu(true));
         });
-
     </script>
-    <script>    const contenedor = document.getElementById('carousel-contenedor');
-                const seccion = document.getElementById('testimonios');
-
-                let scrollInterval;
-                const velocidad = 20; // Ajusta este número si quieres que se mueva más rápido o más lento
-
-                seccion.addEventListener('mousemove', (e) => {
-                    const anchoSeccion = seccion.offsetWidth;
-                    const posicionX = e.clientX - seccion.getBoundingClientRect().left;
-                    
-                    // Detener cualquier scroll previo para recalcular
-                    clearInterval(scrollInterval);
-                    
-                    // Si el mouse está en el 25% derecho de la pantalla (Mover a X+)
-                    if (posicionX > anchoSeccion * 0.75) {
-                        scrollInterval = setInterval(() => {
-                            contenedor.scrollLeft += velocidad;
-                        }, 10);
-                    } 
-                    // Si el mouse está en el 25% izquierdo de la pantalla (Mover a X-)
-                    else if (posicionX < anchoSeccion * 0.25) {
-                        scrollInterval = setInterval(() => {
-                            contenedor.scrollLeft -= velocidad;
-                        }, 10);
-                    }
-                });
-
-                // Detener el movimiento por completo si el usuario saca el mouse de la sección
-                seccion.addEventListener('mouseleave', () => {
-                    clearInterval(scrollInterval);
-                });
-</script>
     
     
 </body>
